@@ -458,11 +458,27 @@ this survey rests on their counts alone. The AI lens was validated
 separately against 120 hand-labelled records, half drawn from each side
 of the rule-based tag: 88% precision and 81% recall on the AI-versus-not
 decision, 84% exact agreement on which method.</p>
+<p><strong>Taxonomy revision, disclosed.</strong> The two agreement
+figures above are not measured against the same label set. The task axis
+originally carried a sixth value, <code>application</code>; the first
+labelling round showed that characterization-versus- application was the
+dominant disagreement for the keyword rules and for both benchmarked
+language models alike, which identified the value as conflating mode of
+work with purpose rather than as a classifier failure. The value was
+removed, the 146 scored hand labels were remapped accordingly, and the
+models were re-scored against the revised set. The 70.5% rule figure
+predates that revision and is reported for completeness rather than as a
+like-for-like comparison. The prompt was also sharpened once, after
+per-class recall showed synthesis at 55%, by adding explicit
+synthesis-versus-characterization and discovery-versus-ab-initio
+boundary rules; the corpus was then relabelled from scratch with the
+final prompt.</p>
 <p><strong>Annotator disclosure.</strong> All hand labels were produced
-by a single annotator. The figures above are therefore agreement between
-one human pass and one model pass, not accuracy against an external
-ground truth. Corpus, labels, prompts and scripts are released so that
-both passes can be re-run and re-scored.</p>
+by a single annotator, in the same working session that built the
+pipeline. The figures above are therefore agreement between one human
+pass and one model pass, not accuracy against an external ground truth.
+Corpus, labels, prompts and scripts are released so that both passes can
+be re-run and re-scored.</p>
 <p><strong>Citation counts.</strong> Citation data comes from OpenAlex,
 resolved for 8,280 of the records. Over a five-year window raw counts
 favour older work mechanically, so where this survey ranks papers it
@@ -918,11 +934,15 @@ superconducting labels. The recent language-model extraction of 78,203
 experimental records <span class="citation" data-cites="itani2025large">(<a href="#ref-itani2025large" role="doc-biblioref">Itani et al. 2025</a>)</span> is the largest
 attempt to close that gap from the literature side.</p>
 <p>Two structural problems remain, and neither is a modelling problem.
-Negative results are scarce: a database of materials that were tried and
-did not superconduct is worth as much as one of those that did, and the
-one large compilation of non-superconductors in this corpus was
-assembled as a deliberate remedy <span class="citation" data-cites="gashmard2025ai">(<a href="#ref-gashmard2025ai" role="doc-biblioref">Gashmard et al. 2025</a>)</span>. And the labels
-are contested at the top of the range, where retractions <span class="citation" data-cites="snider2020retracted dasenbrock2023retracted">(<a href="#ref-snider2020retracted" role="doc-biblioref">Snider et al.
+Negative results are scarce, in two distinct senses that are easy to
+conflate. Computed non-superconductors can be generated in bulk, and the
+one large compilation in this corpus – 53,196 entries – was assembled as
+a deliberate remedy for classifier training <span class="citation" data-cites="gashmard2025ai">(<a href="#ref-gashmard2025ai" role="doc-biblioref">Gashmard et al. 2025</a>)</span>; the 3DSC dataset
+likewise includes tested non-superconductors <span class="citation" data-cites="sommer20223dsc">(<a href="#ref-sommer20223dsc" role="doc-biblioref">Sommer et al. 2022</a>)</span>. Experimentally
+<em>attempted and failed</em> syntheses are a different and almost
+entirely missing record, and it is that second kind the synthesis mode
+needs. And the labels are contested at the top of the range, where
+retractions <span class="citation" data-cites="snider2020retracted dasenbrock2023retracted">(<a href="#ref-snider2020retracted" role="doc-biblioref">Snider et al.
 2020</a>; <a href="#ref-dasenbrock2023retracted" role="doc-biblioref">Dasenbrock-Gammon et al. 2023</a>)</span> and
 unreplicated claims <span class="citation" data-cites="lee2023lk99">(<a href="#ref-lee2023lk99" role="doc-biblioref">Lee, J.-H. Kim, et al.
 2023</a>)</span> sit precisely in the high-<span class="math inline"><em>T</em><sub><em>c</em></sub></span> region a
@@ -957,12 +977,16 @@ transport, specific heat, and magnetometry.</p>
 produces enormous quantities of exactly the structured, high-dimensional
 data that machine learning handles well, and almost none of it is
 available in a form a model can consume. Raw spectra are rendered as
-figures in PDFs; per-group formats are undocumented; supplementary files
-lack schemas; and there is no community convention for releasing an
-ARPES cut or an STM map as an array with its acquisition parameters.
-Where such data does exist as a byproduct of machine operation – qubit
-readout traces, detector counts – machine-learning methods appeared
-quickly and work (Section 5).</p>
+figures in PDFs, per-group formats are undocumented, and supplementary
+files lack schemas. We did not survey data-availability practice
+directly, so we state the weaker claim this corpus supports: among the
+characterization papers read for this survey we encountered no shared
+convention for releasing an ARPES cut or an STM map as an array with its
+acquisition parameters, and no repository playing the role that
+structural databases play for computed materials. Where such data does
+exist as a byproduct of machine operation – qubit readout traces,
+detector counts – machine-learning methods appeared quickly and work
+(Section 5).</p>
 <p>The tasks are well-posed: inferring a gap structure from a spectrum,
 separating overlapping phases in a diffraction pattern, denoising
 quasiparticle interference, segmenting features in a microscopy image.

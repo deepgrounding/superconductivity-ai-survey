@@ -219,7 +219,21 @@ validated separately against 120 hand-labelled records, half drawn from each sid
 the rule-based tag: 88% precision and 81% recall on the AI-versus-not decision, 84%
 exact agreement on which method.
 
-**Annotator disclosure.** All hand labels were produced by a single annotator. The
+**Taxonomy revision, disclosed.** The two agreement figures above are not measured
+against the same label set. The task axis originally carried a sixth value,
+`application`; the first labelling round showed that characterization-versus-
+application was the dominant disagreement for the keyword rules and for both
+benchmarked language models alike, which identified the value as conflating mode of
+work with purpose rather than as a classifier failure. The value was removed, the 146
+scored hand labels were remapped accordingly, and the models were re-scored against
+the revised set. The 70.5% rule figure predates that revision and is reported for
+completeness rather than as a like-for-like comparison. The prompt was also sharpened
+once, after per-class recall showed synthesis at 55%, by adding explicit
+synthesis-versus-characterization and discovery-versus-ab-initio boundary rules;
+the corpus was then relabelled from scratch with the final prompt.
+
+**Annotator disclosure.** All hand labels were produced by a single annotator, in the
+same working session that built the pipeline. The
 figures above are therefore agreement between one human pass and one model pass, not
 accuracy against an external ground truth. Corpus, labels, prompts and scripts are
 released so that both passes can be re-run and re-scored.
@@ -532,9 +546,13 @@ records [@itani2025large] is the largest attempt to close that gap from the
 literature side.
 
 Two structural problems remain, and neither is a modelling problem. Negative results
-are scarce: a database of materials that were tried and did not superconduct is worth
-as much as one of those that did, and the one large compilation of non-superconductors
-in this corpus was assembled as a deliberate remedy [@gashmard2025ai]. And the labels
+are scarce, in two distinct senses that are easy to conflate. Computed
+non-superconductors can be generated in bulk, and the one large compilation in this
+corpus -- 53,196 entries -- was assembled as a deliberate remedy for classifier
+training [@gashmard2025ai]; the 3DSC dataset likewise includes tested
+non-superconductors [@sommer20223dsc]. Experimentally *attempted and failed*
+syntheses are a different and almost entirely missing record, and it is that second
+kind the synthesis mode needs. And the labels
 are contested at the top of the range, where retractions [@snider2020retracted;
 @dasenbrock2023retracted] and unreplicated claims [@lee2023lk99] sit precisely in the
 high-$T_c$ region a model is being asked to extrapolate into.
@@ -568,9 +586,13 @@ optical and terahertz spectroscopy, transport, specific heat, and magnetometry.
 The data situation here is the survey's central irony. This mode produces enormous
 quantities of exactly the structured, high-dimensional data that machine learning
 handles well, and almost none of it is available in a form a model can consume. Raw
-spectra are rendered as figures in PDFs; per-group formats are undocumented;
-supplementary files lack schemas; and there is no community convention for releasing
-an ARPES cut or an STM map as an array with its acquisition parameters. Where such
+spectra are rendered as figures in PDFs, per-group formats are undocumented, and
+supplementary files lack schemas. We did not survey data-availability practice
+directly, so we state the weaker claim this corpus supports: among the
+characterization papers read for this survey we encountered no shared convention for
+releasing an ARPES cut or an STM map as an array with its acquisition parameters, and
+no repository playing the role that structural databases play for computed materials.
+Where such
 data does exist as a byproduct of machine operation -- qubit readout traces, detector
 counts -- machine-learning methods appeared quickly and work (Section 5).
 
