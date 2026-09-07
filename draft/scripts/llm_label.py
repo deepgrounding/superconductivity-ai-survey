@@ -90,6 +90,33 @@ DECISIVE RULE: label by what the abstract claims as the paper's OWN contribution
 it merely mentions or motivates with. A theory paper motivated by ARPES data is theory. An
 experiment interpreted with a model is characterization.
 
+BOUNDARY CASES THAT ARE COMMONLY GOT WRONG -- read these carefully:
+
+* synthesis vs characterization. Most experimental papers both make and measure samples. Choose
+  synthesis when MAKING the material is presented as the advance: a new or improved growth
+  route, first films/crystals of a compound, topotactic reduction, pressure synthesis of a new
+  phase, control of stoichiometry/strain/doping through growth, fabrication process development,
+  or a study of how growth conditions change the result. Choose characterization only when the
+  samples are a means to a measurement and the growth is routine or done elsewhere. Phrases like
+  "we report the synthesis of", "films were grown by", "we developed a method to prepare",
+  "high-quality single crystals were obtained" signal synthesis.
+
+* discovery vs characterization. Choose discovery when the paper reports superconductivity in a
+  material where it was not previously known, or searches/screens/designs across a space of
+  candidate materials. "Superconductivity in X", "discovery of superconductivity", "we report a
+  new superconductor", "pressure-induced superconductivity in X", high-throughput screens and
+  inverse design are discovery. Detailed study of an already-known superconductor is not.
+
+* abinitio vs theory. Choose abinitio when the calculation is performed on a REAL compound with
+  first-principles input: DFT, DFPT, electron-phonon coupling, Eliashberg/SCDFT Tc, phonon
+  spectra, structure search, DFT+DMFT on a real material, machine-learned potentials fitted to
+  DFT. Choose theory for model Hamiltonians and formalism (Hubbard, t-J, BdG, field theory,
+  Ginzburg-Landau, symmetry analysis) even when a material motivates them.
+
+* abinitio vs discovery. A first-principles study that PREDICTS a new superconductor or screens
+  candidates is discovery; one that explains or computes properties of a known compound is
+  abinitio.
+
 If a field is genuinely undecidable from the abstract, answer "unclear" for that field.
 
 Reply with ONLY a JSON array, one object per paper, in the same order:
@@ -155,6 +182,13 @@ def benchmark(model, key, workers, n):
     print(f"  both   {both}/{len(valid)} = {both/len(valid):.1%}")
     print(f"  off_topic: flagged {len(flagged)}, true bleed {len(bleed_true)}, "
           f"caught {len(flagged & bleed_true)}")
+    for axis, key in (("task", "task_true"), ("family", "family_true")):
+        print(f"  per-class recall ({axis}):")
+        classes = sorted({r[key] for r in valid})
+        for c in classes:
+            sub = [r for r in valid if r[key] == c]
+            hit = sum(got.get(r["arxiv_id"], {}).get(axis) == c for r in sub)
+            print(f"    {c:17s} {hit}/{len(sub)} = {hit/len(sub):.0%}")
     print("  top task confusions:",
           Counter((got.get(r["arxiv_id"], {}).get("task"), r["task_true"])
                   for r in valid if got.get(r["arxiv_id"], {}).get("task") != r["task_true"]).most_common(6))

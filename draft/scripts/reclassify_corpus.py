@@ -215,7 +215,7 @@ def main():
     ai = Counter(r["ai_method"] for r in out if r["ai_method"] != "none")
     print(f"=== ai_method (n={sum(ai.values())}) ==="); [print(f"  {k:14s} {v:4d}") for k, v in ai.most_common()]
     print("=== family x task ===")
-    fams = [k for k, _ in fam.most_common()]; tasks = ["theory", "abinitio", "discovery", "synthesis", "characterization", "application"]
+    fams = [k for k, _ in fam.most_common()]; tasks = ["theory", "abinitio", "discovery", "synthesis", "characterization"]
     print("  " + " " * 13 + "".join(f"{t[:8]:>9s}" for t in tasks))
     ct = Counter((r["family"], r["task"]) for r in out)
     for f in fams: print(f"  {f:13s}" + "".join(f"{ct[(f, t)]:9d}" for t in tasks))
