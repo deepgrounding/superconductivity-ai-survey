@@ -12,7 +12,8 @@ Results are cached per arXiv id in artifacts/llm_labels.jsonl (resumable).
 labelling the corpus, so the model is chosen by measured agreement.
 
 Usage:
-  python draft/scripts/llm_label.py --benchmark --model qwen/qwen3-235b-a22b-2507
+  python draft/scripts/llm_label.py --score-published        # the manuscript's numbers
+  python draft/scripts/llm_label.py --benchmark --model <id>  # model selection only
   python draft/scripts/llm_label.py --model <winner> [--limit N] [--workers 8]
   python draft/scripts/llm_label.py --apply        # write labels into the corpus CSV
 """
@@ -24,6 +25,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 CORPUS = ROOT / "artifacts" / "sc_corpus_v1.csv"
 TRUTH = ROOT / "artifacts" / "label_truth.csv"
+AI_TRUTH = ROOT / "artifacts" / "ai_label_truth.csv"
 CACHE = ROOT / "artifacts" / "llm_labels.jsonl"
 URL = "https://openrouter.ai/api/v1/chat/completions"
 BATCH = 10
@@ -165,6 +167,55 @@ def run(rows, model, key, workers):
                 if d: out[r["arxiv_id"]] = d
     return out
 
+def score_published():
+    """Score the labels that SHIPPED, not a fresh API call.
+
+    `--benchmark` re-queries the model, so the figure it prints comes from a run that
+    no longer exists and a reader cannot reproduce it from the released artefacts. The
+    numbers reported in the manuscript come from THIS function, which reads
+    artifacts/llm_labels.jsonl -- the same cache that produced the corpus labels -- and
+    scores it against the hand-labelled truth set. Anyone with the repository can re-run
+    it and get the same numbers.
+    """
+    cache = {}
+    for line in CACHE.read_text().splitlines():
+        if line.strip():
+            d = json.loads(line); cache[d["arxiv_id"]] = d
+    truth = list(csv.DictReader(open(TRUTH)))
+    missing = [r["arxiv_id"] for r in truth if r["arxiv_id"] not in cache]
+    have = [(r, cache[r["arxiv_id"]]) for r in truth if r["arxiv_id"] in cache]
+    valid = [(r, d) for r, d in have if r["family_true"] != "bleed"]
+    n = len(valid)
+    fam = sum(d.get("family") == r["family_true"] for r, d in valid)
+    task = sum(d.get("task") == r["task_true"] for r, d in valid)
+    both = sum(d.get("family") == r["family_true"] and d.get("task") == r["task_true"]
+               for r, d in valid)
+    print(f"scoring the PUBLISHED labels in {CACHE.name}")
+    print(f"  truth rows {len(truth)}; missing from cache {len(missing)}; scored {n} "
+          f"(4 off-topic rows excluded)")
+    print(f"  family {fam}/{n} = {fam/n:.1%}")
+    print(f"  task   {task}/{n} = {task/n:.1%}")
+    print(f"  both   {both}/{n} = {both/n:.1%}")
+    for axis, key in (("task", "task_true"), ("family", "family_true")):
+        print(f"  per-class recall ({axis}):")
+        for c in sorted({r[key] for r, _ in valid}):
+            sub = [(r, d) for r, d in valid if r[key] == c]
+            hit = sum(d.get(axis) == c for r, d in sub)
+            print(f"    {c:17s} {hit}/{len(sub)} = {hit/len(sub):.0%}")
+    bleed_true = {r["arxiv_id"] for r in truth if r["family_true"] == "bleed"}
+    flagged = {i for i, d in cache.items() if d.get("off_topic") in (True, "true")}
+    print(f"  off_topic: true bleed {len(bleed_true)}, caught {len(bleed_true & flagged)}")
+    # AI lens, scored the same way
+    if AI_TRUTH.exists():
+        at = list(csv.DictReader(open(AI_TRUTH)))
+        ah = [(r, cache[r["arxiv_id"]]) for r in at if r["arxiv_id"] in cache]
+        exact = sum(d.get("ai_method") == r["ai_true"] for r, d in ah)
+        tp = sum(r["ai_true"] != "none" and d.get("ai_method") not in ("none", None) for r, d in ah)
+        fp = sum(r["ai_true"] == "none" and d.get("ai_method") not in ("none", None) for r, d in ah)
+        fn = sum(r["ai_true"] != "none" and d.get("ai_method") in ("none", None) for r, d in ah)
+        print(f"  AI lens (n={len(ah)}): exact {exact}/{len(ah)} = {exact/len(ah):.0%}; "
+              f"precision {tp}/{tp+fp} = {tp/(tp+fp):.0%}; recall {tp}/{tp+fn} = {tp/(tp+fn):.0%}")
+
 def benchmark(model, key, workers, n):
     rows = [dict(r, abstract=r["abstract"]) for r in csv.DictReader(open(TRUTH))][:n]
     got = run(rows, model, key, workers)
@@ -249,12 +300,17 @@ def apply_labels():
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--model", default="qwen/qwen3-235b-a22b-2507")
-    p.add_argument("--benchmark", action="store_true")
+    p.add_argument("--benchmark", action="store_true",
+                   help="re-query the model (NOT reproducible from the release; use "
+                        "--score-published for the manuscript's numbers)")
+    p.add_argument("--score-published", action="store_true",
+                   help="score the shipped labels in llm_labels.jsonl against the truth set")
     p.add_argument("--apply", action="store_true")
     p.add_argument("--limit", type=int); p.add_argument("--workers", type=int, default=8)
     p.add_argument("--n", type=int, default=150)
     a = p.parse_args()
     if a.apply: return apply_labels()
+    if a.score_published: return score_published()
     key = api_key()
     if a.benchmark: return benchmark(a.model, key, a.workers, a.n)
     label_corpus(a.model, key, a.workers, a.limit)

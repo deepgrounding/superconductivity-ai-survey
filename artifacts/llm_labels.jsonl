@@ -10988,3 +10988,7 @@
 {"id": "2212.02586", "family": "general", "task": "theory", "ai_method": "surrogate", "off_topic": true, "arxiv_id": "2212.02586", "model": "google/gemini-3.5-flash-lite"}
 {"id": "2206.08951", "family": "lowd", "task": "theory", "ai_method": "surrogate", "off_topic": false, "arxiv_id": "2206.08951", "model": "google/gemini-3.5-flash-lite"}
 {"id": "2203.04449", "family": "lowd", "task": "characterization", "ai_method": "surrogate", "off_topic": false, "arxiv_id": "2203.04449", "model": "google/gemini-3.5-flash-lite"}
+{"id": "2204.02214", "family": "general", "task": "theory", "ai_method": "none", "off_topic": false, "arxiv_id": "2204.02214", "model": "google/gemini-3.5-flash-lite"}
+{"id": "2305.10039", "family": "general", "task": "theory", "ai_method": "none", "off_topic": false, "arxiv_id": "2305.10039", "model": "google/gemini-3.5-flash-lite"}
+{"id": "2505.08898", "family": "general", "task": "theory", "ai_method": "none", "off_topic": false, "arxiv_id": "2505.08898", "model": "google/gemini-3.5-flash-lite"}
+{"id": "2606.05210", "family": "unconv_other", "task": "theory", "ai_method": "none", "off_topic": false, "arxiv_id": "2606.05210", "model": "google/gemini-3.5-flash-lite"}

@@ -12,7 +12,7 @@ abstract: |
   off-topic filtering at a measured bleed rate of 2.5%; a targeted supplement adds
   200 on-topic records on AI for materials. Each record is classified along two axes
   -- material family and mode of inquiry -- by a language-model pass validated
-  against hand labels at 85.6% and 88.4% agreement, with per-class recall reported.
+  against hand labels at 86.3% and 87.0% agreement, with per-class recall reported.
   We then assess each cell of the resulting grid for data availability, benchmark
   maturity and validation cost. Three findings emerge. Machine learning has barely
   entered the field: 1.2% of the systematic corpus uses an AI method in its own work.
@@ -22,8 +22,9 @@ abstract: |
   own labels. And synthesis, which Section 3 finds to be the rate-limiting step
   across material families, contains a single AI-tagged paper. The gap between
   prediction and measurement is concrete: recent screens advertise candidates above
-  200 K, while the one closed prediction-synthesis-measurement loop in the recent
-  literature delivered superconductors between 2.5 and 6.5 K. We conclude that the
+  200 K at 200 GPa, while the one closed prediction-synthesis-measurement loop in the
+  recent literature delivered intermetallics between 2.5 and 6.5 K with no applied
+  pressure reported. We conclude that the
   highest-value interventions are releasing labelled characterization data, building
   a time-stamped benchmark of experimentally confirmed superconductors, and modelling
   synthesizability rather than automating synthesis. Corpus, labels and scripts are
@@ -218,14 +219,22 @@ found inadequate. Agreement with a hand-labelled 150-record stratified sample:
 | labels | family | mode of inquiry |
 |---|---|---|
 | keyword rules | 80.1% | 70.5% |
-| language-model pass | 85.6% | 88.4% |
+| language-model pass | 86.3% | 87.0% |
 
-Per-class recall for the model is 96% (theory), 92% (characterization), 92% (ab
-initio), 64% (synthesis) and 54% (discovery). The two small classes are the weak
-ones, and no claim in this survey rests on their counts alone. The AI lens was
-validated separately against 120 hand-labelled records, half drawn from each side of
-the rule-based tag: 88% precision and 81% recall on the AI-versus-not decision, 84%
-exact agreement on which method.
+Per-class recall is 100% (theory, 57/57), 90% (characterization, 47/52), 85% (ab
+initio, 11/13), 64% (synthesis, 7/11) and 38% (discovery, 5/13). The two small classes
+are the weak ones, and the denominators are the reason to be careful with them: on
+thirteen papers a single reclassification moves recall by eight points, so these
+percentages carry roughly the information of the counts beside them and no claim in
+this survey rests on them. The AI lens was validated separately against 120
+hand-labelled records, half drawn from each side of the rule-based tag: 88% precision
+and 77% recall on the AI-versus-not decision, 82% exact agreement on which method.
+
+**These figures score the labels that ship with this paper**, not a fresh model run.
+`llm_label.py --score-published` reads the released label cache and the released truth
+set and reproduces every number above; the `--benchmark` mode re-queries the model and
+is used only for choosing between models, since its result depends on a run the reader
+cannot repeat.
 
 **Taxonomy revision, disclosed.** The two agreement figures above are not measured
 against the same label set. The task axis originally carried a sixth value,
@@ -257,7 +266,7 @@ by construction and is excluded from all trend statistics.
 
 | Family | Theory | Ab init. | Discov. | Synth. | Charac. | Seed | Suppl. |
 |:---|---:|---:|---:|---:|---:|---:|---:|
-| Conventional | 199 | 237 | 271 | 193 | 589 | **1489** | 15 |
+| Conventional | 197 | 237 | 271 | 193 | 589 | **1487** | 15 |
 | Cuprate | 445 | 54 | 7 | 58 | 437 | **1001** | 2 |
 | Iron-based | 95 | 15 | 4 | 58 | 317 | **489** | 0 |
 | Nickelate | 212 | 113 | 20 | 74 | 209 | **628** | 1 |
@@ -265,7 +274,7 @@ by construction and is excluded from all trend statistics.
 | 2D / moiré | 594 | 74 | 38 | 65 | 558 | **1329** | 10 |
 | Topological | 909 | 14 | 8 | 37 | 276 | **1244** | 9 |
 | Devices | 611 | 4 | 2 | 156 | 559 | **1332** | 109 |
-| Material-agnostic | 1761 | 9 | 26 | 4 | 59 | **1859** | 54 |
+| Material-agnostic | 1763 | 9 | 26 | 4 | 59 | **1861** | 54 |
 | **Total** | **5146** | **530** | **396** | **667** | **3310** | **10049** | **200** |
 
 ![Figure 2: Semantic map of the seed corpus (TF-IDF, truncated SVD, t-SNE), coloured
@@ -337,7 +346,7 @@ oxygen stoichiometry and pressure technique. None of them is a prediction proble
 
 ## Conventional superconductors and hydrides: prediction that outruns measurement
 
-The conventional family is the corpus's largest single-material grouping (1,489 seed
+The conventional family is the corpus's largest single-material grouping (1,487 seed
 records) and the only one where computational prediction routinely precedes
 experiment. Its anchors are the 203 K report in the sulfur hydride system
 [@drozdov2015conventional] and the lanthanum superhydride results near 250-260 K
@@ -480,7 +489,7 @@ that scores 3 on data availability for a measurement task.
 
 ## Material-agnostic theory and method
 
-The largest single label in the corpus is not a material at all: 1,859 seed records
+The largest single label in the corpus is not a material at all: 1,861 seed records
 are material-agnostic theory, formalism and instrumentation. That a residual category
 is modal is a finding rather than a bookkeeping artefact, and the sample inspection
 behind Table 1 shows what it contains -- Josephson and diode phenomenology
@@ -795,9 +804,12 @@ Machine learning in superconductivity is currently a way of making expensive
 calculations cheaper and instrument data more usable. It has not yet become a way of
 finding superconductors. The evidence for that reading is the shape of the corpus
 rather than any single paper: 1.2% penetration in the systematic seed, one AI-tagged
-synthesis paper, and exactly one recent closed loop -- delivering compounds at 2.5 to
-6.5 K while the screening literature advertises predictions above 200 K. The next
-section asks, cell by cell, what would have to change.
+synthesis paper, and exactly one recent closed loop -- delivering intermetallics at 2.5
+to 6.5 K, with no applied pressure reported, while the screening literature advertises
+predictions above 200 K at 200 GPa. The two numbers describe different regimes, and
+the point is not that one refutes the other: the loop closed where the synthesis was
+routine and stays open where the headline predictions live. The next section asks,
+cell by cell, what would have to change.
 
 # An AI-readiness assessment
 
@@ -925,10 +937,9 @@ quality problem acute, and therefore makes the benchmark more valuable, not less
 The pattern across Figure 5 is that AI adoption in this field tracks validation cost
 far more closely than it tracks either data volume or scientific importance. Where a
 calculation can check a prediction, methods have arrived. Where an experiment is
-needed, they have not, regardless of how much has been written about the cell. If
-that reading is right, the highest-leverage interventions are the unglamorous ones:
-release labelled characterization data, build a time-stamped benchmark, and model
-synthesizability rather than synthesis.
+needed, they have not, regardless of how much has been written about the cell. The
+three priorities that follow are stated above; each is a dataset or standards problem
+rather than a modelling one, which is why none of them is glamorous.
 
 # Outlook: a route to the grail, and what it requires
 
@@ -1037,19 +1048,23 @@ absorbed by the mode that was already tractable.
 
 The complementary risk is that the loop closes on the wrong targets. The one clearly
 closed prediction-synthesis-measurement loop in this literature delivered
-superconductors between 2.5 and 6.5 K [@li2026agentic]. A faster loop that stays in
-that temperature range would be a genuine engineering achievement and no progress at
-all toward the grail, because the constraint at high $T_c$ is not iteration speed but
-the absence of a theory that says where to look in the correlated families.
+intermetallics between 2.5 and 6.5 K, with no applied pressure reported
+[@li2026agentic] -- compounds whose synthesis is routine, which is part of why the
+loop could close at all. A faster loop that stays in that regime would be a genuine
+engineering achievement and no progress toward the grail, because the constraint at
+high $T_c$ is not iteration speed but extreme-condition synthesis and the absence of a
+theory that says where to look in the correlated families.
 
 ## The honest statement of the route
 
 Putting Sections 4 through 7 together, the route this survey supports is not "apply a
-generative model to composition space." It is a sequence in which each step unblocks
-the next:
+generative model to composition space." It is the three priorities of Section 6, with
+one step placed in front of them, ordered so that each unblocks the next:
 
-1. **Instrument the experiments**, because that produces the negative data and the
-   machine-readable characterization records that nothing else will.
+1. **Instrument the experiments.** This step is new here, and it is prior to the other
+   three: machine-operated apparatus is what produces the negative results and the
+   machine-readable characterization records that the other three steps consume, and
+   nothing in current publication practice produces them.
 2. **Build the benchmark**, because without time-stamped experimental resolution the
    screening literature cannot be compared and therefore cannot improve.
 3. **Model synthesizability**, because that is the tractable form of the bottleneck
@@ -1081,9 +1096,10 @@ superconductivity. The measured off-topic rate within the seed is 2.5%.
 Second, the supplement is recency-biased by construction and is excluded from every
 trend statement and from Table 1's grid.
 
-Third, labels come from a model pass with 85.6% family and 88.4% mode agreement
+Third, labels come from a model pass with 86.3% family and 87.0% mode agreement
 against a single annotator's hand labels, and the two smallest modes -- synthesis at
-64% recall and discovery at 54% -- are the least reliable. Any statement below that
+7 of 11 and discovery at 5 of 13 -- are the least reliable, on denominators small
+enough that two papers move the rate by fifteen points. Any statement below that
 depends on those two counts is stated as a hypothesis.
 
 With those caveats, three features of the corpus seem worth explaining.
@@ -1111,37 +1127,47 @@ the region they are asked to extrapolate into. This too is testable: a model tra
 with and without the contested high-$T_c$ entries should differ measurably in its
 top-ranked candidates.
 
-**Institutional role assignment.** The AI-tagged work in this corpus is concentrated
-in the material-agnostic and device families rather than in the correlated-material
-families, and its authors are frequently from computational or
-machine-learning-methods groups rather than from the synthesis and spectroscopy
-groups whose data the methods would need. The hypothesis is that the field's
-AI adoption is limited less by method availability than by the absence of overlap
-between the people who hold the data and the people who build the models. The
-prediction is that the fastest progress will come from instrument groups adopting
-methods internally -- which is what the qubit-readout literature already looks like
--- rather than from methods groups acquiring physics data.
+**AI work is being done inside the field, not imported into it.** We expected the
+opposite, and the corpus says otherwise. If AI methods were arriving with
+machine-learning groups from outside, AI-tagged preprints should be filed under
+different primary categories from the rest of the corpus. They are not: 68% of
+AI-tagged seed papers carry `cond-mat.supr-con` as their primary category, against
+69% of everything else. What does separate them is reach in the other direction --
+16% of AI-tagged papers cross-list to a `cs.*` or `stat.*` category, against 0.3% of
+the rest, a fifty-fold difference.
+
+The reading we take from this is that the people doing this work are
+superconductivity researchers adopting methods, not methods researchers adopting
+superconductivity. That makes the shortage one of method fluency and of usable data
+inside the field rather than of contact between two communities, and it predicts that
+progress comes from instrument and materials groups taking methods up internally --
+which is what the qubit-readout literature already looks like -- rather than from
+methods groups acquiring physics data.
+
+We note the limit of this measurement: arXiv records carry no affiliations, so it
+speaks to where authors file their papers, not to what department they sit in. An
+earlier draft of this hypothesis asserted the affiliation claim directly; nothing in
+this corpus supports that, and the category evidence points the other way.
 
 None of these is established by this survey. They are the explanations most
 consistent with the corpus's shape, offered so that they can be argued with.
 
 ## What would change the assessment
 
-Three developments would substantially revise Section 6's conclusions, and it is
-worth naming them in advance.
+The three priorities of Section 6 are also the three tests of it, and each fails in a
+way that would be visible. If a public, standardised corpus of labelled
+characterization data appeared and the data-limited cells did not move toward
+method-limited, then format was not what was blocking them. If a registry of attempted
+syntheses were assembled and synthesizability models trained on it did not improve the
+hit rate of the screening pipelines, then the missing negative results were not the
+binding constraint. And if a time-stamped benchmark showed the current screening
+methods generalising to post-2024 experimental confirmations, then the label-quality
+problem this survey emphasises is smaller than argued.
 
-A public, standardised corpus of labelled characterization data -- ARPES cuts, STM
-maps, diffraction patterns with acquisition metadata -- would move several cells from
-data-limited to method-limited in one step, and would be the single highest-value
-intervention identified here.
-
-A registry of attempted syntheses including failures would make synthesizability
-prediction trainable, which is the tractable form of the synthesis problem.
-
-A time-stamped benchmark of experimentally confirmed superconductors, with model
-predictions recorded before confirmation, would let the screening literature be
-compared rather than merely accumulated. Its absence is why no cell in Figure 5
-scores 3 on benchmark maturity.
+We would rather this section be checkable than comprehensive, so we state the
+prediction it rests on plainly: the assessment in Figure 5 is a claim about validation
+cost, and it is wrong if AI methods arrive in the experiment-limited cells before the
+data and benchmark problems in them are solved.
 
 ## Limitations of this survey
 
@@ -1172,8 +1198,10 @@ one AI-tagged paper in the entire corpus.
 
 The gap between what the screening literature predicts and what has been made and
 measured is the survey's most concrete result. Recent screens report candidates above
-200 K; the one clearly closed prediction-synthesis-measurement loop in the recent
-literature delivered superconductors between 2.5 and 6.5 K [@li2026agentic]. Both
+200 K at 200 GPa; the one clearly closed prediction-synthesis-measurement loop in the
+recent literature delivered intermetallics between 2.5 and 6.5 K, with no applied
+pressure reported [@li2026agentic]. The two sit in different regimes, and that is the substance of the
+gap rather than a caveat to it: the loop closed where the synthesis was easy. Both
 facts are real, and holding them together is the correct posture toward AI for
 superconductivity.
 

@@ -42,21 +42,43 @@ $PY draft/scripts/llm_label.py --benchmark --model <model-id>
 
 ## Labelling accuracy
 
-Agreement with the hand-labelled validation set, family / mode of inquiry:
+Two different numbers exist here and they answer different questions.
 
-| labels | family | mode |
+**Model selection** used `--benchmark`, which re-queries a model. It is how the model
+was chosen; its result depends on a run you cannot repeat.
+
+| model | family | mode |
 |---|---|---|
 | keyword rules | 80.1% | 70.5%* |
 | gemini-2.5-flash-lite | 82.9% | 79.5% |
 | gemini-2.5-flash | 82.2% | 85.6% |
-| **gemini-3.5-flash-lite** | **85.6%** | **88.4%** |
+| **gemini-3.5-flash-lite** (selected) | **87.7%** | **85.6%** |
 
-\* predates the removal of the `application` value from the task axis; not a
+**The manuscript's reported figures** come from `--score-published`, which scores the
+labels that actually ship in `artifacts/llm_labels.jsonl` against `label_truth.csv`.
+Anyone with this repository reproduces them exactly:
+
+```bash
+python draft/scripts/llm_label.py --score-published
+```
+
+```
+family 126/146 = 86.3%      task 127/146 = 87.0%      both 109/146 = 74.7%
+per-class recall (mode): theory 57/57, characterization 47/52, ab initio 11/13,
+                         synthesis 7/11, discovery 5/13
+AI lens (n=120): exact 82%, precision 88%, recall 77%
+```
+
+The two sets differ by at most two papers per cell. They differ at all because the
+benchmark run and the shipped labels are different invocations of the same model. The
+manuscript quotes the second set, because that is the one a reader can check.
+
+Note the denominators on the small classes: at n = 13, two papers are fifteen
+percentage points. Those recall figures carry about as much information as the counts
+beside them.
+
+\* predates the removal of the `application` value from the mode axis; not a
 like-for-like comparison. See the manuscript's Method section.
-
-Per-class recall for the selected model: theory 96%, characterization 92%, ab initio
-92%, synthesis 64%, discovery 54%. AI lens: 88% precision, 81% recall, 84% exact
-agreement on method.
 
 All hand labels were produced by a single annotator, so these are inter-pass agreement
 figures rather than accuracy against an external standard.

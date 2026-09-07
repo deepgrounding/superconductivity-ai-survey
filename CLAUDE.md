@@ -36,14 +36,22 @@ AI lens `ai_method` (only for AI-related rows): `surrogate`, `gnn_potential`, `g
 
 Keyword rules reached only 80% (family) / 70% (task) agreement with hand labels, so labels come from an **LLM pass** (`llm_label.py`, `google/gemini-3.5-flash-lite` via OpenRouter, cached in `artifacts/llm_labels.jsonl`). The model was chosen by measured agreement against a 150-row stratified hand-labelled sample (`artifacts/label_truth.csv`), not by reputation:
 
-| labels | family | task | both |
-|---|---|---|---|
-| keyword rules | 80.1% | 70.5%* | 53.4%* |
-| gemini-2.5-flash-lite | 82.9% | 79.5% | 64.4% |
-| gemini-2.5-flash | 82.2% | 85.6% | 69.2% |
-| **gemini-3.5-flash-lite** | **87.7%** | **85.6%** | **76.0%** |
+| labels | family | mode |
+|---|---|---|
+| keyword rules | 80.1% | 70.5%* |
+| gemini-2.5-flash-lite | 82.9% | 79.5% |
+| gemini-2.5-flash | 82.2% | 85.6% |
+| **gemini-3.5-flash-lite** | **87.7%** | **85.6%** |
 
-\* rule task/both figures predate the axis change; they are not directly comparable to the LLM rows.
+\* rule mode figure predates the axis change; not directly comparable.
+
+Those are **model-selection** numbers from `--benchmark`, which re-queries the model.
+The figures **reported in the manuscript** come from `--score-published`, which scores
+the shipped `llm_labels.jsonl` against `label_truth.csv` and is reproducible from the
+release: family 86.3%, mode 87.0%, both 74.7%; per-class mode recall theory 57/57,
+characterization 47/52, ab initio 11/13, synthesis 7/11, discovery 5/13; AI lens
+(n=120) exact 82%, precision 88%, recall 77%. Never quote the benchmark numbers in the
+paper -- a reader cannot reproduce them.
 
 The rule labels survive as `family_rule` / `task_rule` / `ai_method_rule` columns for provenance and disagreement analysis. `label_source` says which applied. The LLM also sets `off_topic`.
 
