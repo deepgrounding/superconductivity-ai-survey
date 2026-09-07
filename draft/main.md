@@ -4,14 +4,78 @@ author:
   - Mingguang Chen
 date: 2026-09-07
 abstract: |
-  PLACEHOLDER -- written last.
+  Superconductivity research generates enormous quantities of data and has a poor
+  record of predicting its own discoveries, which makes it an obvious target for AI
+  for Science and a poorly understood one. We map the field systematically. Every
+  arXiv preprint filed under cond-mat.supr-con between September 2021 and September
+  2026 was harvested month by month, giving 10,303 records, of which 10,049 survive
+  off-topic filtering at a measured bleed rate of 2.5%; a targeted supplement adds
+  200 on-topic records on AI for materials. Each record is classified along two axes
+  -- material family and mode of inquiry -- by a language-model pass validated
+  against hand labels at 85.6% and 88.4% agreement, with per-class recall reported.
+  We then assess each cell of the resulting grid for data availability, benchmark
+  maturity and validation cost. Three findings emerge. Machine learning has barely
+  entered the field: 1.2% of the systematic corpus uses an AI method in its own work.
+  Adoption tracks validation cost rather than data volume or scientific stakes,
+  concentrating in ab initio screening and neural quantum states, where a calculation
+  can check a prediction, and in device metrology, where instruments generate their
+  own labels. And synthesis, which Section 3 finds to be the rate-limiting step
+  across material families, contains a single AI-tagged paper. The gap between
+  prediction and measurement is concrete: recent screens advertise candidates above
+  200 K, while the one closed prediction-synthesis-measurement loop in the recent
+  literature delivered superconductors between 2.5 and 6.5 K. We conclude that the
+  highest-value interventions are releasing labelled characterization data, building
+  a time-stamped benchmark of experimentally confirmed superconductors, and modelling
+  synthesizability rather than automating synthesis. Corpus, labels and scripts are
+  released.
 bibliography: combined.bib
 link-citations: true
 ---
 
 # Introduction
 
-PLACEHOLDER -- written last, after the body delivers.
+Superconductivity is an unusually well-instrumented field with an unusually poor
+prediction record. A century after Onnes, the mechanism of the highest-$T_c$ families
+is still contested, the compounds that matter were mostly found by chemical intuition
+and persistence, and two of the most prominent recent claims of room-temperature
+superconductivity have been retracted. It is exactly the sort of field that
+AI-for-Science rhetoric promises to transform.
+
+Whether it can, and where, is an empirical question about the field's structure
+rather than about the capability of models. A machine-learning method needs three
+things: data in a form it can consume, a target quantity worth predicting, and a way
+of finding out whether a prediction was right. Different parts of superconductivity
+research supply these to wildly different degrees. High-pressure hydride work has a
+computable target and a mature calculation pipeline. Cuprate physics has four decades
+of spectra and no agreed quantity to predict. Thin-film synthesis has the field's
+real bottleneck and almost no machine-readable record of what has been tried.
+
+This survey makes that structure explicit. We harvest every arXiv preprint filed
+under `cond-mat.supr-con` between September 2021 and September 2026, classify each
+along two axes -- the material family it studies and the mode of inquiry it uses --
+and then evaluate each cell of the resulting grid for what a machine-learning method
+could contribute to it. The corpus is 10,249 records after off-topic filtering, and
+the classification is validated against hand labels with the agreement rates and
+per-class recall reported in full.
+
+Three results follow. **Machine learning has barely entered this field**: 1.2% of the
+systematically harvested corpus uses an AI method in its own work. **Where it has
+entered, it tracks validation cost**, clustering in the cells where a calculation can
+check a prediction and in device metrology where instruments generate their own
+labels, rather than in the cells with the most data or the greatest scientific stakes.
+And **the field's actual bottleneck is the emptiest cell**: synthesis, where the
+corpus contains a single AI-tagged paper.
+
+The contribution is therefore threefold: a systematically harvested and openly
+released corpus of the field's recent literature; a two-axis taxonomy that has been
+tested against hand labels rather than asserted; and a per-cell assessment of AI
+readiness that identifies where effort is likely to pay off and, more usefully, where
+current enthusiasm is misdirected. Section 2 fixes the vocabulary, states the
+taxonomy, positions the survey against existing reviews and documents the corpus.
+Sections 3 and 4 walk the two axes. Section 5 reports what AI has actually done in
+this field, critical literature included. Section 6 gives the readiness assessment and
+the resulting priorities, and Section 7 offers three testable hypotheses about why the
+field looks the way it does.
 
 # Preliminaries and taxonomy
 
@@ -82,6 +146,10 @@ own work: `surrogate` (regression and classification models, symbolic regression
 
 The axes are the contribution of this survey, and Sections 3 through 5 are organised
 along them. Section 6 evaluates each cell for what AI can currently do in it.
+
+![Figure 1: The taxonomy. Every corpus record carries one label from Axis 1 and one
+from Axis 2; the AI lens applies only to records that use a machine-learning method in
+their own work.](figures/fig1_taxonomy.png)
 
 ## Positioning relative to existing surveys
 
@@ -161,6 +229,26 @@ records. Over a five-year window raw counts favour older work mechanically, so w
 this survey ranks papers it ranks by citations per month since submission, and
 citation counts for work less than a year old are not read as impact at all.
 
+Table 1: Corpus by material family and mode of inquiry. Counts are seed records after
+off-topic filtering; the supplement is listed separately because it is recency-biased
+by construction and is excluded from all trend statistics.
+
+| Family | Theory | Ab init. | Discov. | Synth. | Charac. | Seed | Suppl. |
+|:---|---:|---:|---:|---:|---:|---:|---:|
+| Conventional | 199 | 237 | 271 | 193 | 589 | **1489** | 15 |
+| Cuprate | 445 | 54 | 7 | 58 | 437 | **1001** | 2 |
+| Iron-based | 95 | 15 | 4 | 58 | 317 | **489** | 0 |
+| Nickelate | 212 | 113 | 20 | 74 | 209 | **628** | 1 |
+| Other unconv. | 320 | 10 | 20 | 22 | 306 | **678** | 0 |
+| 2D / moiré | 594 | 74 | 38 | 65 | 558 | **1329** | 10 |
+| Topological | 909 | 14 | 8 | 37 | 276 | **1244** | 9 |
+| Devices | 611 | 4 | 2 | 156 | 559 | **1332** | 109 |
+| Material-agnostic | 1761 | 9 | 26 | 4 | 59 | **1859** | 54 |
+| **Total** | **5146** | **530** | **396** | **667** | **3310** | **10049** | **200** |
+
+![Figure 2: Semantic map of the seed corpus (TF-IDF, truncated SVD, t-SNE), coloured
+by material family. Per-family counts match Table 1.](figures/fig2_semantic_map.png)
+
 **Limitations.** The corpus is arXiv-only, so it inherits arXiv's coverage: strong in
 theory and condensed-matter experiment, weaker in applied-superconductivity
 engineering that publishes in IEEE venues, and blind to unpublished industrial work,
@@ -175,6 +263,10 @@ abstract presents as the contribution.
 This section walks Axis 1. Each family is treated for what it is currently doing, what
 is open, and -- because that is this survey's purpose -- what kind of data it
 generates. Counts are seed-corpus counts from Table 1 and Figure 2.
+
+![Figure 3: Quarterly submissions by material family (a) and mode of inquiry (b),
+seed records only. Both partial endpoint quarters are omitted. The cuprate spike in
+2023Q3 is the LK-99 replication burst discussed in Section 3.](figures/fig3_growth_timeline.png)
 
 ## Nickelates: the fast-moving family
 
@@ -295,7 +387,7 @@ For this survey the important property is that these systems are device-like: ea
 sample is a fabricated stack, gate-tunable, and measured with electrical transport.
 That generates dense, structured, parameterised data of exactly the kind a model can
 use -- and simultaneously makes each sample expensive and non-identical, which is why
-the family scores well on data and poorly on validation cost in Figure 4.
+the family scores well on data and poorly on validation cost in Figure 5.
 
 ## Topological superconductivity
 
@@ -337,7 +429,7 @@ phonon bursts [@anthonypetersen2022stress] -- along with scaling roadmaps
 
 This is where the survey's AI story is most positive, and Section 5 explains why: the
 family's measurements are machine-generated, standardised and high-volume, so
-characterization models have a real training signal. It is the only cell in Figure 4
+characterization models have a real training signal. It is the only cell in Figure 5
 that scores 3 on data availability for a measurement task.
 
 ## Material-agnostic theory and method
@@ -368,7 +460,125 @@ and asks what infrastructure each mode of inquiry actually has.
 
 # Modes of inquiry and their data infrastructure
 
-PLACEHOLDER
+Axis 1 says what the field studies. Axis 2 says how, and it is the axis that
+determines whether a machine-learning method has anything to attach to. This section
+takes each mode in turn and asks the same question: what does this mode produce that
+a model could learn from or be tested against?
+
+## Theory: 5,146 records, no target quantity
+
+Theory is the corpus's largest mode -- half the seed. It spans model Hamiltonians,
+pairing symmetry analysis, Ginzburg-Landau and Bogoliubov-de Gennes treatments,
+quantum Monte Carlo, DMRG and dynamical mean-field theory. The output of a theory
+paper is an argument, a phase diagram or a mechanism, and none of those is a label.
+
+The exception is where theory is a *computation* rather than an argument: solving a
+model whose Hamiltonian is written down but whose ground state is not known. There a
+model can be trained and scored, which is why neural quantum states occupy this mode
+(Section 5) and nothing else in the AI literature does. The distinction matters for
+Section 6: theory is not one cell for AI purposes but two, and only the computational
+half is addressable today.
+
+## Ab initio: 530 records, the field's one mature pipeline
+
+Ab initio work is the smallest mode after discovery, and it is the only one with an
+end-to-end, standardised, machine-consumable pipeline: DFT for the electronic
+structure, density-functional perturbation theory for phonons, Migdal-Eliashberg or
+superconducting density-functional theory for $T_c$, with anharmonicity treated
+through the stochastic self-consistent harmonic approximation where it matters. The
+inputs are structures, the outputs are numbers, both are reproducible, and the
+convergence parameters are arguable but conventional.
+
+This is why the AI-screening literature lives here. A dataset of about 7,000
+electron-phonon calculations was sufficient to train a model that then screened
+200,000 compounds [@cerqueira2023sampling]; the same infrastructure supported the
+million-compound search behind the Mg$_2$XH$_6$ proposal [@sanna2023prediction] and
+the 36-million-structure hydride exploration [@wang2025discoverya]. **No other mode in
+this survey has a comparable substrate.** The cost is the well-known one: the pipeline
+is trustworthy for phonon-mediated pairing and does not transfer to the correlated
+families, which is exactly why 237 of the 530 ab initio records sit in the
+conventional family and only 54 in cuprates.
+
+## Discovery: 396 records, and an ambiguity that matters
+
+Discovery is the smallest mode, and it is internally split in a way the count hides.
+Some of these papers report a new superconductor that was made and measured; others
+report a computational screen whose candidates remain unsynthesised. Section 2 fixed
+the vocabulary for this distinction, and Section 5 shows why it is load-bearing: the
+screening literature's headline numbers are all of the second kind.
+
+The data infrastructure for this mode is the weakest part of the field's
+machine-learning story, and it is worth being concrete. The workhorse resource is the
+SuperCon database of composition-$T_c$ pairs, which carries no crystal structures.
+The 3DSC dataset was built specifically to fix that, augmenting superconductors with
+approximate three-dimensional structures and, importantly, including tested
+non-superconductors [@sommer20223dsc]. General-purpose materials infrastructure --
+JARVIS, with more than 80,000 materials, unified force fields and graph-network design
+tools [@wines2023recent]; the Materials Project; GNoME's stable-structure set
+[@merchant2023scaling] -- supplies structures and formation energies but not
+superconducting labels. The recent language-model extraction of 78,203 experimental
+records [@itani2025large] is the largest attempt to close that gap from the
+literature side.
+
+Two structural problems remain, and neither is a modelling problem. Negative results
+are scarce: a database of materials that were tried and did not superconduct is worth
+as much as one of those that did, and the one large compilation of non-superconductors
+in this corpus was assembled as a deliberate remedy [@gashmard2025ai]. And the labels
+are contested at the top of the range, where retractions [@snider2020retracted;
+@dasenbrock2023retracted] and unreplicated claims [@lee2023lk99] sit precisely in the
+high-$T_c$ region a model is being asked to extrapolate into.
+
+## Synthesis: 667 records, and almost no machine-readable trace
+
+Synthesis is where superconductivity is actually rate-limited, as Section 3 found in
+family after family. It is also the mode with the least usable data infrastructure in
+the entire survey. A synthesis paper reports a recipe in prose -- precursors,
+temperatures, atmospheres, durations, substrate, annealing schedule -- and reports it
+only for the attempts that worked. Failed attempts are not published, so the negative
+half of the training set does not exist.
+
+The mode is also technique-diverse in a way that resists automation. The corpus's
+synthesis records include topotactic reduction of nickelate films, diamond-anvil-cell
+synthesis at hundreds of gigapascals, molecular-beam epitaxy, flux growth, and
+mechanical stacking of exfoliated flakes. The autonomous-laboratory programme
+[@szymanski2023autonomous] targets none of these; it targets bulk oxide powder
+synthesis, and even there its claims have been disputed [@leeman2024challenges].
+
+The corpus's own signature is stark: **one AI-tagged synthesis paper.** Section 6
+argues that the tractable target here is not automating synthesis but predicting
+synthesizability.
+
+## Characterization: 3,310 records, abundant data in unusable form
+
+Characterization is the second-largest mode and the field's main empirical output:
+ARPES, scanning tunnelling spectroscopy, neutron scattering, muon spin rotation, NMR,
+optical and terahertz spectroscopy, transport, specific heat, and magnetometry.
+
+The data situation here is the survey's central irony. This mode produces enormous
+quantities of exactly the structured, high-dimensional data that machine learning
+handles well, and almost none of it is available in a form a model can consume. Raw
+spectra are rendered as figures in PDFs; per-group formats are undocumented;
+supplementary files lack schemas; and there is no community convention for releasing
+an ARPES cut or an STM map as an array with its acquisition parameters. Where such
+data does exist as a byproduct of machine operation -- qubit readout traces, detector
+counts -- machine-learning methods appeared quickly and work (Section 5).
+
+The tasks are well-posed: inferring a gap structure from a spectrum, separating
+overlapping phases in a diffraction pattern, denoising quasiparticle interference,
+segmenting features in a microscopy image. Several are inverse problems with known
+forward models, which is the most favourable situation a learning method can be
+handed. What is missing is the dataset, not the method.
+
+## Assessment
+
+Ranking the modes by how ready their data is inverts the ranking by how much
+attention they get from the machine-learning literature. Ab initio work has a mature
+pipeline and a computable target, and it is where the screening papers concentrate --
+correctly. Characterization has abundant data, well-posed inverse problems and cheap
+validation, and it is barely represented. Synthesis has the field's real bottleneck
+and essentially no data at all, and it attracts the most ambitious claims. Theory is
+half-addressable, and the addressable half is quietly productive. Section 6 turns
+these observations into a per-cell assessment.
 
 # What AI has actually done in superconductivity
 
@@ -387,9 +597,12 @@ Migdal-Eliashberg theory and its first-principles implementations
 
 The distribution across modes of inquiry is more revealing than the total. Counting
 the AI-tagged records across the whole working corpus, seed and supplement together
-(Figure 5): 124 theory, 64 discovery, 48 characterization, 16 ab initio, and **1
+(Figure 4): 124 theory, 64 discovery, 48 characterization, 16 ab initio, and **1
 synthesis.** Machine learning in this field is something that happens to a
 calculation or to a dataset, almost never to a furnace.
+
+![Figure 4: AI-method usage by mode of inquiry across the working corpus. Synthesis
+carries a single record.](figures/fig4_ai_method_task.png)
 
 ## Predicting $T_c$, and what the screening pipelines actually deliver
 
@@ -532,7 +745,7 @@ section asks, cell by cell, what would have to change.
 ## What is being scored, and what it is not
 
 Section 5 described what has happened. This section asks what could. For each cell of
-the taxonomy that the survey discusses, Figure 4 scores three properties on a 0-3
+the taxonomy that the survey discusses, Figure 5 scores three properties on a 0-3
 scale and names the constraint that currently binds.
 
 **Data availability** asks whether enough machine-readable, labelled data exists to
@@ -549,9 +762,13 @@ precisely because a finer one would imply a precision that is not there. The cor
 counts inform them but do not determine them: a cell can be crowded and unready, and
 Section 7 argues that several are.
 
+![Figure 5: AI readiness by taxonomy cell. Scores are the author's judgement on a
+0-3 scale, not measurements; the appendix states the reasoning for each
+cell.](figures/fig5_ai_readiness.png)
+
 ## The three regimes
 
-Read down Figure 4 and the cells sort into three groups.
+Read down Figure 5 and the cells sort into three groups.
 
 **Cheap-validation cells, where progress is fastest and already visible.**
 Conventional and hydride ab initio work scores highest: the data exists in the form
@@ -636,7 +853,7 @@ syntheses, including the failures, would be worth more to that pipeline than ano
 increment of $T_c$-regression accuracy.
 
 **The field needs a held-out benchmark with experimental resolution.** No cell in
-Figure 4 scores 3 on benchmark maturity. The screening papers cannot be compared
+Figure 5 scores 3 on benchmark maturity. The screening papers cannot be compared
 against each other, because each reports its own candidate list validated by its own
 calculations. A benchmark built from post-2024 experimentally confirmed
 superconductors, with predictions time-stamped before confirmation, would separate
@@ -646,7 +863,7 @@ quality problem acute, and therefore makes the benchmark more valuable, not less
 
 ## Assessment
 
-The pattern across Figure 4 is that AI adoption in this field tracks validation cost
+The pattern across Figure 5 is that AI adoption in this field tracks validation cost
 far more closely than it tracks either data volume or scientific importance. Where a
 calculation can check a prediction, methods have arrived. Where an experiment is
 needed, they have not, regardless of how much has been written about the cell. If
@@ -656,12 +873,156 @@ synthesizability rather than synthesis.
 
 # Discussion
 
-PLACEHOLDER
+## Reading the corpus's own shape
+
+Before interpreting any proportion in this survey, three sampling facts have to be
+stated, because each of them shapes the numbers.
+
+First, the seed is a category harvest, not a topic harvest. A paper appears because
+its authors chose `cond-mat.supr-con`, so the corpus measures what the community
+files under superconductivity, which is not identical to what is about
+superconductivity. The measured off-topic rate within the seed is 2.5%.
+
+Second, the supplement is recency-biased by construction and is excluded from every
+trend statement and from Table 1's grid.
+
+Third, labels come from a model pass with 85.6% family and 88.4% mode agreement
+against a single annotator's hand labels, and the two smallest modes -- synthesis at
+64% recall and discovery at 54% -- are the least reliable. Any statement below that
+depends on those two counts is stated as a hypothesis.
+
+With those caveats, three features of the corpus seem worth explaining.
+
+## Three hypotheses about the field's shape
+
+**The verifiability gradient.** AI methods appear in this corpus almost exactly where
+a prediction can be checked without an experiment. Ab initio screening, where a DFT
+calculation grades the model, and neural quantum states, where a variational energy
+does, are the two populated cells; synthesis, where only a furnace can settle the
+question, has one paper. The hypothesis is that adoption is governed by validation
+cost rather than by data volume or scientific payoff. It is testable: if it holds,
+the next AI methods to arrive in this field should show up in characterization
+inversion tasks, where an independent measurement provides the check, before they
+show up anywhere in synthesis.
+
+**The label-quality trap at the top of the range.** A $T_c$ model is most valuable
+where $T_c$ is highest, and that is precisely where this field's experimental record
+is least reliable -- two retracted room-temperature claims
+[@snider2020retracted; @dasenbrock2023retracted], an unreplicated ambient-pressure
+claim [@lee2023lk99], and continuing methodological dispute about what constitutes
+proof under megabar pressure [@tallon2024flux]. The hypothesis is that supervised
+models in this domain inherit a systematically noisier label distribution in exactly
+the region they are asked to extrapolate into. This too is testable: a model trained
+with and without the contested high-$T_c$ entries should differ measurably in its
+top-ranked candidates.
+
+**Institutional role assignment.** The AI-tagged work in this corpus is concentrated
+in the material-agnostic and device families rather than in the correlated-material
+families, and its authors are frequently from computational or
+machine-learning-methods groups rather than from the synthesis and spectroscopy
+groups whose data the methods would need. The hypothesis is that the field's
+AI adoption is limited less by method availability than by the absence of overlap
+between the people who hold the data and the people who build the models. The
+prediction is that the fastest progress will come from instrument groups adopting
+methods internally -- which is what the qubit-readout literature already looks like
+-- rather than from methods groups acquiring physics data.
+
+None of these is established by this survey. They are the explanations most
+consistent with the corpus's shape, offered so that they can be argued with.
+
+## What would change the assessment
+
+Three developments would substantially revise Section 6's conclusions, and it is
+worth naming them in advance.
+
+A public, standardised corpus of labelled characterization data -- ARPES cuts, STM
+maps, diffraction patterns with acquisition metadata -- would move several cells from
+data-limited to method-limited in one step, and would be the single highest-value
+intervention identified here.
+
+A registry of attempted syntheses including failures would make synthesizability
+prediction trainable, which is the tractable form of the synthesis problem.
+
+A time-stamped benchmark of experimentally confirmed superconductors, with model
+predictions recorded before confirmation, would let the screening literature be
+compared rather than merely accumulated. Its absence is why no cell in Figure 5
+scores 3 on benchmark maturity.
+
+## Limitations of this survey
+
+The corpus is arXiv-only and therefore under-represents applied superconductivity
+published through IEEE venues and industrial device work that is never posted. The
+window opens in September 2021, so pre-window developments enter only through
+hand-verified anchor citations. Labels are single-valued where the underlying reality
+is often multi-valued. The AI-readiness scores in Figure 5 are the author's judgement
+on a coarse scale, informed by the corpus but not derived from it, and the appendix
+states the reasoning for each cell so that individual scores can be contested. All
+hand labels were produced by one annotator, so the agreement figures quoted throughout
+measure consistency between one human pass and one model pass, not accuracy against
+an external standard.
 
 # Conclusion
 
-PLACEHOLDER
+This survey mapped five years of superconductivity research -- 10,249 arXiv preprints
+after off-topic filtering -- onto two axes, material family and mode of inquiry, and
+then asked of each cell what a machine-learning method could contribute there.
+
+The mapping produced three findings. Machine learning has barely entered this field:
+1.2% of the systematically harvested seed uses an AI method in its own work. Where it
+has entered, it clusters where predictions can be checked by calculation rather than
+by experiment -- ab initio screening and neural quantum states -- and in device
+metrology, where instruments generate their own labelled data. And the field's actual
+bottleneck, synthesis, is the cell with the least usable data and the fewest methods:
+one AI-tagged paper in the entire corpus.
+
+The gap between what the screening literature predicts and what has been made and
+measured is the survey's most concrete result. Recent screens report candidates above
+200 K; the one clearly closed prediction-synthesis-measurement loop in the recent
+literature delivered superconductors between 2.5 and 6.5 K [@li2026agentic]. Both
+facts are real, and holding them together is the correct posture toward AI for
+superconductivity.
+
+For anyone deciding where to apply AI for Science effort in this field, the ranking
+that follows from Figure 5 is: release labelled characterization data and build
+inversion models against it; construct a time-stamped benchmark so screening methods
+can be compared; and model synthesizability rather than attempting to automate
+synthesis. These are less exciting than inverse-designing a room-temperature
+superconductor, and they are what the structure of the field currently supports.
 
 # Data availability
 
-PLACEHOLDER
+The corpus, labels, prompts, hand-labelled validation sets and all scripts are
+released with this manuscript. The archive contains the frozen seed harvest
+(`sc_seed.csv`), the canonical labelled corpus (`sc_corpus_v1.csv`), the raw
+per-month arXiv responses that reproduce the harvest, the language-model label cache
+(`llm_labels.jsonl`), the two hand-labelled validation sets (`label_truth.csv`,
+`ai_label_truth.csv`), and the harvesting, labelling, figure and build scripts.
+Bibliography entries for corpus papers are generated from the corpus; anchor
+references outside the harvest window are hand-verified against Crossref and kept
+separately.
+
+# Appendix: reasoning behind the AI-readiness scores
+
+Figure 5 scores each discussed cell on data availability, benchmark maturity and
+cheap validation, on a 0-3 scale, and names the binding bottleneck. The scores are
+the author's judgement. This appendix states the reasoning so that individual cells
+can be contested; the scoring table itself is in `build_concept_figures.py`, so a
+reader who disagrees can change a row and regenerate the figure.
+
+| Cell | Reasoning |
+|---|---|
+| Conventional × ab initio | Data 3: hundreds of thousands of electron-phonon calculations exist, ~7,000 of them assembled as a single training set [@cerqueira2023sampling]. Benchmark 2: the Eliashberg $T_c$ is an accepted target, but no shared held-out set. Validation 3: a DFPT calculation settles it. Bottleneck compute. |
+| Conventional × discovery | Data 3 for composition-$T_c$ pairs. Benchmark 2. Validation 2: cheap computationally, expensive experimentally, and the screening literature stops at the computational step. Bottleneck data, specifically the absence of negative results and of verified high-$T_c$ labels. |
+| Conventional × synthesis | Data 1: recipes in prose, successes only. Benchmark 0. Validation 0: diamond anvil cell at megabar pressures. Bottleneck experiment. |
+| Conventional × characterization | Data 2, benchmark 1, validation 2. High-pressure measurement is hard but the quantities are conventional. Bottleneck data. |
+| Conventional × theory | Data 2, benchmark 1, validation 3: Migdal-Eliashberg is a well-posed calculation. Bottleneck theory, in the narrow sense that anharmonicity and quantum ionic effects are where the physics is unsettled. |
+| Cuprate × theory | Data 1, benchmark 0, validation 2. Four decades of data with no agreed target quantity to regress against. Bottleneck theory. |
+| Cuprate × characterization | Data 2: abundant spectra, almost none machine-readable. Benchmark 1, validation 2. Bottleneck data. |
+| Nickelate × ab initio | Data 2, benchmark 1, validation 3: the calculations are tractable and increasingly standard. Bottleneck theory: which computed quantity predicts $T_c$ in a multi-orbital correlated system is exactly what is unsettled. |
+| Nickelate × synthesis | Data 1, benchmark 0, validation 0. Topotactic reduction and strained epitaxy, with oxygen stoichiometry as the decisive and poorly recorded variable [@zhou2023investigations]. Bottleneck experiment. |
+| 2D / interface × characterization | Data 2: gate-tunable transport is parameterised and dense. Benchmark 1. Validation 1: each stack is unique, so re-measurement is not free. Bottleneck data. |
+| 2D / interface × synthesis | Data 1, benchmark 0, validation 0. Mechanical stacking with angular precision. Bottleneck experiment. |
+| Topological × characterization | Data 1, benchmark 0, validation 1. The disagreement is about what a measurement means, so a label is not well defined. Bottleneck theory. |
+| Device × characterization | Data 3: qubit and detector metrology is machine-generated, standardised and high-volume. Benchmark 2. Validation 2. Bottleneck data, and the highest-scoring measurement cell in the survey. |
+| Device × synthesis | Data 2: fabrication process data exists in industrial settings, mostly unpublished. Benchmark 1, validation 1. Bottleneck experiment. |
+| Material-agnostic × theory | Data 2, benchmark 2, validation 3: a variational energy is comparable against other methods on the same Hamiltonian. Bottleneck compute. |

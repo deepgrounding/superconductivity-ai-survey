@@ -31,9 +31,39 @@ def slugify_key(first_author, year, title):
     word = next((w for w in re.findall(r"[A-Za-z0-9']+", title) if w.lower() not in STOP), "paper")
     return f"{last}{year}{re.sub(r'[^a-z0-9]', '', word.lower())}"
 
+# pdfLaTeX's default font encoding cannot set these; map to LaTeX accent macros so
+# the PDF build stops dropping characters out of author names and formulas.
+TEX_CHAR = {
+    "ş": r"\c{s}", "Ş": r"\c{S}", "ı": r"{\i}", "Ž": r"\v{Z}", "ž": r"\v{z}",
+    "đ": r"{\dj}", "Đ": r"{\DJ}", "Ð": r"{\DJ}", "ć": r"\'{c}", "Ć": r"\'{C}",
+    "č": r"\v{c}", "Č": r"\v{C}", "š": r"\v{s}", "Š": r"\v{S}", "ő": r"\H{o}",
+    "ű": r"\H{u}", "ā": r"\={a}", "ē": r"\={e}", "ī": r"\={i}", "ū": r"\={u}",
+    "ğ": r"\u{g}", "ł": r"{\l}", "Ł": r"{\L}", "ř": r"\v{r}", "ų": r"\k{u}",
+    "ę": r"\k{e}", "ą": r"\k{a}", "ė": r"\.{e}", "ż": r"\.{z}", "ń": r"\'{n}",
+    "ś": r"\'{s}", "ź": r"\'{z}", "ǧ": r"\v{g}",
+}
+GREEK = {"α": r"$\alpha$", "β": r"$\beta$", "γ": r"$\gamma$", "δ": r"$\delta$",
+         "ε": r"$\epsilon$", "θ": r"$\theta$", "κ": r"$\kappa$", "λ": r"$\lambda$",
+         "μ": r"$\mu$", "ν": r"$\nu$", "π": r"$\pi$", "ρ": r"$\rho$",
+         "σ": r"$\sigma$", "τ": r"$\tau$", "φ": r"$\phi$", "χ": r"$\chi$",
+         "ψ": r"$\psi$", "ω": r"$\omega$", "Δ": r"$\Delta$", "Ω": r"$\Omega$",
+         "Ξ": r"$\Xi$", "Å": r"{\AA}", "×": r"$\times$", "−": "-", "–": "--",
+         "—": "---", "’": "'", "‘": "`", "“": "``", "”": "''"}
+
+def transliterate(s):
+    for k, v in TEX_CHAR.items(): s = s.replace(k, v)
+    return s
+
+def degreek(s):
+    """Greek letters inside an already-math context ($...$) are fine as macros;
+    outside one they need their own math mode. Titles here are mixed, so wrap."""
+    for k, v in GREEK.items(): s = s.replace(k, v)
+    return s
+
 def bib_escape(s):
-    return (s.replace("\\", r"\\").replace("&", r"\&").replace("%", r"\%")
-             .replace("#", r"\#").replace("_", r"\_").replace("$", r"\$"))
+    s = (s.replace("\\", r"\\").replace("&", r"\&").replace("%", r"\%")
+          .replace("#", r"\#").replace("_", r"\_").replace("$", r"\$"))
+    return degreek(transliterate(s))
 
 def protect_title(t):
     return re.sub(r"\b([A-Za-z]*[A-Z][A-Za-z]*[A-Z][A-Za-z]*|[A-Z]{2,}|[A-Za-z]+\d+[A-Za-z\d]*)\b",

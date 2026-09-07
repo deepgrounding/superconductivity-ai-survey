@@ -4,10 +4,10 @@
   Fig 2  semantic map: TF-IDF -> SVD -> t-SNE, coloured by family, direct labels
   Fig 3  growth timeline (SEED ROWS ONLY - supplements are recency-biased):
          (a) quarterly submissions by family, (b) by task
-  Fig 5  AI-method x task matrix over AI-tagged rows (seed + T1 supplement)
+  Fig 4  AI-method x task matrix over AI-tagged rows (seed + T1 supplement)
   Table 1  family x task counts -> draft/table1.md
 
-Fig 1 (taxonomy schematic) and Fig 4 (AI-readiness matrix) are built by
+Fig 1 (taxonomy schematic) and Fig 5 (AI-readiness matrix) are built by
 build_concept_figures.py because they encode editorial judgement, not corpus counts.
 
 Usage: python draft/scripts/build_figures.py
@@ -120,8 +120,8 @@ def fig_ai(rows):
                         color="white" if M[i, j] > M.max() * 0.6 else "black")
     ax.set_title(f"AI method by research task (n = {len(ai_rows)} AI-tagged preprints)", fontsize=9, loc="left")
     fig.colorbar(im, ax=ax, shrink=0.85, label="preprints")
-    fig.tight_layout(); fig.savefig(FIG / "fig5_ai_method_task.png", bbox_inches="tight"); plt.close(fig)
-    print(f"wrote fig5_ai_method_task.png (n={len(ai_rows)})")
+    fig.tight_layout(); fig.savefig(FIG / "fig4_ai_method_task.png", bbox_inches="tight"); plt.close(fig)
+    print(f"wrote fig4_ai_method_task.png (n={len(ai_rows)})")
 
 def table1(rows):
     """Table 1 reports the SEED corpus only -- it is the systematically harvested,
@@ -132,11 +132,19 @@ def table1(rows):
     supp = [r for r in rows if r["source"] != "seed"]
     ct = Counter((r["family"], r["task"]) for r in seed)
     sup_ct = Counter(r["family"] for r in supp)
-    lines = ["| Family | " + " | ".join(TLABEL[t] for t in TASKS) + " | Seed total | Supplement |",
-             "|---|" + "---|" * (len(TASKS) + 2)]
+    # compact headers and family names: the full labels overflow the text block in
+    # the PDF build and collide with the neighbouring column
+    THEAD = {"theory": "Theory", "abinitio": "Ab init.", "discovery": "Discov.",
+             "synthesis": "Synth.", "characterization": "Charac."}
+    FSHORT = {"conv": "Conventional", "cuprate": "Cuprate", "febased": "Iron-based",
+              "nickelate": "Nickelate", "unconv_other": "Other unconv.",
+              "lowd": "2D / moiré", "topo": "Topological", "device": "Devices",
+              "general": "Material-agnostic"}
+    lines = ["| Family | " + " | ".join(THEAD[t] for t in TASKS) + " | Seed | Suppl. |",
+             "|:---|" + "---:|" * (len(TASKS) + 2)]
     for f in FAMILIES:
         tot = sum(ct[(f, t)] for t in TASKS)
-        lines.append(f"| {FLABEL[f]} | " + " | ".join(str(ct[(f, t)]) for t in TASKS)
+        lines.append(f"| {FSHORT[f]} | " + " | ".join(str(ct[(f, t)]) for t in TASKS)
                      + f" | **{tot}** | {sup_ct.get(f, 0)} |")
     lines.append("| **Total** | " + " | ".join(f"**{sum(ct[(f, t)] for f in FAMILIES)}**" for t in TASKS)
                  + f" | **{sum(ct.values())}** | **{len(supp)}** |")

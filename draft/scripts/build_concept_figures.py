@@ -4,10 +4,10 @@
   Fig 1  the taxonomy schematic: family x task grid with the AI lens shown as the
          third dimension, drawn programmatically so it can never drift from the
          label vocabulary the corpus actually uses.
-  Fig 4  the AI-readiness matrix: per-cell scores for data availability, benchmark
+  Fig 5  the AI-readiness matrix: per-cell scores for data availability, benchmark
          maturity, validation cost and the binding bottleneck.
 
-Fig 4's scores are AUTHOR JUDGEMENT, not measurements. They live in READINESS
+Fig 5's scores are AUTHOR JUDGEMENT, not measurements. They live in READINESS
 below, one row per (family, task) cell that the survey discusses, and the paper
 must say so in the caption and carry the rationale in an appendix.
 
@@ -141,8 +141,8 @@ def fig4_readiness():
     ax.set_title("AI readiness by taxonomy cell\n(0 = absent, 3 = mature; author judgement, not measurement)",
                  fontsize=9, loc="left", pad=16)
     fig.colorbar(im, ax=ax, shrink=0.6, ticks=[0, 1, 2, 3], pad=0.16)
-    fig.tight_layout(); fig.savefig(FIG / "fig4_ai_readiness.png", bbox_inches="tight"); plt.close(fig)
-    print("wrote fig4_ai_readiness.png")
+    fig.tight_layout(); fig.savefig(FIG / "fig5_ai_readiness.png", bbox_inches="tight"); plt.close(fig)
+    print("wrote fig5_ai_readiness.png")
 
 if __name__ == "__main__":
     fig1_taxonomy(); fig4_readiness()
