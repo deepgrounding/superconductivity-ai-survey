@@ -148,7 +148,8 @@ def table1(rows):
 def main():
     rows = [r for r in load() if r.get("off_topic") != "true"]
     seed = [r for r in rows if r["source"] == "seed"]
-    table1(rows); fig_growth(seed); fig_ai(rows); fig_map(rows)
+    # Fig 2 uses seed rows only so its per-family counts match Table 1 exactly.
+    table1(rows); fig_growth(seed); fig_ai(rows); fig_map(seed)
 
 if __name__ == "__main__":
     main()
