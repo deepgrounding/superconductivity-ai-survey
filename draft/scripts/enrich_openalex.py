@@ -80,7 +80,7 @@ def main():
                 d["oa_fetched"] = time.strftime("%Y-%m-%d")
                 cache[aid] = d; cf.write(json.dumps(d) + "\n")
             cf.flush()
-            print(f"  {min(k+BATCH, len(todo))}/{len(todo)}  resolved so far {sum(1 for i in ids if cache.get(i, {}).get('cited_by') != '')}", flush=True)
+            print(f"  {min(k+BATCH, len(todo))}/{len(todo)}  resolved so far {sum(1 for i in ids if str(cache.get(i, {}).get('cited_by', '')) not in ('', 'None'))}", flush=True)
             time.sleep(0.15)
 
     for r, aid in zip(rows, ids):

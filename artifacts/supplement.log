@@ -1,2 +1,72 @@
   T1 +137  all:"machine learning" AND (all:superconductivity OR all:superconductor OR all:s
   T1 + 15  all:"deep learning" AND (all:superconductivity OR all:superconductor OR all:supe
+  T1 + 34  all:"neural network" AND all:"critical temperature"
+  T1 +  7  all:"graph neural network" AND (all:superconductivity OR all:superconductor OR a
+  T1 + 10  all:"generative model" AND (all:superconductivity OR all:superconductor OR all:s
+  T1 +  1  all:"diffusion model" AND (all:superconductivity OR all:superconductor OR all:su
+  T1 +  9  all:"large language model" AND (all:superconductivity OR all:superconductor OR a
+  T1 +  2  all:"language model" AND (all:superconductivity OR all:superconductor OR all:sup
+  T1 +  2  all:"active learning" AND (all:superconductivity OR all:superconductor OR all:su
+  T1 +  9  all:"Bayesian optimization" AND (all:superconductivity OR all:superconductor OR 
+  T1 +  3  all:"high-throughput" AND (all:superconductivity OR all:superconductor OR all:su
+  T1 +  3  all:"interatomic potential" AND (all:superconductivity OR all:superconductor OR 
+  T1 +  1  all:"symbolic regression" AND (all:superconductivity OR all:superconductor OR al
+  T1 +  6  all:"neural quantum state" AND (all:superconductivity OR all:superconductor OR a
+  T1 +  2  all:"neural network quantum state" AND (all:superconductivity OR all:superconduc
+  T1 +  0  all:"autonomous" AND all:"laboratory" AND (all:superconductivity OR all:supercon
+  T1 +  0  all:"materials informatics" AND (all:superconductivity OR all:superconductor OR 
+  T1 +  0  all:"SuperCon" AND all:database
+  T1 +  0  all:"transformer" AND all:"critical temperature" AND (all:superconductivity OR a
+  T1 +  1  all:"machine learning" AND all:ARPES
+  T1 +  1  all:"machine learning" AND all:"scanning tunneling" AND (all:superconductivity O
+  T1 +  3  all:"machine learning" AND all:"electron-phonon"
+  T1 +  6  all:"machine learning" AND all:hydride AND all:pressure
+  T1 +  0  all:"machine learning" AND all:"quantum Monte Carlo" AND (all:superconductivity 
+  T1 + 14  all:"machine learning" AND all:"superconducting qubit"
+  T1 +  4  all:"reinforcement learning" AND all:"superconducting qubit"
+  T2 + 30  all:"universal interatomic potential" OR all:"foundation model" AND all:"interat
+  T2 + 12  all:MACE AND all:"interatomic potential" AND all:"machine learning"
+  T2 + 27  all:CHGNet OR all:M3GNet OR all:MatterSim OR all:"Orb-v" OR all:"SevenNet"
+  T2 + 34  all:"crystal structure" AND all:"diffusion model" AND all:generation
+  T2 + 24  all:MatterGen OR all:"CDVAE" OR all:"DiffCSP" OR all:"FlowMM"
+  T2 + 15  all:"GNoME" OR (all:"graph networks" AND all:"materials exploration")
+  T2 + 21  all:"autonomous laboratory" AND all:materials
+  T2 + 26  all:"self-driving lab" AND all:materials
+  T2 + 29  all:"synthesizability" AND all:"machine learning"
+  T2 + 29  all:"large language model" AND all:"materials" AND all:extraction
+  T2 + 35  all:"large language model" AND all:"materials discovery"
+  T2 + 27  all:"LLM agent" AND all:materials
+  T2 + 13  all:"neural quantum state" AND all:"Hubbard"
+  T2 + 14  all:"neural network quantum state" AND all:fermion
+  T2 + 19  all:"machine learning" AND all:"dynamical mean-field"
+  T2 + 28  all:"AI for science" AND all:materials
+  T2 + 17  all:"machine learning" AND all:"ARPES"
+  T2 + 21  all:"machine learning" AND all:"scanning tunneling microscopy"
+
+691 new rows (Counter({'supplement_t2': 421, 'supplement_t1': 270}))
+family x task of new rows:
+  conv          abinitio         4
+  conv          characterization 5
+  conv          discovery        22
+  conv          synthesis        2
+  conv          theory           4
+  cuprate       discovery        1
+  cuprate       theory           1
+  device        abinitio         1
+  device        application      129
+  device        theory           9
+  general       abinitio         69
+  general       application      2
+  general       characterization 38
+  general       discovery        238
+  general       synthesis        77
+  general       theory           68
+  lowd          characterization 1
+  lowd          discovery        6
+  lowd          theory           3
+  topo          abinitio         1
+  topo          characterization 1
+  topo          discovery        5
+  topo          theory           4
+appended to /Users/minggguangchen/Desktop/2026/manuscript/superconductivity/artifacts/sc_corpus_v1.csv; corpus total 10994
+supplement exit 0
