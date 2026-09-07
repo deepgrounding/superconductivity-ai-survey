@@ -74,7 +74,7 @@ print('MISSING:',sorted(cited-keys) or 'none')"
 
 ## Author block
 
-Single author: **Mingguang Chen** (matches arXiv:2609.00083). Lives in `main.md` YAML and `build_latex.py`'s `AUTHOR_BLOCK` — keep in sync. Anonymous review copies strip YAML `author:`, the LaTeX `\author{}` block, and hyperref's `pdfauthor=`; verify with `pdfinfo`. Anonymous outputs are gitignored.
+Single author: **Mingguang Chen**, affiliation **DeepGrounding**, corresponding email **deepgroundingai@gmail.com** (matches arXiv:2609.00083, first page). Lives in `main.md` YAML and `build_latex.py`'s `AUTHOR_BLOCK` — keep in sync. Anonymous review copies strip YAML `author:`, the LaTeX `\author{}` block, and hyperref's `pdfauthor=`; verify with `pdfinfo`. Anonymous outputs are gitignored.
 
 ## Writing rules (from the skill; every one is a past incident)
 

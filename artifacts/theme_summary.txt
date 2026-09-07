@@ -1,0 +1,168 @@
+/opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages/sklearn/utils/extmath.py:590: RuntimeWarning: divide by zero encountered in matmul
+  U = Q @ Uhat
+/opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages/sklearn/utils/extmath.py:590: RuntimeWarning: overflow encountered in matmul
+  U = Q @ Uhat
+/opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages/sklearn/utils/extmath.py:590: RuntimeWarning: invalid value encountered in matmul
+  U = Q @ Uhat
+/opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages/sklearn/utils/extmath.py:203: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages/sklearn/utils/extmath.py:203: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages/sklearn/utils/extmath.py:203: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+/opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages/sklearn/cluster/_kmeans.py:237: RuntimeWarning: divide by zero encountered in matmul
+  current_pot = closest_dist_sq @ sample_weight
+/opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages/sklearn/cluster/_kmeans.py:237: RuntimeWarning: overflow encountered in matmul
+  current_pot = closest_dist_sq @ sample_weight
+/opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages/sklearn/cluster/_kmeans.py:237: RuntimeWarning: invalid value encountered in matmul
+  current_pot = closest_dist_sq @ sample_weight
+
+[17] n= 720  bcs, superfluid, phase, theory, quantum, fermi, non, cooper, critical, transition, pairing, systems
+      - Transient ordering in the Gross-Pitaevskii lattice subject to an energy quench within the 
+      - Stability of the Fulde-Ferrell-Larkin-Ovchinnikov states in anisotropic systems and critic
+      - Breached pair superfluidity: a brief review
+
+[15] n= 575  field, _2, magnetic, upper critical, upper, critical field, critical, measurements, transition, heat, superconductor, state
+      - Probing the superconducting ground state of noncentrosymmetric high entropy alloys using m
+      - Superconductivity in the noncentrosymetric Li2Pd(3-x)AgxB with x=0.0, 0.1 and 0.3
+      - Determination of the magnetic q vectors in the heavy fermion superconductor Ce3PtIn11
+
+[13] n= 568  josephson, junctions, junction, josephson junctions, josephson junction, current, phase, quantum, supercurrent, voltage, josephson effect, effect
+      - Superconductor/normal-metal/superconductor junction of topological superconductors revisit
+      - Spontaneous frequency shift and phase delay of coupled terahertz radiations mediated by th
+      - Effective field theory of fluctuating wall in open systems: from a kink in Josephson junct
+
+[18] n= 495  spin, triplet, spin orbit, orbit, orbit coupling, spin triplet, coupling, pairing, superconductor, magnetic, singlet, field
+      - Supercurrent-induced long-range triplet correlations and controllable Josephson effect in 
+      - Spin-Triplet Superconductivity in K2Cr3As3
+      - Mechanisms of the in-plane magnetic anisotropy in superconducting NbSe2
+
+[25] n= 464  electronic, _2, surface, fermi, structure, band, van, electronic structure, materials, states, photoemission, spectroscopy
+      - Anomalous Hall effect in ferrimagnetic metal RMn6Sn6 (R = Tb, Dy, Ho) with clean Mn kagome
+      - A Review of Electronic Transport in Superconducting Sr$_2$RuO$_4$ Junctions
+      - Fractionalization on the Surface: Is Type-II Terminated $1T$-TaS$_2$ Surface an Anomalousl
+
+[28] n= 433  cuprates, cuprate, doping, cuo, doped, pseudogap, cuprate superconductors, hole, charge, high, overdoped, scattering
+      - Non-Fermi liquid phase and linear-in-temperature scattering rate in overdoped two dimensio
+      - Charge density waves and Fermi-surface reconstruction in the clean overdoped cuprate super
+      - Terahertz phase slips in striped La$_{2-x}$Ba$_x$CuO$_4$
+
+[ 5] n= 428  topological, majorana, topological superconductivity, edge, states, modes, chiral, phases, topological superconductors, dimensional, superconductors, order topological
+      - Higher-order topological semimetals and nodal superconductors with an order-two crystallin
+      - Euler Obstructed Cooper Pairing: Nodal Superconductivity and Hinge Majorana Zero Modes
+      - Tensor Monopoles in superconducting systems
+
+[ 6] n= 395  hubbard, model, hubbard model, pairing, lattice, wave, spin, phase, monte, monte carlo, carlo, correlations
+      - Magnon heat transport in a two-dimensional Mott insulator
+      - Superlight pairs in face-centred-cubic extended Hubbard models with strong Coulomb repulsi
+      - Band crossover and magnetic phase diagram of high-Tc superconducting compound Ba2CuO4-δ
+
+[12] n= 387  magnetic, field, current, magnetic field, flux, critical current, critical, high, current density, fields, superconductor, superconductors
+      - Phenomenological theory of magnetic 90$^{\circ}$ helical state
+      - Critical State Theory For The Magnetic Coupling Between Soft Ferromagnetic Materials And T
+      - Analysis of Infinite Stiffness Using PID Controller
+
+[ 4] n= 385  vortex, vortices, field, magnetic, pinning, vortex lattice, type, magnetic field, superconductors, superconductor, type ii, flux
+      - Pearl vortices in anisotropic superconducting films
+      - Bridge in micron-sized Bi2Sr2CaCu2O8+y sample act as converging lens for vortices
+      - Uniformly frustrated XY model: strengthening of the vortex lattice by intrinsic disorder
+
+[ 1] n= 363  phonon, electron phonon, electron, phonon coupling, coupling, eliashberg, mediated, phonon mediated, theory, calculations, t_c, phonons
+      - Spectroscopy of electron-phonon interaction of superconducting point contacts: experimenta
+      - Reconstruction of the Electron-Phonon Interaction Function for Superconductors Using Inhom
+      - MoB2 under Pressure: Superconducting Mo Enhanced by Boron
+
+[29] n= 360  pressure, hydrides, hydrogen, high, hydride, gpa, room, room temperature, ambient, pressures, temperature superconductivity, compounds
+      - Design and Synthesis of Clathrate LaB8 with Superconductivity
+      - Faulty evidence for superconductivity in ac magnetic susceptibility of sulfur hydride unde
+      - High-pressure Mg-Sc-H phase diagram and its superconductivity from first-principles calcul
+
+[ 9] n= 349  andreev, states, andreev reflection, bound, reflection, bound states, superconductor, conductance, quantum, tunneling, andreev bound, gap
+      - Superconductivity in hole-doped germanium point contacts
+      - Phase-dependent transport in thermally-driven superconducting single-electron transistors
+      - Universal Properties of Mesoscopic Fluctuations of the Secondary "Smile" Gap
+
+[23] n= 348  films, film, nb, properties, oxide, growth, grown, niobium, substrate, nm, layer, thickness
+      - Giant demagnetization effects induced by superconducting films
+      - Effect of substrate temperature on the growth of Nb3Sn film on Nb by multilayer sputtering
+      - Characterization of superconducting NbTiN films using a Dispersive Fourier Transform Spect
+
+[10] n= 313  density wave, cdw, charge density, density, charge, wave, pair density, order, pdw, pair, density waves, wave cdw
+      - Charge density wave orders and enhanced superconductivity under pressure in the kagome met
+      - Anomalous Charge Density Wave State Evolution and Dome-like Superconductivity in CuIr2Te4-
+      - Coexistence of resistance oscillations and the anomalous metal phase in a lithium intercal
+
+[14] n= 311  diode, diode effect, superconducting diode, effect, josephson, josephson diode, sde, current, nonreciprocal, supercurrent, efficiency, field
+      - Superconducting spintronic tunnel diode
+      - Nonreciprocal Meissner response in parity-mixed superconductors
+      - Supercurrent diode effect and magnetochiral anisotropy in few-layer NbSe$_2$
+
+[ 3] n= 310  ni, la, ni _2, _3 ni, la _3, _2 _7, _7, _3, _2, bilayer, pressure, nickelate
+      - Role of Oxygen States in the Low Valence Nickelate La$_4$Ni$_3$O$_8$
+      - Correlations turn electronic structure of finite-layer nickelates upside down
+      - Competing Charge/Spin-Stripe and Correlated Metal Phases in Trilayer Nickelates (Pr$_{1-x}
+
+[27] n= 308  pressure, gpa, high pressure, high, pressure induced, tc, transition, structural, ambient, phase, ambient pressure, induced
+      - First-principles prediction of pressure dependent mechanical, electronic, optical, and sup
+      - Superconductivity in In-doped AgSnBiTe3 with possible band inversion
+      - Creating superconductivity in WB2 through pressure-induced metastable planar defects
+
+[16] n= 306  iron, fe, fese, iron based, nematic, based superconductors, based, se, superconductors, te, electronic, nematicity
+      - Interference Effect of Beam Splitter Current in Iron-Pnictide Superconductors
+      - Emergent interlayer magnetic order via strain-induced orthorhombic distortion in the 5d Mo
+      - London penetration depth measurements using tunnel diode resonators
+
+[19] n= 299  majorana, modes, zero modes, majorana zero, zero, topological, mzms, states, kitaev, majorana modes, quantum, bound
+      - Readout of parafermionic states by transport measurements
+      - Majorana-like oscillation for edge states in one-dimensional topological chain with dissip
+      - Majorana modes with side features in magnet-superconductor hybrid systems
+
+[ 2] n= 283  higgs, mode, collective, response, superconductors, optical, modes, higgs mode, frequency, terahertz, nonlinear, thz
+      - Terahertz amplifiers based on gain reflectivity in cuprate superconductors
+      - Fano interference of the Higgs mode in cuprate high-Tc superconductors
+      - Enhancing the hybridization of plasmons in graphene with 2D superconductor collective mode
+
+[ 0] n= 281  time reversal, reversal, reversal symmetry, symmetry, time, breaking, symmetry breaking, state, spontaneous, chiral, superconductors, broken
+      - Superconducting piezoelectric effect
+      - Dirac lines and loop at the Fermi level in the Time-Reversal Symmetry Breaking Superconduc
+      - Quasiparticle on Bogoliubov Fermi Surface and Odd-Frequency Cooper Pair
+
+[22] n= 277  graphene, twisted, bilayer, twisted bilayer, bilayer graphene, moiré, magic, angle, valley, magic angle, rhombohedral, twist
+      - Interaction driven giant thermopower in magic-angle twisted bilayer graphene
+      - Superconductivity in the vicinity of an isospin-polarized state in a cubic Dirac band
+      - Superconductivity from Repulsive Interactions in Rhombohedral Trilayer Graphene: a Kohn-Lu
+
+[11] n= 264  qubit, qubits, quantum, transmon, superconducting qubits, gates, circuits, circuit, error, flux, gate, control
+      - Miniaturizing transmon qubits using van der Waals materials
+      - Role of anomalous symmetry in 0-$π$ qubits
+      - Optimization of the resonator-induced phase gate for superconducting qubits
+
+[21] n= 263  microwave, resonators, inductance, kinetic inductance, resonator, parametric, frequency, kinetic, quantum, amplifiers, circuits, ghz
+      - Synchronous Chip-to-Chip Communication with a Multi-Chip Resonator Clock Distribution Netw
+      - Superconducting THz sources with 12% power efficiency
+      - Isochronous Data Link Across a Superconducting Nb Flex Cable with 5 femtojoules per Bit
+
+[ 7] n= 198  infinite layer, infinite, nickelates, layer, layer nickelates, nickelate, layer nickelate, ni, nio, nio _2, nd, films
+      - Superconductivity in infinite-layer CaCuO2-brownmillerite Ca2Fe2O5 superlattices
+      - Electronic structure and magnetic properties of higher-order layered nickelates: La$_{n+1}
+      - Strain-induced enhancement of $T_c$ in infinite-layer Pr$_{0.8}$Sr$_{0.2}$NiO$_2$ films
+
+[24] n= 187  flat, flat band, band, bands, flat bands, quantum geometry, geometry, quantum, quantum metric, metric, superfluid weight, geometric
+      - Effective-mass tensor of the two-body bound states and the quantum-metric tensor of the un
+      - Preformed Cooper pairs in flat-band semimetals
+      - Going beyond the Chandrasekhar-Clogston limit in a flat-band superconductor
+
+[26] n= 184  sb, kagome, sb _5, _3 sb, _5, csv, _3, csv _3, cdw, cs, charge, charge density
+      - Kagome superconductors AV$_3$Sb$_5$ (A=K, Rb, Cs)
+      - Evolution of electronic structure in pristine and hole-doped kagome metal RbV$_3$Sb$_5$
+      - Magneto-Seebeck effect and ambipolar Nernst effect in CsV$_3$Sb$_5$ superconductor
+
+[20] n= 139  cu, cu _3, _2 cu, yba, yba _2, _2, _3, ca, ybco, _2 ca, cuprate, ca _2
+      - How pressure enhances the critical temperature of superconductivity in YBa$_2$Cu$_3$O$_{6+
+      - Evidence for antiferromagnetism coexisting with charge order in the trilayer cuprate HgBa$
+      - Characterization of the (Cu,C)Ba$_2$Ca$_3$Cu$_4$O$_{11+δ}$ single crystals grown under hig
+
+[ 8] n= 110  photon, single photon, detectors, photon detectors, detection, superconducting nanowire, single, nanowire, nanowire single, detector, dark, snspds
+      - Directional Detection of Light Dark Matter in Superconductors
+      - New constraints on dark matter from superconducting nanowires
+      - Rising speed limits for fluxons via edge quality improvement in wide MoSi thin films

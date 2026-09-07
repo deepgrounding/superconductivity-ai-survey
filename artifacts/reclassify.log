@@ -1,0 +1,118 @@
+=== family ===
+  general        2147
+  lowd           1618
+  conv           1511
+  topo           1465
+  device          986
+  cuprate         939
+  nickelate       601
+  unconv_other    558
+  febased         478
+=== task ===
+  characterization  3768
+  theory            3446
+  application       1235
+  synthesis          804
+  discovery          581
+  abinitio           469
+=== ai_method (n=154) ===
+  surrogate       106
+  gnn_potential    22
+  generative       10
+  nqs               9
+  llm               5
+  autonomous_exp    2
+=== family x task ===
+                  theory abinitio discover synthesi characte applicat
+  general           1065       51      118      109      723       81
+  lowd               539       66      109      155      688       61
+  conv               401      232      156      139      517       66
+  topo               734       24       66       87      432      122
+  device              69        1        0       42        0      874
+  cuprate            259       22       30       77      535       16
+  nickelate          162       45       46      109      238        1
+  unconv_other       146       10       35       18      345        4
+  febased             71       18       21       68      290       10
+
+=== samples per family ===
+  [general/theory] Entangled phase of simultaneous fermion and exciton condensations realized
+  [general/theory] Superconductivity, charge density wave, and supersolidity in flat bands with tunable quantum me
+  [general/characterization] Effect of Charge-neutrality Breaking on Localized Terahertz Waves in a Plate of Layered Superco
+  [general/theory] Chiral Phonon Mediated High-Temperature Superconductivity
+  [lowd/characterization] Photo-induced superconducting diode effect via chiral cavity modes
+  [lowd/application] Pressure-induced Structural Phase Transition, Metallization, and Superconductivity in layered m
+  [lowd/theory] Chiral superconductivity from parent Chern band and its non-Abelian generalization
+  [lowd/discovery] Coulomb screening of superconductivity in magic-angle twisted bilayer graphene
+  [conv/theory] Numerical Solution of the Bardeen-Cooper-Schrieffer Equation for Unconventional Superconductors
+  [conv/application] Band engineering and study of disorder using topology in compact high kinetic inductance cavity
+  [conv/characterization] Pressure-induced color change in the lutetium dihydride LuH2
+  [conv/theory] Hot-lines topology and the fate of the spin resonance mode in three-dimensional unconventional 
+  [topo/theory] Phonon-mediated spin-polarized superconductivity in altermagnets
+  [topo/theory] Matrix product states for Hartree-Fock-Bogoliubov wave functions
+  [topo/theory] Non-Hermitian minimal Kitaev chains
+  [topo/application] Buried Dirac points in quantum spin Hall insulators: Implications for Majorana Kramers pair-bas
+  [device/application] Effect of 2$^\text{nd}$ harmonic current--phase relation on a behavior of a Josephson Traveling
+  [device/application] Fabrication and Structural Analysis of Trilayers for Tantalum Josephson Junctions with Ta$_2$O$
+  [device/application] Low-Gap Hf-HfOx-Hf Josephson Junctions for meV-Scale Particle Detection
+  [device/theory] Critical State Theory For The Magnetic Coupling Between Soft Ferromagnetic Materials And Type-I
+  [cuprate/discovery] Superconducting coherence boosted by outer-layer metallic screening in multilayered cuprates
+  [cuprate/theory] Free energy of a two-liquid system of charge carriers in strongly coupled electron and phonon f
+  [cuprate/characterization] Paramagnon dispersion and damping in doped Na$_{x}$Ca$_{2-x}$CuO$_2$Cl$_2$
+  [cuprate/discovery] The diffusion-driven orthorhombic to tetragonal transition in YBa$_2$Cu$_3$O$_7$ derived with a
+  [nickelate/abinitio] Assessing the formation of spin and charge stripes in La$_{3}$Ni$_{2}$O$_{7}$ from first-princi
+  [nickelate/discovery] Flat bands promoted by Hund's rule coupling in the candidate double-layer high-temperature supe
+  [nickelate/characterization] Nodeless superconducting gap and electron-boson coupling in (La,Pr,Sm)$_{3}$Ni$_2$O$_7$ films
+  [nickelate/theory] Characterizing the superconducting instability in a two-orbital $d$-$s$ model: insights to infi
+  [unconv_other/theory] Distinguishing $d_{xz}+i d_{yz}$ and $d_{x^2-y^2}$ pairing in $Sr_2RuO_4$ by high magnetic fiel
+  [unconv_other/characterization] $μ$SR study of unconventional pairing symmetry in the quasi-1D Na$_2$Cr$_3$As$_3$ superconducto
+  [unconv_other/characterization] Entropy mapping under uniaxial pressure utilizing the elastocaloric effect
+  [unconv_other/characterization] Quantum-Critical, Spin-Fluctuation-driven Residual Resistivity and Emergent Universal Correlati
+  [febased/characterization] Helical Rashba-exchange gauge field drives a uniaxial pair density wave in EuRbFe$_4$As$_4$
+  [febased/characterization] Doping-dependent superconducting physical quantities of K-doped BaFe$_2$As$_2$ obtained through
+  [febased/characterization] Two-step phase transitions in Fe(Se,Te)
+  [febased/theory] Competing ferromagnetic superconducting states in europium-based iron pnictides
+
+=== samples per task ===
+  [general/theory] Hydrodynamic equations for a U(N) invariant superfluid
+  [topo/theory] Topology and energy dependence of Majorana bound states in a photonic cavity
+  [general/theory] Superconducting pairing from repulsive interactions of fermions in a flat-band system
+  [nickelate/theory] Spin density wave and superconductivity in the bilayer $t$-$J$ model of $\rm{La}_{3}Ni_{2}O_{7}
+  [conv/abinitio] $d$-wave superconductivity as a model for diborides apart MgB$_2$
+  [conv/abinitio] Influence of Magnetic Order on Proximity-Induced Superconductivity in Mn Layers on Nb(110) from
+  [nickelate/abinitio] Prediction of $s^\pm$-wave superconductivity enhanced by electronic doping in trilayer nickelat
+  [febased/abinitio] Pressurized phase transition cascade in BaMn$_2$P$_2$ and BaMn$_2$As$_2$
+  [general/discovery] New Superconductors in the PtPb$_3$Bi Structure Type
+  [cuprate/discovery] Superconductivity induced by doping holes in the nodal-line semimetal NaAlGe
+  [topo/discovery] Pressure-induced superconductivity in monoclinic RhBi$_2$
+  [lowd/discovery] Theoretical determination of the effect of a screening gate on plasmon-induced superconductivit
+  [nickelate/synthesis] Possible Enhancement of Superconductivity in Ambient-Pressure La$_3$Ni$_2$O$_7$ Thin Film
+  [general/synthesis] Fulde-Ferrell-Larkin-Ovchinnikov state in a superconducting thin film attached to a ferromagnet
+  [cuprate/synthesis] Structural stability, electronic structure, and magnetism of the $d^9$ double infinite-layer La
+  [conv/synthesis] Bending-strain effects in conventional superconductors and superconducting junctions
+  [lowd/characterization] Effects of 3 MeV Proton Irradiation on Superconductivity and CDW in 2H-NbSe2 Single Crystals
+  [general/characterization] Anomalously small superconducting gap in the strong spin-orbit coupled superconductor: $ β- $Tu
+  [conv/characterization] Unconventional superconductivity and paramagnetic Meissner response triggered by nonlocal pairi
+  [lowd/characterization] Unified pressure and field response across distinct charge-order regimes in Ti-doped CsV$_3$Sb$
+  [general/application] Optimisation of TES design for the CRESST experiment
+  [device/application] Multilevel resonant tunneling in the presence of flux and charge noise
+  [device/application] Electromotive force and magnetization process of a superconducting traveling-wave flux pump
+  [device/application] High-performance gate-controlled superconducting switches: large output voltage and reproducibi
+
+=== AI samples ===
+  [surrogate] Searching for ductile superconducting Heusler X2YZ compounds
+  [surrogate] High-throughput study of kagome compounds in the AV3Sb5 family
+  [surrogate] Machine learning protocol to identify pairing symmetries via quasiparticle interference imaging
+  [surrogate] Fast and Robust Remote Two-Qubit Gates on Distributed Qubits
+  [generative] Liquid Metals Routes towards Making Superconductors
+  [generative] Diffusion Models for Conditional Generation of Hypothetical New Families of Superconductors
+  [gnn_potential] The Impact of Ionic Anharmonicity on Superconductivity in Metal-Stuffed B-C Clathrates
+  [surrogate] Phase Diagram from Nonlinear Interaction between Superconducting Order and Density: Toward Data
+  [gnn_potential] Quadrupolar phase transition in superconducting lanthanum hydride
+  [surrogate] Deciphering Majorana Zero Modes in Topological Superconductor FeTe0.55Se0.45 with Machine-Learn
+  [gnn_potential] Leveraging Machine Learning Force Fields (MLFFs) to Simulate Large Atomistic Systems for Fideli
+  [gnn_potential] Stability and distortion of fcc-LaH$_{10}$ with path-integral molecular dynamics
+  [llm] AI-Guided Computational Design of a Room-Temperature, Ambient- Pressure Superconductor Candidat
+  [gnn_potential] Efficient Modelling of Anharmonicity and Quantum Effects in PdCuH$_2$ with Machine Learning Pot
+  [surrogate] Modified Monte Carlo method with the heat bath algorithm for a model cuprate
+
+wrote /Users/minggguangchen/Desktop/2026/manuscript/superconductivity/artifacts/sc_corpus_v1.csv (10303 rows)
