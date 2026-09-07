@@ -1,8 +1,7 @@
 # Mapping Superconductivity Research for AI
 
 Corpus, labels and build pipeline for the survey *"Mapping Superconductivity Research
-for AI: A Two-Axis Survey of 10,249 Preprints and Where Machine Learning Can Actually
-Help"* (Mingguang Chen, DeepGrounding).
+for AI"* (Mingguang Chen, DeepGrounding).
 
 ## What is here
 

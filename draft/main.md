@@ -1,5 +1,5 @@
 ---
-title: "Mapping Superconductivity Research for AI: A Two-Axis Survey of 10,249 Preprints and Where Machine Learning Can Actually Help"
+title: "Mapping Superconductivity Research for AI"
 author:
   - Mingguang Chen
 date: 2026-09-07
