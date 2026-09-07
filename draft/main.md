@@ -19,8 +19,8 @@ abstract: |
   Adoption tracks validation cost rather than data volume or scientific stakes,
   concentrating in ab initio screening and neural quantum states, where a calculation
   can check a prediction, and in device metrology, where instruments generate their
-  own labels. And synthesis, which Section 3 finds to be the rate-limiting step
-  across material families, contains a single AI-tagged paper. The gap between
+  own labels. And synthesis, the rate-limiting step across material families,
+  contains a single AI-tagged paper. The gap between
   prediction and measurement is concrete: recent screens advertise candidates above
   200 K at 200 GPa, while the one closed prediction-synthesis-measurement loop in the
   recent literature delivered intermetallics between 2.5 and 6.5 K with no applied
