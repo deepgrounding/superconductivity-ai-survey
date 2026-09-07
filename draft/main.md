@@ -149,9 +149,11 @@ own work: `surrogate` (regression and classification models, symbolic regression
 The axes are the contribution of this survey, and Sections 3 through 5 are organised
 along them. Section 6 evaluates each cell for what AI can currently do in it.
 
-![Figure 1: The taxonomy. Every corpus record carries one label from Axis 1 and one
-from Axis 2; the AI lens applies only to records that use a machine-learning method in
-their own work.](figures/fig1_taxonomy.png)
+![Figure 1: The taxonomy, with its occupancy. Every corpus record carries one label
+from Axis 1 and one from Axis 2; the AI lens applies only to records that use a
+machine-learning method in their own work. Counts are seed-corpus papers per label on
+the same basis as Table 1, so the two agree; the AI-lens counts are over the whole
+working corpus.](figures/fig1_taxonomy.png)
 
 ## Positioning relative to existing surveys
 
@@ -263,7 +265,10 @@ by construction and is excluded from all trend statistics.
 | **Total** | **5146** | **530** | **396** | **667** | **3310** | **10049** | **200** |
 
 ![Figure 2: Semantic map of the seed corpus (TF-IDF, truncated SVD, t-SNE), coloured
-by material family. Per-family counts match Table 1.](figures/fig2_semantic_map.png)
+by material family. Each family is labelled at its density peak, with a leader line
+where the label had to be moved to avoid a collision; nine categorical hues cannot be
+told apart reliably, so the labels rather than the colours carry identity. Per-family
+counts match Table 1.](figures/fig2_semantic_map.png)
 
 **Limitations.** The corpus is arXiv-only, so it inherits arXiv's coverage: strong in
 theory and condensed-matter experiment, weaker in applied-superconductivity
@@ -280,14 +285,20 @@ This section walks Axis 1. Each family is treated for what it is currently doing
 is open, and -- because that is this survey's purpose -- what kind of data it
 generates. Counts are seed-corpus counts from Table 1 and Figure 2.
 
-![Figure 3: Quarterly submissions by material family (a) and mode of inquiry (b),
-seed records only. Both partial endpoint quarters are omitted. The cuprate spike in
-2023Q3 is the LK-99 replication burst discussed in Section 3.](figures/fig3_growth_timeline.png)
+![Figure 3: Quarterly submissions, seed records only, drawn as small multiples rather
+than as one nine-line overlay. Panels are ordered by growth, measured as the change
+from the first four to the last four complete quarters, and that figure is printed on
+each panel. The nine family panels (a) share one vertical scale so magnitudes stay
+comparable; the five mode panels (b) use independent scales, each with its maximum
+printed, because a shared scale renders the three smaller modes as flat lines. Both
+partial endpoint quarters are omitted. The marked cuprate spike in 2023Q3 is the LK-99
+replication burst discussed in the text.](figures/fig3_growth_timeline.png)
 
 ## Nickelates: the fast-moving family
 
-Nickelates are the smallest of the named families in this corpus (628 seed records)
-and the fastest-growing (Figure 3a). The line begins outside the window with
+Nickelates are among the smaller named families in this corpus (628 seed records) and
+by a wide margin the fastest-growing: quarterly output rose 203% between the first and
+last four quarters of the window, against +55% for the next fastest (Figure 3a). The line begins outside the window with
 superconductivity in an infinite-layer nickelate thin film [@li2019superconductivity],
 and turns sharply with the report of superconductivity near 80 K in La$_3$Ni$_2$O$_7$
 above 14 GPa [@sun2023superconductivity].
@@ -383,8 +394,9 @@ high-visibility claim distorts the literature's shape.
 
 ## Iron-based superconductors: consolidation
 
-At 489 seed records, iron-based systems are the smallest named family and the most
-stable in Figure 3a. Fifteen years after the founding report [@kamihara2008iron], the
+At 489 seed records, iron-based systems are the smallest named family and show the
+steepest decline in quarterly output over the window, at -10%; topological (-8%) and
+other unconventional systems (-5%) are the only others that fall at all (Figure 3a). Fifteen years after the founding report [@kamihara2008iron], the
 work is consolidation: orbital-selective pairing assisted by Hund's coupling in
 Ba$_{1-x}$K$_x$Fe$_2$As$_2$ [@corbae2025hunds], sign-reversal gap structure in
 FeTe$_{0.55}$Se$_{0.45}$ [@hou2025distinct], time-reversal-symmetry-breaking states
