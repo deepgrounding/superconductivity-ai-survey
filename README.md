@@ -73,3 +73,22 @@ python scripts/build_anon.py                                       # anonymous c
 ```
 
 See `CLAUDE.md` for pipeline ordering constraints and known gotchas.
+
+## Before submitting
+
+Two things must be done by the author, and neither can be done from the build:
+
+1. **Make this repository public.** The manuscript's Data availability section links
+   to it, and that link currently returns 404 for anyone not signed in:
+   ```bash
+   gh repo edit deepgrounding/superconductivity-ai-survey --visibility public
+   curl -s -o /dev/null -w '%{http_code}\n' https://github.com/deepgrounding/superconductivity-ai-survey
+   ```
+2. **Spot-check a slice of the labels.** The Method section discloses a single
+   annotator and reports inter-pass agreement, not accuracy. Open
+   `artifacts/label_truth.csv`, read some abstracts, and confirm you would have
+   labelled them the same way. If you disagree materially, re-score with
+   `draft/scripts/llm_label.py --benchmark` and update the reported figures.
+
+Citation provenance is recorded in `artifacts/CITATION_AUDIT.md`; re-run the audit any
+time with `python draft/scripts/audit_citations.py`.

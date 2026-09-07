@@ -42,7 +42,17 @@ tex = tex.replace(r"\XSUBSECTIONX{", r"\subsection{")
 
 # ---------- 3. author / date ----------
 tex = re.sub(r"\\author\{[^{}]*\}", lambda m: AUTHOR_BLOCK, tex, count=1)
-tex = re.sub(r"\\date\{[^}]*\}", r"\\date{July 2026}", tex)
+# Date is DERIVED from main.md's YAML, never hardcoded: a hardcoded date in this
+# template silently disagreed with the manuscript (it still said "July 2026" from the
+# project this script was copied from) while the pandoc PDF showed the right one.
+_md = (DRAFT / "main.md").read_text()
+_m = re.search(r"^date:\s*(\S+)", _md, re.M)
+if not _m:
+    raise SystemExit("no `date:` in main.md YAML -- refusing to guess")
+_iso = _m.group(1).strip().strip('"\'')
+_dt = __import__("datetime").date.fromisoformat(_iso)
+DATE = _dt.strftime("%d %B %Y").lstrip("0")
+tex = re.sub(r"\\date\{[^}]*\}", lambda m: r"\date{" + DATE + "}", tex)
 
 # ---------- 4. Abstract section -> abstract environment ----------
 m = re.search(

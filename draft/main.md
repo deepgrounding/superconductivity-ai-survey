@@ -336,7 +336,7 @@ discussed below is the reason to say so explicitly rather than to quote the numb
 alone.
 
 This family also carries the field's heaviest evidential burden. Two prominent claims
-were retracted [@snider2020retracted; @dasenbrock2023retracted], The Lu-N-H episode is
+were retracted [@snider2020retracted; @dasenbrock2023retracted]. The Lu-N-H episode is
 still unsettled rather than closed: one group reported resistance measurements in good
 agreement with the original transition temperature and its pressure dependence
 [@salke2023evidence], while several others reported no superconductivity in samples
@@ -678,8 +678,10 @@ discovers superconductors" suggests.
 ## Generative and language-model approaches
 
 Generative models entered the field along the path they took in materials science
-generally. An inverse-design workflow combining pre-trained models, diffusion and
-first-principles calculation reported 74 dynamically stable materials with
+generally, where diffusion models over atom types, coordinates and the periodic
+lattice became the standard instrument for proposing crystal structures under property
+constraints [@zeni2025mattergen]. An inverse-design workflow combining pre-trained
+models, diffusion and first-principles calculation reported 74 dynamically stable materials with
 model-predicted $T_c$ at or above 15 K, singling out B$_4$CN$_3$ at 24.08 K under 5
 GPa and B$_5$CN$_2$ at 15.93 K at ambient pressure [@han2024invdesflow]. The same
 engine later proposed cubic Li$_2$AuH$_6$, with a calculated ambient-pressure $T_c$
