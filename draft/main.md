@@ -403,9 +403,12 @@ bilayer graphene with strong spin-orbit coupling [@holleis2023nematicity], twist
 trilayers, and rhombohedral multilayers, with heavy-fermion-style modelling of the
 correlated regime [@lau2023topological]. The kagome line runs through AV$_3$Sb$_5$
 [@jiang2021kagome], where charge order and its competition with superconductivity
-dominate [@kang2022charge; @hu2022coexistence], time-reversal-symmetry breaking is
-contested [@saykin2022high], and unusual flux quantization has been reported in ring
-devices [@ge2022charge]. Titanium-based analogues extend the family
+dominate [@kang2022charge; @hu2022coexistence], and unusual flux quantization in units
+of $h/4e$ and $h/6e$ has been reported in ring devices [@ge2022charge]. Whether the
+charge-ordered state breaks time-reversal symmetry remains disputed: high-resolution
+Sagnac Kerr measurements on CsV$_3$Sb$_5$ found no signal to a 30 nanoradian noise
+floor, leading those authors to conclude that time-reversal-symmetry breaking in the
+charge-ordered state is highly unlikely [@saykin2022high]. Titanium-based analogues extend the family
 [@yang2022superconductivitya].
 
 For this survey the important property is that these systems are device-like: each
@@ -741,14 +744,16 @@ against a ground truth the instrument already provides, and they work.
 Three strands of criticism bear directly on how the results above should be read, and
 a survey that omitted them would misrepresent the field.
 
-The first is about what a computational "discovery" is worth. A perspective on the
-GNoME result argued that scaled-up stability prediction had not been shown to yield
-the compounds an experimentalist would call new, and questioned how many of the
-predicted structures are meaningfully distinct [@cheetham2024artificial]. The second
-concerns autonomous synthesis: an analysis of the A-Lab result
-[@szymanski2023autonomous] disputed the claim of autonomously discovered novel
-materials, arguing that the automated phase identification did not support the
-conclusions drawn from it [@leeman2024challenges]. Neither critique says the
+The first is about what a computational "discovery" is worth. Examining the claims of
+the GNoME work, Cheetham and Seshadri report "scant evidence for compounds that
+fulfill the trifecta of novelty, credibility, and utility", and conclude that while
+the methods hold promise there is "a great need to incorporate domain expertise in
+materials synthesis and crystallography" [@cheetham2024artificial]. The second
+concerns autonomous synthesis. Taking the A-Lab report of 43 autonomously discovered
+novel materials [@szymanski2023autonomous] as their example, Leeman and co-workers
+examined all 43 synthetic products, identified four recurring shortfalls in the
+analysis, and concluded that no new materials had been discovered in that work
+[@leeman2024challenges]. Neither critique says the
 programme is worthless. Both say the validation step is where the difficulty lives,
 which is the same thing this survey's corpus says about superconductivity
 specifically.
@@ -938,9 +943,9 @@ about what a model is connected to.
 
 Three developments now bear on that boundary simultaneously. Autonomous-laboratory
 software has matured from bespoke scripts toward operating systems with typed, stateful
-device abstractions [@gao2025unilabos], and the field has begun describing its own next
-phase as integrating synthesis, characterization and theory under shared, community
-standards rather than as isolated robotic cells [@lee2026toward]. Multi-agent
+device abstractions [@gao2025unilabos], and the field now frames its next phase around
+six properties -- interoperable, collaborative, generalizable, orchestrated, safe and
+creative -- rather than around isolated robotic cells [@lee2026toward]. Multi-agent
 orchestration of laboratory resources is being studied as a management problem in its
 own right [@kusne2026managing]. And hardware-standardisation efforts aim to collapse
 instrument integration from weeks to hours [@anthropic2026mhs].

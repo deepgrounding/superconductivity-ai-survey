@@ -1,0 +1,51 @@
+adiga2025accelerating	YEAR vs arXiv v1	2026	2025-05-17
+anthonypetersen2022stress	YEAR vs arXiv v1	2024	2022-08-04
+anthropic2026mhs	NO eprint OR doi (unverifiable)	misc	Anthropic news post
+bednorz1986possible	TITLE	Possible high {$T_c$} superconductivity in the {Ba-La-Cu-O} system	Possible highT c superconductivity in the Ba?La?Cu?O system
+bednorz1986possible	AUTHOR #2	K. A. M\"{u}ller	K. A. M�ller
+bordin2023crossed	YEAR vs arXiv v1	2024	2023-06-13
+cao2018unconventional	TITLE	Unconventional superconductivity in magic-angle graphene superlattices	Magic-angle graphene superlattices: a new platform for unconventional super
+carleo2017solving	YEAR vs arXiv v1	2017	2016-06-07
+corbae2025hunds	YEAR vs arXiv v1	2026	2025-10-07
+dangic2023ab	FIRST AUTHOR	{\DJ}or{\dj}e Dangi\'{c}	Đorđe Dangić
+dangic2023ab	AUTHOR #1	{\DJ}or{\dj}e Dangi\'{c}	Đorđe Dangić
+dasenbrock2023retracted	TITLE	Evidence of near-ambient superconductivity in a {N}-doped lutetium hydride	RETRACTED ARTICLE: Evidence of near-ambient superconductivity in a N-doped 
+drozdov2015conventional	TITLE	Conventional superconductivity at 203 kelvin at high pressures in the sulfu	Conventional superconductivity at 203 K at high pressures
+drozdov2019superconductivity	YEAR vs arXiv v1	2019	2018-12-04
+dvir2022realization	YEAR vs arXiv v1	2023	2022-06-16
+fang2023assessing	AUTHOR #2	{\DJ}or{\dj}e Dangi\'{c}	Ðorđe Dangić
+fang2023assessing	YEAR vs arXiv v1	2024	2023-07-20
+ge2022charge	YEAR vs arXiv v1	2024	2022-01-25
+gu2023effective	YEAR vs arXiv v1	2025	2023-06-12
+han2024invdesflow	YEAR vs arXiv v1	2025	2024-09-12
+holleis2023nematicity	YEAR vs arXiv v1	2025	2023-03-01
+jiang2021kagome	YEAR vs arXiv v1	2022	2021-09-22
+kamihara2008iron	TITLE	Iron-Based Layered Superconductor {La[O$_{1-x}$F$_x$]FeAs	Iron-Based Layered Superconductor La[O
+                    <sub>1-</sub>
+  
+kochan2023phenomenological	AUTHOR #4	Igor \v{Z}uti\'{c}	Igor Žutić
+lau2023topological	YEAR vs arXiv v1	2025	2023-03-05
+lotfizadeh2023superconducting	YEAR vs arXiv v1	2024	2023-03-03
+mazin2022notes	YEAR vs arXiv v1	2025	2022-03-09
+peng2024flat	YEAR vs arXiv v1	2025	2024-06-25
+ran2019nearly	TITLE	Nearly ferromagnetic spin-triplet superconductivity	Spontaneously polarized half-gapped superconductivity
+ran2019nearly	YEAR vs arXiv v1	2019	2018-11-28
+sakakibara2023possible	YEAR vs arXiv v1	2024	2023-06-09
+sanna2023prediction	YEAR vs arXiv v1	2024	2023-10-10
+saykin2022high	YEAR vs arXiv v1	2023	2022-09-21
+snider2020retracted	TITLE	Room-temperature superconductivity in a carbonaceous sulfur hydride	RETRACTED ARTICLE: Room-temperature superconductivity in a carbonaceous sul
+somayazulu2019evidence	YEAR vs arXiv v1	2019	2018-08-23
+stanev2018machine	YEAR vs arXiv v1	2018	2017-09-08
+sun2023superconductivity	TITLE	Signatures of superconductivity near 80 {K} in a nickelate under high press	Superconductivity near 80 Kelvin in single crystals of La3Ni2O7 under press
+sun2023superconductivity	AUTHOR COUNT	14	13
+tran2025superconductor	YEAR vs arXiv v1	2024	2025-10-29
+tsintzis2023roadmap	YEAR vs arXiv v1	2024	2023-06-28
+wang2023pressurea	YEAR vs arXiv v1	2024	2023-09-29
+wu2023enhanced	YEAR vs arXiv v1	2024	2023-05-30
+xu2023altermagnetic	YEAR vs arXiv v1	2025	2023-09-26
+xu2023coexistence	YEAR vs arXiv v1	2024	2023-03-15
+yang2022superconductivitya	YEAR vs arXiv v1	2024	2022-11-22
+yu2023nontrivial	YEAR vs arXiv v1	2024	2023-05-03
+zhang2023high	YEAR vs arXiv v1	2024	2023-07-27
+zhou2024ambient	YEAR vs arXiv v1	2025	2024-12-21
+zhou2025superconductivity	YEAR vs arXiv v1	2026	2025-12-04

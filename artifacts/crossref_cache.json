@@ -1,0 +1,346 @@
+{
+ "10.1007/s11433-025-2773-3": {
+  "journal": "Science China Physics, Mechanics &amp; Astronomy",
+  "n_authors": 20,
+  "pages": "217412",
+  "title": "Flat bands and distinct density wave orders in correlated Kagome superconductor CsCr3Sb5",
+  "volume": "69",
+  "year": "2025"
+ },
+ "10.1007/s43673-025-00158-6": {
+  "journal": "AAPPS Bulletin",
+  "n_authors": 1,
+  "pages": "18",
+  "title": "Notes on altermagnetism and superconductivity",
+  "volume": "35",
+  "year": "2025"
+ },
+ "10.1016/j.commatsci.2025.114453": {
+  "journal": "Computational Materials Science",
+  "n_authors": 2,
+  "pages": "114453",
+  "title": "Accelerating the search for superconductors using machine learning",
+  "volume": "263",
+  "year": "2026"
+ },
+ "10.1021/acs.chemmater.4c01757": {
+  "journal": "Chemistry of Materials",
+  "n_authors": 5,
+  "pages": "10939-10966",
+  "title": "Superconductor Discovery in the Emerging Paradigm of Materials Informatics",
+  "volume": "36",
+  "year": "2024"
+ },
+ "10.1038/s41467-024-50173-8": {
+  "journal": "Nature Communications",
+  "n_authors": 46,
+  "pages": "6444",
+  "title": "A stress-induced source of phonon bursts and quasiparticle poisoning",
+  "volume": "15",
+  "year": "2024"
+ },
+ "10.1038/s41467-024-53870-6": {
+  "journal": "Nature Communications",
+  "n_authors": 21,
+  "pages": "9626",
+  "title": "Superconductivity and nematic order in a new titanium-based kagome metal CsTi3Bi5 without charge density wave order",
+  "volume": "15",
+  "year": "2024"
+ },
+ "10.1038/s41467-025-58446-6": {
+  "journal": "Nature Communications",
+  "n_authors": 8,
+  "pages": "3114",
+  "title": "Altermagnetic ground state in distorted Kagome metal CsCr3Sb5",
+  "volume": "16",
+  "year": "2025"
+ },
+ "10.1038/s41524-024-01214-9": {
+  "journal": "npj Computational Materials",
+  "n_authors": 6,
+  "pages": "44",
+  "title": "Prediction of ambient pressure conventional superconductivity above 80 K in hydride compounds",
+  "volume": "10",
+  "year": "2024"
+ },
+ "10.1038/s41563-022-01375-2": {
+  "journal": "Nature Materials",
+  "n_authors": 16,
+  "pages": "",
+  "title": "Charge order landscape and competition with superconductivity in kagome metals",
+  "volume": "",
+  "year": "2022"
+ },
+ "10.1038/s41567-024-02486-0": {
+  "journal": "Nature Physics",
+  "n_authors": 6,
+  "pages": "1262-1268",
+  "title": "Non-trivial quantum geometry and the strength of electron\u2013phonon coupling",
+  "volume": "20",
+  "year": "2024"
+ },
+ "10.1038/s41567-024-02515-y": {
+  "journal": "Nature Physics",
+  "n_authors": 16,
+  "pages": "1269-1273",
+  "title": "High-temperature superconductivity with zero resistance and strange-metal behaviour in La3Ni2O7\u2212\u03b4",
+  "volume": "20",
+  "year": "2024"
+ },
+ "10.1038/s41567-024-02776-7": {
+  "journal": "Nature Physics",
+  "n_authors": 11,
+  "pages": "444-450",
+  "title": "Nematicity and orbital depairing in superconducting Bernal bilayer graphene",
+  "volume": "21",
+  "year": "2025"
+ },
+ "10.1038/s41586-022-05585-1": {
+  "journal": "Nature",
+  "n_authors": 17,
+  "pages": "445-450",
+  "title": "Realization of a minimal Kitaev chain in coupled quantum dots",
+  "volume": "614",
+  "year": "2023"
+ },
+ "10.1038/s41586-023-06408-7": {
+  "journal": "Nature",
+  "n_authors": 14,
+  "pages": "493-498",
+  "title": "Signatures of superconductivity near 80\u2009K in a nickelate under high pressure",
+  "volume": "621",
+  "year": "2023"
+ },
+ "10.1038/s41586-025-08755-z": {
+  "journal": "Nature",
+  "n_authors": 11,
+  "pages": "641-646",
+  "title": "Ambient-pressure superconductivity onset above 40\u2009K in (La,Pr)3Ni2O7 films",
+  "volume": "640",
+  "year": "2025"
+ },
+ "10.1038/s41586-025-09954-4": {
+  "journal": "Nature",
+  "n_authors": 27,
+  "pages": "871-878",
+  "title": "Bulk superconductivity up to 96 K in pressurized nickelate single crystals",
+  "volume": "649",
+  "year": "2025"
+ },
+ "10.1038/s42005-024-01618-5": {
+  "journal": "Communications Physics",
+  "n_authors": 8,
+  "pages": "120",
+  "title": "Superconducting diode effect sign change in epitaxial Al-InAs Josephson junctions",
+  "volume": "7",
+  "year": "2024"
+ },
+ "10.1038/s43246-024-00500-9": {
+  "journal": "Communications Materials",
+  "n_authors": 3,
+  "pages": "61",
+  "title": "Assessing the feasibility of near-ambient conditions superconductivity in the Lu-N-H system",
+  "volume": "5",
+  "year": "2024"
+ },
+ "10.1063/5.0159299": {
+  "journal": "Applied Physics Reviews",
+  "n_authors": 7,
+  "pages": "041302",
+  "title": "Recent progress in the JARVIS infrastructure for next-generation data-driven materials design",
+  "volume": "10",
+  "year": "2023"
+ },
+ "10.1063/5.0172755": {
+  "journal": "APL Materials",
+  "n_authors": 7,
+  "pages": "101128",
+  "title": "Single crystal synthesis, structure, and magnetism of Pb10\u2212xCux(PO4)6O",
+  "volume": "11",
+  "year": "2023"
+ },
+ "10.1073/pnas.2403067121": {
+  "journal": "Proceedings of the National Academy of Sciences",
+  "n_authors": 20,
+  "pages": "e2403067121",
+  "title": "Enhanced triplet superconductivity in next-generation ultraclean UTe\n                    2",
+  "volume": "121",
+  "year": "2024"
+ },
+ "10.1088/0256-307X/40/12/127401": {
+  "journal": "Chinese Physics Letters",
+  "n_authors": 3,
+  "pages": "127401",
+  "title": "Effective Bi-Layer Model Hamiltonian and Density-Matrix Renormalization Group Study for the High-T\n                    c\n                    Superconductivity in La\n                    3\n                    Ni\n                    2\n                    O\n                    7\n                    under High Pressure",
+  "volume": "40",
+  "year": "2023"
+ },
+ "10.1088/0256-307X/42/4/047301": {
+  "journal": "Chinese Physics Letters",
+  "n_authors": 6,
+  "pages": "047301",
+  "title": "InvDesFlow: An AI-Driven Materials Inverse Design Workflow to Explore Possible High-Temperature Superconductors",
+  "volume": "42",
+  "year": "2025"
+ },
+ "10.1093/nsr/nwac199": {
+  "journal": "National Science Review",
+  "n_authors": 8,
+  "pages": "nwac199",
+  "title": "Kagome superconductors AV3Sb5 (A = K, Rb, Cs)",
+  "volume": "10",
+  "year": "2022"
+ },
+ "10.1093/nsr/nwaf373": {
+  "journal": "National Science Review",
+  "n_authors": 7,
+  "pages": "nwaf373",
+  "title": "Recent progress in nickelate superconductors",
+  "volume": "12",
+  "year": "2025"
+ },
+ "10.1093/nsr/nwag151": {
+  "journal": "National Science Review",
+  "n_authors": 11,
+  "pages": "nwag151",
+  "title": "Superconductivity onset above 60\u00a0K in ambient-pressure nickelate films",
+  "volume": "13",
+  "year": "2026"
+ },
+ "10.1103/PRXQuantum.5.010323": {
+  "journal": "PRX Quantum",
+  "n_authors": 5,
+  "pages": "010323",
+  "title": "Majorana Qubits and Non-Abelian Physics in Quantum Dot\u2013Based Minimal Kitaev Chains",
+  "volume": "5",
+  "year": "2024"
+ },
+ "10.1103/PhysRevB.106.L241106": {
+  "journal": "Physical Review B",
+  "n_authors": 8,
+  "pages": "L241106",
+  "title": "Coexistence of trihexagonal and star-of-David pattern in the charge density wave of the kagome superconductor \nAV3Sb5",
+  "volume": "106",
+  "year": "2022"
+ },
+ "10.1103/PhysRevB.107.094508": {
+  "journal": "Physical Review B",
+  "n_authors": 6,
+  "pages": "094508",
+  "title": "Disordered hyperuniform vortex matter with rhombic distortions in FeSe at low fields",
+  "volume": "107",
+  "year": "2023"
+ },
+ "10.1103/PhysRevB.108.064517": {
+  "journal": "Physical Review B",
+  "n_authors": 5,
+  "pages": "064517",
+  "title": "Ab initio\n study of the structural, vibrational, and optical properties of potential parent structures of nitrogen-doped lutetium hydride",
+  "volume": "108",
+  "year": "2023"
+ },
+ "10.1103/PhysRevB.111.174506": {
+  "journal": "Physical Review B",
+  "n_authors": 5,
+  "pages": "174506",
+  "title": "Effective model and pairing tendency in the bilayer Ni-based superconductor\n                    \n                      \n                        \n                          La\n                          3\n                        \n                        \n                          Ni\n                          2\n                        \n                        \n                          O\n                          7\n                        \n                      \n                    ",
+  "volume": "111",
+  "year": "2025"
+ },
+ "10.1103/PhysRevB.111.L140501": {
+  "journal": "Physical Review B",
+  "n_authors": 6,
+  "pages": "L140501",
+  "title": "High-temperature superconductivity in\n                    \n                      \n                        \n                          Li\n                          2\n                        \n                        \n                          AuH\n                          6\n                        \n                      \n                    \n                    mediated by strong electron-phonon coupling under ambient pressure",
+  "volume": "111",
+  "year": "2025"
+ },
+ "10.1103/PhysRevLett.131.016901": {
+  "journal": "Physical Review Letters",
+  "n_authors": 11,
+  "pages": "016901",
+  "title": "High Resolution Polar Kerr Effect Studies of \nCsV3Sb5\n: Tests for Time-Reversal Symmetry Breaking below the Charge-Order Transition",
+  "volume": "131",
+  "year": "2023"
+ },
+ "10.1103/PhysRevLett.131.126001": {
+  "journal": "Physical Review Letters",
+  "n_authors": 5,
+  "pages": "126001",
+  "title": "Bilayer Two-Orbital Model of\n                    \n                      L\n                      \n                        a\n                        3\n                      \n                      N\n                      \n                        i\n                        2\n                      \n                      \n                        O\n                        7\n                      \n                    \n                    under Pressure",
+  "volume": "131",
+  "year": "2023"
+ },
+ "10.1103/PhysRevLett.132.056602": {
+  "journal": "Physical Review Letters",
+  "n_authors": 10,
+  "pages": "056602",
+  "title": "Crossed Andreev Reflection and Elastic Cotunneling in Three Quantum Dots Coupled by Superconductors",
+  "volume": "132",
+  "year": "2024"
+ },
+ "10.1103/PhysRevLett.132.106002": {
+  "journal": "Physical Review Letters",
+  "n_authors": 4,
+  "pages": "106002",
+  "title": "Possible High\n                    \n                      \n                        T\n                        c\n                      \n                    \n                    Superconductivity in\n                    \n                      \n                        \n                          \n                            \n                              La\n                            \n                            \n                              3\n                            \n                          \n                        \n                        \n                          \n                            Ni\n                          \n                          \n                            2\n                          \n                        \n                        \n                          \n                            O\n                          \n                          \n                            7\n                          \n                        \n                      \n                    \n                    under High Pressure through Manifestation of a Nearly Half-Filled Bilayer Hubbard Model",
+  "volume": "132",
+  "year": "2024"
+ },
+ "10.1103/PhysRevX.13.041019": {
+  "journal": "Physical Review X",
+  "n_authors": 10,
+  "pages": "041019",
+  "title": "Fate of Time-Reversal Symmetry Breaking in\n                    \n                      \n                        \n                          \n                            UTe\n                          \n                          \n                            2\n                          \n                        \n                      \n                    ",
+  "volume": "13",
+  "year": "2023"
+ },
+ "10.1103/PhysRevX.14.011040": {
+  "journal": "Physical Review X",
+  "n_authors": 19,
+  "pages": "011040",
+  "title": "Pressure-Induced Superconductivity In Polycrystalline\n                    \n                      \n                        \n                          \n                            La\n                          \n                          \n                            3\n                          \n                        \n                      \n                      \n                        \n                          \n                            Ni\n                          \n                          \n                            2\n                          \n                        \n                      \n                      \n                        \n                          \n                            O\n                          \n                          \n                            7\n                            \u2212\n                            \u03b4\n                          \n                        \n                      \n                    ",
+  "volume": "14",
+  "year": "2024"
+ },
+ "10.1103/PhysRevX.14.021025": {
+  "journal": "Physical Review X",
+  "n_authors": 9,
+  "pages": "021025",
+  "title": "Charge-\n                    \n                      \n                        4\n                        e\n                      \n                    \n                    and Charge-\n                    \n                      \n                        6\n                        e\n                      \n                    \n                    Flux Quantization and Higher Charge Superconductivity in Kagome Superconductor Ring Devices",
+  "volume": "14",
+  "year": "2024"
+ },
+ "10.1103/PhysRevX.15.021028": {
+  "journal": "Physical Review X",
+  "n_authors": 2,
+  "pages": "021028",
+  "title": "Topological Mixed Valence Model for Twisted Bilayer Graphene",
+  "volume": "15",
+  "year": "2025"
+ },
+ "10.1103/yry8-qdm6": {
+  "journal": "Physical Review B",
+  "n_authors": 13,
+  "pages": "224517",
+  "title": "Hund's coupling governed orbital-selective superconductivity in\n                    \n                      \n                        \n                          Ba\n                          \n                            1\n                            \u2212\n                            x\n                          \n                        \n                        \n                          K\n                          x\n                        \n                        \n                          Fe\n                          2\n                        \n                        \n                          As\n                          2\n                        \n                      \n                    ",
+  "volume": "113",
+  "year": "2026"
+ },
+ "10.1126/science.abp9979": {
+  "journal": "Science",
+  "n_authors": 9,
+  "pages": "1244-1247",
+  "title": "Superconducting vortices carrying a temperature-dependent fraction of the flux quantum",
+  "volume": "380",
+  "year": "2023"
+ },
+ "10.1126/science.adh7691": {
+  "journal": "Science",
+  "n_authors": 6,
+  "pages": "eadh7691",
+  "title": "Coexistence of superconductivity with partially filled stripes in the Hubbard model",
+  "volume": "384",
+  "year": "2024"
+ }
+}

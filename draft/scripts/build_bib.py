@@ -14,16 +14,57 @@ journal_ref/doi fields as fallback. No network access.
 
 Usage: python draft/scripts/build_bib.py [--all]
 """
-import argparse, csv, re, time, unicodedata
+import argparse, csv, json, re, sys, time, unicodedata, urllib.parse, urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 CORPUS = ROOT / "artifacts" / "sc_corpus_v1.csv"
 KEYS = ROOT / "artifacts" / "bibkeys.csv"
 MAIN = ROOT / "draft" / "main.md"
+XREF = ROOT / "artifacts" / "crossref_cache.json"
 OUT = ROOT / "draft" / "references.bib"
 STOP = {"a", "an", "the", "on", "of", "for", "and", "to", "in", "towards", "toward",
         "with", "via", "from", "what", "why", "how", "do", "does", "is", "are", "at", "by"}
+
+def load_xref():
+    return json.loads(XREF.read_text()) if XREF.exists() else {}
+
+def crossref(doi, cache):
+    """Authoritative bibliographic data for the PUBLISHED version.
+
+    Why this exists: OpenAlex resolves an arXiv-DOI query to the *preprint*
+    record, whose DOI is 10.48550/arXiv.<id>. Emitting that DOI next to a
+    journal name sends the reader to the preprint while claiming the article --
+    and arXiv's own `journal_ref` is free text ("Comput. Mater. Sci., 263,
+    114453 (2026)"), which is not a journal name and must not be written into
+    a `journal` field. So: prefer the author-supplied publisher DOI carried in
+    the arXiv metadata, and resolve it here for journal / volume / pages / year.
+    """
+    if not doi or doi.lower().startswith("10.48550"):
+        return None
+    if doi in cache:
+        return cache[doi]
+    url = "https://api.crossref.org/works/" + urllib.parse.quote(doi)
+    rec = None
+    for attempt in range(3):
+        try:
+            d = json.load(urllib.request.urlopen(url, timeout=60))["message"]
+            rec = {
+                "journal": (d.get("container-title") or [""])[0],
+                "volume": d.get("volume") or "",
+                "pages": (d.get("page") or d.get("article-number") or ""),
+                "year": str(((d.get("published", {}).get("date-parts") or [[""]])[0] or [""])[0] or ""),
+                "title": re.sub(r"<[^>]+>", "", (d.get("title") or [""])[0]),
+                "n_authors": len(d.get("author", [])),
+            }
+            break
+        except Exception as e:
+            if attempt == 2:
+                print(f"  crossref miss {doi}: {e}", file=sys.stderr)
+            else:
+                time.sleep(2)
+    cache[doi] = rec
+    return rec
 
 def slugify_key(first_author, year, title):
     last = first_author.split()[-1] if first_author.strip() else "anon"
@@ -69,23 +110,41 @@ def protect_title(t):
     return re.sub(r"\b([A-Za-z]*[A-Z][A-Za-z]*[A-Z][A-Za-z]*|[A-Z]{2,}|[A-Za-z]+\d+[A-Za-z\d]*)\b",
                   r"{\1}", bib_escape(t))
 
-def entry(row, key):
+def entry(row, key, cache):
     aid = row["arxiv_id"].strip()
     authors = row.get("authors") or row.get("oa_authors") or ""
-    venue = row.get("venue") or ""
-    doi = row.get("oa_doi") or row.get("doi") or ""
-    jref = row.get("journal_ref") or ""
-    year = row["year"]
-    kind = "article" if (venue or jref) else "misc"
+    # publisher DOI supplied by the authors in the arXiv metadata, else whatever
+    # OpenAlex had -- but never an arXiv DataCite DOI, which points at the preprint
+    doi = (row.get("doi") or "").strip()
+    if not doi:
+        oa = (row.get("oa_doi") or "").strip()
+        doi = "" if oa.lower().startswith("10.48550") else oa
+    xr = crossref(doi, cache)
+    year = (xr or {}).get("year") or row["year"]
+    journal = (xr or {}).get("journal") or row.get("venue") or ""
+    volume = (xr or {}).get("volume") or ""
+    pages = (xr or {}).get("pages") or ""
+    jref = (row.get("journal_ref") or "").strip()
+    kind = "article" if journal else "misc"
+
     lines = [f"@{kind}{{{key},", f"  title = {{{protect_title(row['title'])}}},"]
-    if authors: lines.append(f"  author = {{{bib_escape(authors)}}},")
+    if authors:
+        lines.append(f"  author = {{{bib_escape(authors)}}},")
     lines.append(f"  year = {{{year}}},")
-    if venue: lines.append(f"  journal = {{{bib_escape(venue)}}},")
-    elif jref: lines.append(f"  journal = {{{bib_escape(jref)}}},")
-    if doi and kind == "article": lines.append(f"  doi = {{{doi}}},")
+    if journal:
+        lines.append(f"  journal = {{{bib_escape(journal)}}},")
+        if volume: lines.append(f"  volume = {{{bib_escape(volume)}}},")
+        if pages: lines.append(f"  pages = {{{bib_escape(pages.replace('-', '--', 1))}}},")
+        if doi: lines.append(f"  doi = {{{doi}}},")
     lines += [f"  eprint = {{{aid}}},", "  archivePrefix = {arXiv},",
-              f"  url = {{https://arxiv.org/abs/{aid}}},",
-              f"  note = {{}},  % family: {row.get('family','')} task: {row.get('task','')} src: {row.get('source','')}", "}"]
+              f"  url = {{https://arxiv.org/abs/{aid}}},"]
+    # a journal_ref we could not resolve is recorded verbatim as a note, never as a
+    # `journal` value -- it is a citation string, not a journal name
+    if jref and not journal:
+        lines.append(f"  note = {{Published as: {bib_escape(jref)}}},")
+    else:
+        lines.append(f"  note = {{}},  % family: {row.get('family','')} task: {row.get('task','')} src: {row.get('source','')}")
+    lines.append("}")
     return "\n".join(lines)
 
 def main():
@@ -103,9 +162,11 @@ def main():
         w = csv.writer(f); w.writerow(["arxiv_id", "key"]); w.writerows((r["arxiv_id"], k) for k, r in keyed)
     cited = set(re.findall(r"@([A-Za-z]+[0-9]{4}[A-Za-z0-9]*)", MAIN.read_text())) if MAIN.exists() else set()
     chosen = keyed if a.all else [(k, r) for k, r in keyed if k in cited]
+    cache = load_xref()
     OUT.write_text(f"% Auto-generated by build_bib.py from {CORPUS.name} ({time.strftime('%Y-%m-%d')}); "
                    f"{len(chosen)} entries ({'all rows' if a.all else 'cited rows only'}). Do not hand-edit.\n\n"
-                   + "\n\n".join(entry(r, k) for k, r in chosen) + "\n")
+                   + "\n\n".join(entry(r, k, cache) for k, r in chosen) + "\n")
+    XREF.write_text(json.dumps(cache, indent=1, sort_keys=True))
     print(f"wrote {OUT}: {len(chosen)} entries; keys table {KEYS} ({len(keyed)} rows)")
     if cited:
         missing = sorted(cited - {k for k, _ in keyed})
