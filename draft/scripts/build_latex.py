@@ -18,11 +18,10 @@ DRAFT = Path(__file__).resolve().parents[1]
 LATEX = DRAFT / "latex"
 (LATEX / "figures").mkdir(parents=True, exist_ok=True)
 
-AUTHOR_BLOCK = r"""\author{Mingguang Chen\textsuperscript{1,$*$} \quad Licheng Wang\textsuperscript{2} \quad Bo Qu\textsuperscript{3}\\[6pt]
-{\small \textsuperscript{1}University of California, Riverside (UCR) \quad
-\textsuperscript{2}AlphaAvatar \quad
-\textsuperscript{3}Illinois Institute of Technology (IIT)}\\[2pt]
-{\small \textsuperscript{$*$}Corresponding authors. Email: \href{mailto:mchen041@ucr.edu}{mchen041@ucr.edu}}}"""
+# Single author. Must stay in sync with the `author:` list in main.md.
+AUTHOR_BLOCK = r"""\author{Mingguang Chen\textsuperscript{1,$*$}\\[6pt]
+{\small \textsuperscript{1}DeepGrounding}\\[2pt]
+{\small \textsuperscript{$*$}Corresponding author. Email: \href{mailto:deepgroundingai@gmail.com}{deepgroundingai@gmail.com}}}"""
 
 # ---------- 1. pandoc ----------
 subprocess.run([

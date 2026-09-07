@@ -313,13 +313,19 @@ experiment. Its anchors are the 203 K report in the sulfur hydride system
 [@drozdov2019superconductivity; @somayazulu2019evidence]. Within the window the
 programme continues at megabar pressures, with reports in cerium superhydrides
 [@semenok2023evidence; @cao2024probing], Ca-Mg ternary superhydrides above 180 K
-[@cai2023superconductivity], and a claim of 298 K in a ternary La-Sc-H system
-[@song2025room].
+[@cai2023superconductivity], and a claim of superconductivity with onset between 271 and 298 K in
+a La-Sc-H system at 195-266 GPa [@song2025room]. That last claim is recent, singular
+and not independently replicated at the time of writing, and the retraction record
+discussed below is the reason to say so explicitly rather than to quote the number
+alone.
 
 This family also carries the field's heaviest evidential burden. Two prominent claims
-were retracted [@snider2020retracted; @dasenbrock2023retracted], and the Lu-N-H
-episode [@salke2023evidence] drew both experimental and computational rebuttals:
-first-principles modelling of the plausible parent structures concluded that the
+were retracted [@snider2020retracted; @dasenbrock2023retracted], The Lu-N-H episode is
+still unsettled rather than closed: one group reported resistance measurements in good
+agreement with the original transition temperature and its pressure dependence
+[@salke2023evidence], while several others reported no superconductivity in samples
+they prepared, and first-principles modelling of the plausible parent structures
+concluded that the
 observed Raman spectrum matches LuH$_3$, that the pressure-driven colour change is an
 optical property of LuH$_2$ requiring no structural transition, and that neither
 compound superconducts at high temperature [@dangic2023ab]. Methodological argument
@@ -350,9 +356,12 @@ the cuprate family because the material is a copper oxide compound, which is
 defensible chemically and wrong physically. The episode is visible in Figure 3a as a
 sharp cuprate spike in 2023Q3, and it resolved quickly: phase-pure single crystals
 proved highly insulating and optically transparent with no transition anomalies,
-ruling out superconductivity [@puphal2023single], while electronic-structure work
-attributed the flat bands to correlated Cu states rather than to a superconducting
-mechanism [@griffin2023origin]. The replication burst is the most compressed example
+ruling out superconductivity [@puphal2023single]. The episode is also a good example
+of how first-principles work enters a live controversy on both sides: Griffin's
+density-functional calculations identified correlated isolated flat bands at the Fermi
+level, noting these as a signature associated with high transition temperatures
+[@griffin2023origin], which made the compound worth taking seriously even as the
+crystals were failing to superconduct. The replication burst is the most compressed example
 in this corpus of the field's self-correction working, and of how quickly a
 high-visibility claim distorts the literature's shape.
 
@@ -407,9 +416,11 @@ measurement means.
 
 This family (678 seed records) collects heavy-fermion, ruthenate, organic and
 noncentrosymmetric compounds. Two currents dominate the window: UTe$_2$, where
-triplet superconductivity and the fate of time-reversal-symmetry breaking are studied
-in progressively cleaner crystals [@ajeesh2023fate; @wu2023enhanced] following the
-original spin-triplet report [@ran2019nearly], and the arrival of altermagnetism as a
+triplet superconductivity is studied in progressively cleaner crystals
+[@wu2023enhanced] following the original spin-triplet report [@ran2019nearly], and
+where an earlier claim of time-reversal-symmetry breaking did not survive: Kerr
+measurements across samples grown by two different routes found no evidence for a
+spontaneous signal [@ajeesh2023fate], and the arrival of altermagnetism as a
 cross-cutting concept [@mazin2022notes], now reaching into diode effects
 [@schrade2026altermagnetic] and Cr-based kagome systems [@xu2023altermagnetic;
 @peng2024flat]. This family is the clearest case of small-sample physics: crystal
@@ -586,9 +597,10 @@ these observations into a per-cell assessment.
 
 The first thing the corpus says about machine learning in superconductivity is how
 little of it there is. Of the 10,049 on-topic preprints in the systematic seed, **120
-use a machine-learning method in their own work: 1.2%.** The count grows -- 13 in
-2022, 19 in 2023, 22 in 2024, 38 in 2025 -- but from a base so low that even a
-tripling leaves the field's daily practice essentially untouched. A recent review of
+use a machine-learning method in their own work: 1.2%.** The count grows across the four complete
+calendar years in the window -- 13 in 2022, 19 in 2023, 22 in 2024, 38 in 2025 -- but
+from a base so low that even a tripling leaves the field's daily practice essentially
+untouched. A recent review of
 computational superconductor discovery reaches the same conclusion from the opposite
 direction, describing AI and machine-learning efforts in this field as remaining "in
 its infant stage" while the predictive work continues to be carried by
