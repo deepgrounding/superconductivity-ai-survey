@@ -172,7 +172,199 @@ abstract presents as the contribution.
 
 # Material families
 
-PLACEHOLDER
+This section walks Axis 1. Each family is treated for what it is currently doing, what
+is open, and -- because that is this survey's purpose -- what kind of data it
+generates. Counts are seed-corpus counts from Table 1 and Figure 2.
+
+## Nickelates: the fast-moving family
+
+Nickelates are the smallest of the named families in this corpus (628 seed records)
+and the fastest-growing (Figure 3a). The line begins outside the window with
+superconductivity in an infinite-layer nickelate thin film [@li2019superconductivity],
+and turns sharply with the report of superconductivity near 80 K in La$_3$Ni$_2$O$_7$
+above 14 GPa [@sun2023superconductivity].
+
+What followed is a useful case study in how a modern materials claim is stabilised.
+The original report lacked zero resistance; that was supplied under a liquid pressure
+medium, together with strange-metal $T$-linear resistivity whose coefficient tracks
+the superconducting transition under pressure [@zhang2023high]. Polycrystalline
+samples then reproduced the effect, reaching zero resistivity at 9 GPa and 35.6 K at
+14.5 GPa [@wang2023pressurea]. In parallel, careful high-pressure work reported that
+the superconductivity is filamentary rather than bulk, and tied the inconsistent
+reproducibility to oxygen content [@zhou2023investigations]. Bulk superconductivity
+with zero resistivity and a Meissner signal was subsequently reported in flux-grown
+La$_2$SmNi$_2$O$_{7-\delta}$ single crystals, at 92 K onset and 73 K zero-resistance
+at 21.6 GPa [@li2025bulk].
+
+The pressure requirement is the family's practical obstacle, and thin-film strain
+engineering is the route around it. Compressively strained (La,Pr)$_3$Ni$_2$O$_7$
+films on SrLaAlO$_4$ gave an ambient-pressure onset of 45 K with a
+Berezinskii-Kosterlitz-Thouless-like transition at 9 K [@zhou2024ambient], and a
+subsequent extreme non-equilibrium growth regime raised the onset to about 63 K with
+zero resistance near 37 K [@zhou2025superconductivity]. The gap between onset and
+zero-resistance temperatures in these films is exactly the definitional issue flagged
+in Section 2, and it is the reason both numbers are quoted here.
+
+Theory moved at the same pace, converging quickly on bilayer two-orbital models built
+from first-principles band structures, with $s_\pm$ pairing driven by the Ni
+$d_{z^2}$ orbital and its interlayer exchange [@gu2023effective; @luo2023bilayer;
+@sakakibara2023possible; @shen2023effective]. **For AI purposes the nickelate story is
+instructive in a discouraging way**: the rate-limiting steps were sample quality,
+oxygen stoichiometry and pressure technique. None of them is a prediction problem.
+
+## Conventional superconductors and hydrides: prediction that outruns measurement
+
+The conventional family is the corpus's largest single-material grouping (1,489 seed
+records) and the only one where computational prediction routinely precedes
+experiment. Its anchors are the 203 K report in the sulfur hydride system
+[@drozdov2015conventional] and the lanthanum superhydride results near 250-260 K
+[@drozdov2019superconductivity; @somayazulu2019evidence]. Within the window the
+programme continues at megabar pressures, with reports in cerium superhydrides
+[@semenok2023evidence; @cao2024probing], Ca-Mg ternary superhydrides above 180 K
+[@cai2023superconductivity], and a claim of 298 K in a ternary La-Sc-H system
+[@song2025room].
+
+This family also carries the field's heaviest evidential burden. Two prominent claims
+were retracted [@snider2020retracted; @dasenbrock2023retracted], and the Lu-N-H
+episode [@salke2023evidence] drew both experimental and computational rebuttals:
+first-principles modelling of the plausible parent structures concluded that the
+observed Raman spectrum matches LuH$_3$, that the pressure-driven colour change is an
+optical property of LuH$_2$ requiring no structural transition, and that neither
+compound superconducts at high temperature [@dangic2023ab]. Methodological argument
+continues over what counts as proof at these pressures, including whether
+flux-trapping magnetisation demonstrates superconductivity in H$_3$S
+[@tallon2024flux].
+
+This family is where AI-assisted screening is concentrated, for a reason Section 6
+formalises: the target quantity is the Eliashberg $T_c$, which is computable, so a
+model can be trained and checked without a diamond anvil cell. The distribution in
+Table 1 shows the consequence -- conventional systems carry 237 of the corpus's 530
+ab initio records and 271 of its 396 discovery records, more than any other family in
+both.
+
+## Cuprates: mature physics, and a cautionary spike
+
+Cuprates account for 1,001 seed records, dominated by characterization (437) and
+theory (445), with only 7 discovery records. Forty years after the original
+observation [@bednorz1986possible], the open question is still the mechanism, and the
+work is correspondingly weighted toward precision measurement of known compounds and
+model studies of the doped Hubbard and $t$-$J$ systems.
+
+The family's most striking corpus feature is an artefact worth reporting. Ranked by
+citations per month, the top of the cuprate list is not cuprate physics at all: it is
+LK-99, the Cu-substituted lead apatite claimed as a room-temperature ambient-pressure
+superconductor [@lee2023lk99; @lee2023superconductor]. The classifier placed these in
+the cuprate family because the material is a copper oxide compound, which is
+defensible chemically and wrong physically. The episode is visible in Figure 3a as a
+sharp cuprate spike in 2023Q3, and it resolved quickly: phase-pure single crystals
+proved highly insulating and optically transparent with no transition anomalies,
+ruling out superconductivity [@puphal2023single], while electronic-structure work
+attributed the flat bands to correlated Cu states rather than to a superconducting
+mechanism [@griffin2023origin]. The replication burst is the most compressed example
+in this corpus of the field's self-correction working, and of how quickly a
+high-visibility claim distorts the literature's shape.
+
+## Iron-based superconductors: consolidation
+
+At 489 seed records, iron-based systems are the smallest named family and the most
+stable in Figure 3a. Fifteen years after the founding report [@kamihara2008iron], the
+work is consolidation: orbital-selective pairing assisted by Hund's coupling in
+Ba$_{1-x}$K$_x$Fe$_2$As$_2$ [@corbae2025hunds], sign-reversal gap structure in
+FeTe$_{0.55}$Se$_{0.45}$ [@hou2025distinct], time-reversal-symmetry-breaking states
+[@bartl2025evidence], and vortex-matter studies [@sanchez2023disordered;
+@iguchi2023observation]. The family is characterization-dominated (317 of 489), and
+it is the one where the phase diagram is best mapped, which makes it the most
+plausible near-term source of the labelled spectral datasets Section 6 argues for.
+
+## Two-dimensional, interface and moiré systems
+
+This family (1,329 seed records) is the corpus's second-largest and its most
+methodologically distinctive: superconductivity here is tuned electrostatically
+rather than chemically. It splits into two active lines. The moiré line descends from
+magic-angle twisted bilayer graphene [@cao2018unconventional] and now covers Bernal
+bilayer graphene with strong spin-orbit coupling [@holleis2023nematicity], twisted
+trilayers, and rhombohedral multilayers, with heavy-fermion-style modelling of the
+correlated regime [@lau2023topological]. The kagome line runs through AV$_3$Sb$_5$
+[@jiang2021kagome], where charge order and its competition with superconductivity
+dominate [@kang2022charge; @hu2022coexistence], time-reversal-symmetry breaking is
+contested [@saykin2022high], and unusual flux quantization has been reported in ring
+devices [@ge2022charge]. Titanium-based analogues extend the family
+[@yang2022superconductivitya].
+
+For this survey the important property is that these systems are device-like: each
+sample is a fabricated stack, gate-tunable, and measured with electrical transport.
+That generates dense, structured, parameterised data of exactly the kind a model can
+use -- and simultaneously makes each sample expensive and non-identical, which is why
+the family scores well on data and poorly on validation cost in Figure 4.
+
+## Topological superconductivity
+
+At 1,244 seed records, this family is theory-heavy (909 of 1,244) in a way no other
+family matches. The experimental programme has consolidated around quantum-dot-based
+minimal Kitaev chains [@dvir2022realization; @tsintzis2023roadmap;
+@bordin2023crossed] rather than the earlier bare-nanowire route, which is itself a
+response to a decade of contested zero-bias-peak evidence. Josephson diode physics
+runs through this family and into devices [@mazur2022gate; @lotfizadeh2023superconducting].
+
+The theory-to-experiment ratio here is the sharpest warning in the corpus about
+reading activity as progress. It is also, from the AI standpoint, the least tractable
+cell: what a model would predict is unclear when the disagreement is about what a
+measurement means.
+
+## Other unconventional systems
+
+This family (678 seed records) collects heavy-fermion, ruthenate, organic and
+noncentrosymmetric compounds. Two currents dominate the window: UTe$_2$, where
+triplet superconductivity and the fate of time-reversal-symmetry breaking are studied
+in progressively cleaner crystals [@ajeesh2023fate; @wu2023enhanced] following the
+original spin-triplet report [@ran2019nearly], and the arrival of altermagnetism as a
+cross-cutting concept [@mazin2022notes], now reaching into diode effects
+[@schrade2026altermagnetic] and Cr-based kagome systems [@xu2023altermagnetic;
+@peng2024flat]. This family is the clearest case of small-sample physics: crystal
+quality is the experiment, which is why it is characterization-heavy (306) and
+nearly synthesis-free in the corpus (22).
+
+## Devices and applications
+
+At 1,332 seed records this family is large, and it is the one whose corpus
+representation is least trustworthy: much applied superconductivity publishes in IEEE
+venues that arXiv's `cond-mat.supr-con` category does not capture, and industrial
+qubit work is under-posted. What the corpus does capture is materials-limited qubit
+physics -- dielectric loss in nitride films [@deng2022titanium], niobium film
+structure and circuit losses [@drimmer2024effect], quasiparticle poisoning from
+phonon bursts [@anthonypetersen2022stress] -- along with scaling roadmaps
+[@mohseni2024build; @aasen2025roadmap].
+
+This is where the survey's AI story is most positive, and Section 5 explains why: the
+family's measurements are machine-generated, standardised and high-volume, so
+characterization models have a real training signal. It is the only cell in Figure 4
+that scores 3 on data availability for a measurement task.
+
+## Material-agnostic theory and method
+
+The largest single label in the corpus is not a material at all: 1,859 seed records
+are material-agnostic theory, formalism and instrumentation. That a residual category
+is modal is a finding rather than a bookkeeping artefact, and the sample inspection
+behind Table 1 shows what it contains -- Josephson and diode phenomenology
+[@nadeem2023superconducting; @kochan2023phenomenological; @wang2022symmetry],
+Hubbard-model studies not tied to one compound [@xu2023coexistence], topological
+field theory of the superconducting state [@verresen2022higgs; @thorngren2023higgs],
+quantum-geometric contributions to coupling [@yu2023nontrivial], and measurement
+methodology.
+
+The AI relevance is direct: this is where neural quantum states live (Section 5), and
+it is the only large cell whose validation is internal to a calculation.
+
+## Assessment
+
+Across families, two patterns matter for what follows. First, the families differ
+less in how much data they produce than in whether that data has a machine-readable
+target: hydrides have a computable $T_c$, devices have instrument telemetry, and
+cuprates have four decades of spectra with no agreed quantity to predict. Second, the
+step that gates progress is overwhelmingly experimental -- sample quality in
+nickelates and UTe$_2$, pressure technique in hydrides, stack fabrication in moiré
+systems, and film chemistry in qubits. Section 4 turns from what is studied to how,
+and asks what infrastructure each mode of inquiry actually has.
 
 # Modes of inquiry and their data infrastructure
 
