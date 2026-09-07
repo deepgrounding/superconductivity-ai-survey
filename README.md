@@ -1,7 +1,7 @@
-# Mapping Superconductivity Research for AI
+# AI for Superconductivity: A Systematic Map and Readiness Assessment
 
-Corpus, labels and build pipeline for the survey *"Mapping Superconductivity Research
-for AI"* (Mingguang Chen, DeepGrounding).
+Corpus, labels and build pipeline for the survey *"AI for Superconductivity: A
+Systematic Map and Readiness Assessment"* (Mingguang Chen, DeepGrounding).
 
 ## What is here
 
