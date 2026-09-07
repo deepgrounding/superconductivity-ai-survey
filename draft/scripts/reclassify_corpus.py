@@ -3,8 +3,10 @@
 
   family (axis 1, research object): conv cuprate febased nickelate unconv_other
                                     lowd topo device general
-  task   (axis 2, research activity): theory abinitio discovery synthesis
-                                      characterization application
+  task   (axis 2, MODE OF INQUIRY): theory abinitio discovery synthesis
+                                    characterization
+         (application was removed: it mixed mode with purpose; device context
+          now lives on the family axis)
   ai_method (lens, AI-related rows only): surrogate gnn_potential generative
                                           llm nqs autonomous_exp none
 
@@ -13,8 +15,12 @@ argmax wins, ties broken by the priority order of the rule lists; a row with
 no hits on an axis falls to `general` / `theory`. OVERRIDES (by arXiv id)
 beat everything — use them for cited papers the rules misplace.
 
-Reads  artifacts/sc_seed.csv (+ sc_seed_clusters.csv for provenance)
-Writes artifacts/sc_corpus_v1.csv  (SEED ROWS ONLY — rerun supplement_harvest.py after!)
+Reads  artifacts/sc_seed.csv (+ sc_seed_clusters.csv for provenance) and, when it
+exists, the FROZEN artifacts/sc_supplement.csv, which is re-labelled with the same
+rules and concatenated. Freezing the supplement makes this script deterministic:
+rerunning it no longer drops supplement rows nor re-hits the arXiv API, so the
+counts quoted in the paper stay stable.
+Writes artifacts/sc_corpus_v1.csv
 """
 import csv, re, sys
 from collections import Counter
@@ -24,6 +30,7 @@ ROOT = Path(__file__).resolve().parents[2]
 SEED = ROOT / "artifacts" / "sc_seed.csv"
 CLUST = ROOT / "artifacts" / "sc_seed_clusters.csv"
 OUT = ROOT / "artifacts" / "sc_corpus_v1.csv"
+SUPP = ROOT / "artifacts" / "sc_supplement.csv"
 WINDOW_START = "2021-09-01"
 
 def R(p): return re.compile(p, re.I)
@@ -71,12 +78,6 @@ DEVICE_STRONG = R(r"qubit|transmon|fluxonium|SQUID|SNSPD|MKID|bolometer|parametr
 
 # ---------------- axis 2: task (priority order = list order) ----------------
 TASK = [
-    ("application", R(r"qubit|transmon|fluxonium|gate fidelity|readout|error correction|quantum (computing|processor|annealer|gate)|SQUID|detector|SNSPD|MKID|bolometer|\bTES\b|"
-                      r"resonator|amplifier|coplanar|circuit QED|cQED|magnet coil|superconducting (coil|cable|wire|tape|strand)|REBCO tape|coated conductor|Rutherford cable|CICC|strand|conductor performance|fault current|power (transmission|grid|cable|application)|"
-                      r"magnet (design|system|technology)|\bMRI\b|tokamak|fusion (magnet|reactor|device)|accelerator|SRF\b|RF cavit|cryogenic (electronics|memory|computing)|SFQ|RSFQ|AQFP|logic (circuit|gate|cell)|digital logic|memory cell|"
-                      r"device (performance|design|fabrication|operation|application)|sensor|nanowire (detector|single)|photon (detection|counting)|dark count|microwave (loss|kinetic)|"
-                      r"quasiparticle poisoning|two.level system|dielectric loss|\bTLS\b|decoherence|coherence time|maglev|levitation|superconducting (motor|generator)|current lead|joint resistance|"
-                      r"neuromorphic|spintronic device|Josephson (parametric|traveling|mixer|voltage standard|memory)|superconducting (electronics|digital|circuit|radio|magnet|cable|device|nanowire)")),
     ("discovery", R(r"machine.learn|deep.learn|neural network|artificial intelligence|\bAI\b|data.driven|materials informatics|high.throughput|screen(ing|ed)|database|"
                     r"generative|inverse design|random forest|gradient boost|XGBoost|Gaussian process|Bayesian optimi|active learning|symbolic regression|language model|LLM|"
                     r"new superconductor|novel superconductor|discover|we report (the )?(discovery|observation of )?superconductivity in|superconductivity in (a )?(new|novel)|"
@@ -166,8 +167,6 @@ def classify(row):
     if fam is None: fam = "general"
     task, tv = score(TASK, title, abstract)
     if task is None: task = "theory"
-    # devices are applications unless the paper is clearly materials-growth or theory-heavy
-    if fam == "device" and task in ("characterization", "discovery"): task = "application"
     if aid in OVERRIDES:
         of, ot = OVERRIDES[aid]; fam, task = of or fam, ot or task
     return fam, task
@@ -192,7 +191,22 @@ def main():
         r["cluster"] = clusters.get(r["arxiv_id"], "")
         r["family"], r["task"], r["ai_method"] = f, t, ai_method(r)
         r["source"] = "seed"; out.append(r)
+    n_seed = len(out)
+    if SUPP.exists():                       # frozen supplement, re-labelled with the same rules
+        for r in csv.DictReader(open(SUPP)):
+            f, t = classify(r)
+            # T2 rows carry a hand-assigned family/task from the harvest query; keep it
+            if r.get("source") == "supplement_t2" and r.get("family"):
+                f, t = r["family"], r["task"]
+            r["family"], r["task"], r["ai_method"] = f, t, ai_method(r)
+            out.append(r)
+        print(f"(concatenated {len(out)-n_seed} frozen supplement rows)")
     fields = list(out[0].keys())
+    for r in out:                            # enrichment columns exist only after enrich_openalex.py
+        for k in r:
+            if k not in fields: fields.append(k)
+    for r in out:
+        for k in fields: r.setdefault(k, "")
     with open(OUT, "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=fields); w.writeheader(); w.writerows(out)
     fam = Counter(r["family"] for r in out); task = Counter(r["task"] for r in out)

@@ -36,9 +36,9 @@ FLABEL = {"conv": "Conventional / hydrides", "cuprate": "Cuprates", "febased": "
 FCOLOR = {"conv": "#4C72B0", "cuprate": "#DD8452", "febased": "#55A868", "nickelate": "#C44E52",
           "unconv_other": "#8172B3", "lowd": "#937860", "topo": "#DA8BC3", "device": "#8C8C8C",
           "general": "#CCB974"}
-TASKS = ["theory", "abinitio", "discovery", "synthesis", "characterization", "application"]
+TASKS = ["theory", "abinitio", "discovery", "synthesis", "characterization"]
 TLABEL = {"theory": "Theory", "abinitio": "Ab initio", "discovery": "Discovery",
-          "synthesis": "Synthesis", "characterization": "Characterization", "application": "Application"}
+          "synthesis": "Synthesis", "characterization": "Characterization"}
 AI = ["surrogate", "gnn_potential", "generative", "llm", "nqs", "autonomous_exp"]
 ALABEL = {"surrogate": "Surrogate / regression", "gnn_potential": "GNN & ML potentials",
           "generative": "Generative models", "llm": "LLM / agents",
@@ -48,6 +48,9 @@ plt.rcParams.update({"font.size": 9, "figure.dpi": 200, "savefig.dpi": 200,
 
 def load():
     return list(csv.DictReader(open(CORPUS)))
+
+# NOTE: main() drops off_topic rows. They are counted and reported as the corpus's
+# quantified bleed in the Method section, never folded into family x task statistics.
 
 def fig_map(rows):
     docs = [r["title"] + ". " + r["summary"] for r in rows]
@@ -80,7 +83,7 @@ def quarters(rows):
 def fig_growth(seed):
     q = quarters(seed)
     labels = sorted({v for v in q.values()})
-    labels = labels[:-1] if labels else labels          # drop the partial final quarter
+    labels = labels[1:-1] if len(labels) > 2 else labels   # drop both partial endpoint quarters
     idx = {l: i for i, l in enumerate(labels)}
     fig, axes = plt.subplots(2, 1, figsize=(7.2, 6.4), sharex=True)
     for ax, keys, kl, colors, title in [
@@ -121,22 +124,29 @@ def fig_ai(rows):
     print(f"wrote fig5_ai_method_task.png (n={len(ai_rows)})")
 
 def table1(rows):
-    ct = Counter((r["family"], r["task"]) for r in rows)
-    seed_ct = Counter((r["family"], r["task"]) for r in rows if r["source"] == "seed")
-    lines = ["| Family | " + " | ".join(TLABEL[t] for t in TASKS) + " | Total |",
-             "|---|" + "---|" * (len(TASKS) + 1)]
+    """Table 1 reports the SEED corpus only -- it is the systematically harvested,
+    sampling-comparable half, and it is what Figure 3 plots. Supplement rows are
+    recency-biased by construction and appear as a separate column, never folded
+    into the family x task counts."""
+    seed = [r for r in rows if r["source"] == "seed"]
+    supp = [r for r in rows if r["source"] != "seed"]
+    ct = Counter((r["family"], r["task"]) for r in seed)
+    sup_ct = Counter(r["family"] for r in supp)
+    lines = ["| Family | " + " | ".join(TLABEL[t] for t in TASKS) + " | Seed total | Supplement |",
+             "|---|" + "---|" * (len(TASKS) + 2)]
     for f in FAMILIES:
         tot = sum(ct[(f, t)] for t in TASKS)
-        lines.append(f"| {FLABEL[f]} | " + " | ".join(str(ct[(f, t)]) for t in TASKS) + f" | **{tot}** |")
+        lines.append(f"| {FLABEL[f]} | " + " | ".join(str(ct[(f, t)]) for t in TASKS)
+                     + f" | **{tot}** | {sup_ct.get(f, 0)} |")
     lines.append("| **Total** | " + " | ".join(f"**{sum(ct[(f, t)] for f in FAMILIES)}**" for t in TASKS)
-                 + f" | **{sum(ct.values())}** |")
+                 + f" | **{sum(ct.values())}** | **{len(supp)}** |")
     txt = "\n".join(lines)
     (ROOT / "draft" / "table1.md").write_text(txt + "\n")
     print("\n" + txt)
-    print(f"\ntotal rows {len(rows)}; seed {sum(seed_ct.values())}; supplement {len(rows)-sum(seed_ct.values())}")
+    print(f"\nseed {len(seed)}; supplement {len(supp)}; corpus {len(rows)}")
 
 def main():
-    rows = load()
+    rows = [r for r in load() if r.get("off_topic") != "true"]
     seed = [r for r in rows if r["source"] == "seed"]
     table1(rows); fig_growth(seed); fig_ai(rows); fig_map(rows)
 

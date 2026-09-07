@@ -24,24 +24,48 @@ PY=/opt/homebrew/Caskroom/miniconda/base/bin/python
 
 Axis 1 `family` (research object): `conv` (conventional / electron-phonon incl. high-pressure hydrides), `cuprate`, `febased`, `nickelate`, `unconv_other` (heavy fermion, organic, Sr2RuO4, UTe2 …), `lowd` (2D / interface / moiré / kagome), `topo` (topological SC, Majorana), `device` (qubits, detectors, magnets, wires), `general` (cross-family theory/method).
 
-Axis 2 `task` (research activity — the AI-relevant axis): `theory`, `abinitio`, `discovery`, `synthesis`, `characterization`, `application`.
+Axis 2 `task` — **mode of inquiry**, five values: `theory`, `abinitio`, `discovery`, `synthesis`, `characterization`.
+
+`application` was removed from this axis on 2026-09-07. It mixed *how* the work was done with *what it was for*, and that was measurably the single largest source of disagreement: characterization↔application was the top confusion for the keyword rules and for both benchmarked LLMs. Application context is now carried by the `device` family instead, so a qubit paper gets theory / synthesis / characterization like any other.
 
 AI lens `ai_method` (only for AI-related rows): `surrogate`, `gnn_potential`, `generative`, `llm`, `nqs`, `autonomous_exp`, `none`.
 
 **Consistency rule:** taxonomy ↔ CSV labels ↔ section structure ↔ Table 1 ↔ figures must agree at all times. When the taxonomy changes: re-classify, regenerate every figure/table, rename sections, grep prose for stale codes and counts.
 
+## Labelling — how the taxonomy is actually assigned
+
+Keyword rules reached only 80% (family) / 70% (task) agreement with hand labels, so labels come from an **LLM pass** (`llm_label.py`, `google/gemini-3.5-flash-lite` via OpenRouter, cached in `artifacts/llm_labels.jsonl`). The model was chosen by measured agreement against a 150-row stratified hand-labelled sample (`artifacts/label_truth.csv`), not by reputation:
+
+| labels | family | task | both |
+|---|---|---|---|
+| keyword rules | 80.1% | 70.5%* | 53.4%* |
+| gemini-2.5-flash-lite | 82.9% | 79.5% | 64.4% |
+| gemini-2.5-flash | 82.2% | 85.6% | 69.2% |
+| **gemini-3.5-flash-lite** | **87.7%** | **85.6%** | **76.0%** |
+
+\* rule task/both figures predate the axis change; they are not directly comparable to the LLM rows.
+
+The rule labels survive as `family_rule` / `task_rule` / `ai_method_rule` columns for provenance and disagreement analysis. `label_source` says which applied. The LLM also sets `off_topic`.
+
+**The AI lens was validated separately** (`artifacts/ai_label_truth.csv`, 60 rule-positive + 60 rule-negative hand-labelled): the keyword guard had **77% precision** (14 false positives in 60) and **~98% recall** (1 miss in 60). Its false positives were mostly papers that merely mention ML plus off-topic rows from the AI-infrastructure thread — which is why `ai_method` also comes from the LLM pass.
+
+Disclosure for the Method section: all hand labels were produced by **one annotator** during this pipeline; the comparison is *inter-pass agreement*, not ground-truth accuracy. The author should personally spot-check a slice before submission.
+
 ## Data pipeline — ORDER MATTERS
 
 ```bash
 $PY draft/scripts/harvest_seed.py        # arXiv API -> artifacts/sc_seed.csv (frozen; cached per month, safe to rerun)
-$PY draft/scripts/reclassify_corpus.py   # sc_seed.csv -> sc_corpus_v1.csv (SEED ROWS ONLY — drops supplement rows!)
-$PY draft/scripts/supplement_harvest.py  # appends AI×SC and AI-for-materials rows (source=supplement*) to sc_corpus_v1.csv
+$PY draft/scripts/reclassify_corpus.py   # sc_seed.csv + FROZEN sc_supplement.csv -> sc_corpus_v1.csv (deterministic)
+# supplement_harvest.py only needs re-running to GROW the supplement; its output is frozen in
+# artifacts/sc_supplement.csv, which reclassify concatenates. Re-running it changes quoted counts.
+$PY draft/scripts/llm_label.py --model google/gemini-3.5-flash-lite   # -> artifacts/llm_labels.jsonl (cached, resumable)
+$PY draft/scripts/llm_label.py --apply   # writes family/task/ai_method/off_topic into the corpus
 $PY draft/scripts/enrich_openalex.py     # adds cited_by / venue columns in place (idempotent, cached)
 $PY draft/scripts/build_bib.py           # cited rows in main.md -> draft/references.bib
 $PY draft/scripts/build_figures.py       # figures + Table 1 markdown
 ```
 
-**Gotcha:** `reclassify_corpus.py` rebuilds `sc_corpus_v1.csv` from the seed — rerunning it silently drops the supplement rows unless `supplement_harvest.py` is rerun afterwards. Supplement rows are recency-biased by construction: **exclude `source!=seed` from growth/trend figures**.
+**Gotcha:** `reclassify_corpus.py` rebuilds `sc_corpus_v1.csv` and therefore **drops the enrichment columns** — re-run `enrich_openalex.py` (cached, fast) and `llm_label.py --apply` after it. Supplement rows are recency-biased by construction: **exclude `source != seed` from growth/trend figures**. Table 1 reports seed counts only, with supplement in its own column, so it reconciles with Figure 3.
 
 Misclassified *cited* papers are fixed via the `OVERRIDES` dict in `reclassify_corpus.py`, never by editing the CSV.
 
