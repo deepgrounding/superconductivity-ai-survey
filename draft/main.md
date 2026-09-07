@@ -149,11 +149,15 @@ own work: `surrogate` (regression and classification models, symbolic regression
 The axes are the contribution of this survey, and Sections 3 through 5 are organised
 along them. Section 6 evaluates each cell for what AI can currently do in it.
 
-![Figure 1: The taxonomy, with its occupancy. Every corpus record carries one label
-from Axis 1 and one from Axis 2; the AI lens applies only to records that use a
-machine-learning method in their own work. Counts are seed-corpus papers per label on
-the same basis as Table 1, so the two agree; the AI-lens counts are over the whole
-working corpus.](figures/fig1_taxonomy.png)
+![Figure 1: The taxonomy and its occupancy. Every corpus record carries one label from
+Axis 1 and one from Axis 2; the AI lens applies only to records that use a
+machine-learning method in their own work. Labels are sorted by count within each
+block and bars are scaled within a block, since the three blocks are different
+populations. Family and mode counts are seed-corpus papers on the same basis as Table
+1, so the two agree; the AI-lens counts are over the whole working corpus. Two
+features carry into later sections: theory alone is 51.2% of the corpus, and the
+entire AI lens is 253 papers, of which one is an autonomous
+experiment.](figures/fig1_taxonomy.png)
 
 ## Positioning relative to existing surveys
 

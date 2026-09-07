@@ -19,7 +19,7 @@ from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.patches import Rectangle
+from matplotlib.patches import FancyBboxPatch, Rectangle
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -47,7 +47,7 @@ def corpus_counts():
     ai = [r for r in csv.DictReader(open(CORPUS)) if r.get("off_topic") != "true"]
     return (Counter(r["family"] for r in rows), Counter(r["task"] for r in rows),
             Counter(r["ai_method"] for r in ai if r["ai_method"] not in ("", "none")),
-            len(rows))
+            len(rows), len(ai))
 
 # --- Fig 4 scores: 0-3 (0 = absent, 3 = mature). AUTHOR JUDGEMENT, see appendix. ---
 # data      : is there enough labelled, machine-readable data to train or evaluate on?
@@ -74,11 +74,17 @@ READINESS = {
 BCOLOR = {"data": "#4C72B0", "compute": "#55A868", "theory": "#C44E52", "experiment": "#DD8452"}
 
 def fig1_taxonomy():
-    """Card layout: each label carries its descriptor and its seed-corpus count, so the
-    figure states the taxonomy and its occupancy in one read. Cards use a coloured left
-    rule rather than a tinted fill -- at nine categories a tint reads as nine competing
-    blocks, while a rule keeps the surface calm and still carries the family colour."""
-    fam_ct, task_ct, ai_ct, n_seed = corpus_counts()
+    """Horizontal bars, sorted descending, one block per axis.
+
+    The card layout this replaces printed the counts as text, which made the reader do
+    the comparison arithmetic. Length is the encoding people read fastest, so the same
+    numbers are now bars: theory's dominance, the thinness of synthesis and discovery,
+    and the single autonomous-experiment paper all land without reading a digit. The
+    descriptors stay, because Figure 1 also has to define the vocabulary that Sections
+    3 to 6 use. Each block carries its own scale -- they are different populations --
+    and the scale is stated on each block.
+    """
+    fam_ct, task_ct, ai_ct, n_seed, n_work = corpus_counts()
     FAM = [
         ("conv", "Conventional & hydrides", "electron-phonon; H$_3$S, LaH$_{10}$, MgB$_2$, nitrides"),
         ("cuprate", "Cuprates", "YBCO, BSCCO, LSCO, Hg- and Tl-based"),
@@ -97,62 +103,66 @@ def fig1_taxonomy():
         ("synthesis", "Synthesis", "growth, films, topotactic routes, fabrication"),
         ("characterization", "Characterization", "ARPES, STM, neutron, transport, device metrology"),
     ]
-    AI = [("surrogate", "Surrogate / regression"), ("gnn_potential", "GNN & ML potentials"),
-          ("generative", "Generative models"), ("llm", "LLM / agents"),
-          ("nqs", "Neural quantum states"), ("autonomous_exp", "Autonomous experiment")]
-    FCOLOR = {"conv": "#2a78d6", "cuprate": "#eb6834", "febased": "#1baf7a",
-              "nickelate": "#e34948", "unconv_other": "#4a3aa7", "lowd": "#8a6f4e",
-              "topo": "#e87ba4", "device": "#6b6b6b", "general": "#eda100"}
-    TCOLOR = "#2a78d6"; ACOLOR = "#4a3aa7"
+    AI = [("surrogate", "Surrogate / regression", "regression, boosting, symbolic regression"),
+          ("gnn_potential", "GNN & ML potentials", "graph networks, machine-learned potentials"),
+          ("generative", "Generative models", "diffusion, VAE, flows over structures"),
+          ("llm", "LLM / agents", "language models, agents, literature mining"),
+          ("nqs", "Neural quantum states", "neural wavefunctions for correlated models"),
+          ("autonomous_exp", "Autonomous experiment", "self-driving labs, closed-loop active learning")]
 
-    W, GAP, CH = 4.86, 0.20, 0.70
-    fig, ax = plt.subplots(figsize=(7.8, 7.2))
-    cur = [0.0]
+    blocks = [
+        ("Axis 1  \u00b7  Material family", "what the paper is about \u2014 one label per paper",
+         [(n, d, fam_ct.get(k, 0)) for k, n, d in FAM], "#2a78d6", n_seed, "seed corpus"),
+        ("Axis 2  \u00b7  Mode of inquiry",
+         "how the work was done \u2014 one label per paper; application context is carried by the Devices family",
+         [(n, d, task_ct.get(k, 0)) for k, n, d in TASK], "#1baf7a", n_seed, "seed corpus"),
+        ("AI lens  \u00b7  method used",
+         "only for papers that use an AI/ML method in their own work",
+         [(n, d, ai_ct.get(k, 0)) for k, n, d in AI], "#4a3aa7", n_work, "working corpus"),
+    ]
 
-    def heading(title, sub):
-        ax.text(0.0, cur[0], title, fontsize=10.5, fontweight="bold", color=INK, va="top")
-        cur[0] -= 0.30
-        ax.text(0.0, cur[0], sub, fontsize=8.0, color=INK2, va="top", style="italic")
-        cur[0] -= 0.40
+    # Kept compact on purpose: at \textwidth this must fit one page WITH its caption,
+    # so the row pitch is sized from the page budget, not from what looks airy alone.
+    ROW, BLOCK_PAD, BARH = 0.315, 0.66, 0.175
+    total_rows = sum(len(b[2]) for b in blocks)
+    fig_h = total_rows * ROW + len(blocks) * BLOCK_PAD + 0.55
+    fig, ax = plt.subplots(figsize=(7.8, fig_h))
+    y = [0.0]
+    LEFT = 0.0                      # label column occupies x in [-1, 0); bars grow from 0
+    BARW = 1.02                     # bars span x in [0, 1.02]; the value label sits just
+                                    # past the tip and the share column is fixed at 1.30
 
-    def card(x, top, w, name, desc, count, color, h=CH):
-        ax.add_patch(Rectangle((x, top - h), w, h, facecolor="#ffffff", edgecolor=RULE,
-                               lw=0.9, zorder=1))
-        ax.add_patch(Rectangle((x, top - h), 0.055, h, facecolor=color, edgecolor="none",
-                               zorder=2))
-        ty = top - h / 2 + (0.115 if desc else 0)
-        ax.text(x + 0.20, ty, name, fontsize=8.7, fontweight="bold", color=INK, va="center")
-        if desc:
-            ax.text(x + 0.20, top - h / 2 - 0.145, desc, fontsize=6.9, color=INK2, va="center")
-        if count is not None:
-            ax.text(x + w - 0.16, top - h / 2, f"{count:,}", fontsize=8.6, color=INK3,
-                    va="center", ha="right", fontweight="bold")
+    for title, sub, rows_, color, denom, denom_name in blocks:
+        ax.text(-1.0, y[0], title, fontsize=10, fontweight="bold", color=INK, va="top")
+        y[0] -= 0.24
+        ax.text(-1.0, y[0], sub, fontsize=7.6, color=INK2, va="top", style="italic")
+        y[0] -= 0.34
+        rows_ = sorted(rows_, key=lambda r: -r[2])
+        vmax = max(r[2] for r in rows_) or 1
+        for name, desc, v in rows_:
+            yc = y[0] - ROW / 2
+            ax.text(-0.02, yc + 0.048, name, fontsize=8.2, fontweight="bold", color=INK,
+                    ha="right", va="center")
+            ax.text(-0.02, yc - 0.088, desc, fontsize=6.4, color=INK3, ha="right", va="center")
+            w = BARW * v / vmax * 0.92
+            ax.add_patch(FancyBboxPatch((LEFT, yc - BARH / 2), max(w, 0.004), BARH,
+                                        boxstyle="round,pad=0,rounding_size=0.012",
+                                        mutation_aspect=0.35, facecolor=color,
+                                        edgecolor="none", zorder=2))
+            # value sits at the bar tip; the share goes in a FIXED column, because
+            # offsetting it from the value made the two collide on the longest bars
+            ax.text(LEFT + w + 0.016, yc, f"{v:,}", fontsize=8.1, fontweight="bold",
+                    color=INK, ha="left", va="center")
+            ax.text(1.30, yc, f"{v / denom:.1%}", fontsize=7.2, color=INK3,
+                    ha="right", va="center")
+            y[0] -= ROW
+        ax.text(-1.0, y[0] - 0.06,
+                f"bars scaled within this block \u00b7 largest = {vmax:,} \u00b7 "
+                f"share of the {denom_name} (n = {denom:,})",
+                fontsize=6.7, color=INK3, va="top")
+        y[0] -= BLOCK_PAD
 
-    heading("Axis 1  \u00b7  Material family", "one label per paper")
-    for i, (k, name, desc) in enumerate(FAM):
-        x = (i % 2) * (W + GAP); top = cur[0] - (i // 2) * (CH + 0.12)
-        card(x, top, W, name, desc, fam_ct.get(k, 0), FCOLOR[k])
-    cur[0] -= 5 * (CH + 0.12) + 0.50
-
-    heading("Axis 2  \u00b7  Mode of inquiry",
-            "one label per paper; application context is carried by the Devices family")
-    for i, (k, name, desc) in enumerate(TASK):
-        x = (i % 2) * (W + GAP); top = cur[0] - (i // 2) * (CH + 0.12)
-        card(x, top, W, name, desc, task_ct.get(k, 0), TCOLOR)
-    cur[0] -= 3 * (CH + 0.12) + 0.50
-
-    heading("AI lens  \u00b7  method used",
-            "only for papers that use an AI/ML method in their own work")
-    aw = (2 * W + GAP - 2 * 0.14) / 3
-    for i, (k, name) in enumerate(AI):
-        x = (i % 3) * (aw + 0.14); top = cur[0] - (i // 3) * (0.50 + 0.12)
-        card(x, top, aw, name, "", ai_ct.get(k, 0), ACOLOR, h=0.50)
-    cur[0] -= 2 * (0.50 + 0.12) + 0.30
-
-    ax.text(0.0, cur[0], f"counts are seed-corpus papers per label (n = {n_seed:,}); "
-            f"the AI lens counts the whole working corpus", fontsize=7.2, color=INK3, va="top")
-    cur[0] -= 0.34
-    ax.set_xlim(-0.06, 2 * W + GAP + 0.06); ax.set_ylim(cur[0], 0.42); ax.axis("off")
+    ax.set_xlim(-1.06, 1.34); ax.set_ylim(y[0] + 0.55, 0.34); ax.axis("off")
     fig.tight_layout(); fig.savefig(FIG / "fig1_taxonomy.png", bbox_inches="tight")
     plt.close(fig)
     print("wrote fig1_taxonomy.png")
