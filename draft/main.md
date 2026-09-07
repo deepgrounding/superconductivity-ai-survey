@@ -1172,7 +1172,8 @@ one, automation will have accelerated the modes that were never the bottleneck.
 # Data availability
 
 The corpus, labels, prompts, hand-labelled validation sets and all scripts are
-released with this manuscript. The archive contains the frozen seed harvest
+released at <https://github.com/deepgrounding/superconductivity-ai-survey>. The
+repository contains the frozen seed harvest
 (`sc_seed.csv`), the canonical labelled corpus (`sc_corpus_v1.csv`), the raw
 per-month arXiv responses that reproduce the harvest, the language-model label cache
 (`llm_labels.jsonl`), the two hand-labelled validation sets (`label_truth.csv`,
