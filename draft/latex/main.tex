@@ -173,9 +173,11 @@ misdirected. Section 2 fixes the vocabulary, states the taxonomy,
 positions the survey against existing reviews and documents the corpus.
 Sections 3 and 4 walk the two axes. Section 5 reports what AI has
 actually done in this field, critical literature included. Section 6
-gives the readiness assessment and the resulting priorities, and Section
-7 offers three testable hypotheses about why the field looks the way it
-does.
+gives the readiness assessment and the resulting priorities. Section 7
+asks what the emerging AI-for-science infrastructure would have to
+deliver for the field's central target to come within reach, and what
+would falsify that route. Section 8 offers three testable hypotheses
+about why the field looks the way it does.
 
 \section{Preliminaries and taxonomy}\label{preliminaries-and-taxonomy}
 
@@ -1094,7 +1096,7 @@ These scores are the author's judgement, not measurements, and they
 should be read as a structured argument rather than as data. They are
 stated on a coarse scale precisely because a finer one would imply a
 precision that is not there. The corpus counts inform them but do not
-determine them: a cell can be crowded and unready, and Section 7 argues
+determine them: a cell can be crowded and unready, and Section 8 argues
 that several are.
 
 \begin{figure}
@@ -1227,6 +1229,181 @@ regardless of how much has been written about the cell. If that reading
 is right, the highest-leverage interventions are the unglamorous ones:
 release labelled characterization data, build a time-stamped benchmark,
 and model synthesizability rather than synthesis.
+
+\section{Outlook: a route to the grail, and what it
+requires}\label{outlook-a-route-to-the-grail-and-what-it-requires}
+
+The preceding sections are deliberately deflationary. This one is not,
+but it earns its optimism by being specific about what would have to be
+built.
+
+The target is easy to state and has been stated for a century: a
+superconductor that works at room temperature and ambient pressure, in a
+material that can be made in quantity. Every partial success so far has
+failed one of those three conditions. Cuprates and nickelates reach high
+temperatures but not room temperature. Hydrides reach near-room
+temperature but only under megabar pressure, and the claims that went
+further were retracted
+\citep{snider2020retracted, dasenbrock2023retracted}. Nothing in the AI
+literature surveyed in Section 5 has moved any of the three constraints.
+
+We take one recent industrial development as \emph{framing} rather than
+as evidence, and say so explicitly: Anthropic's preview of a Model
+Hardware Standard, a shared specification through which AI agents drive
+laboratory instruments directly \citep{anthropic2026mhs}. It is a
+product announcement, not a peer-reviewed result, and we cite it for
+what it signals about where infrastructure is heading rather than for
+any claim about superconductivity. What it signals matters here, because
+Section 6 identified the instrument interface as the binding constraint
+in every experiment-limited cell.
+
+\section{Why the missing piece is the instrument interface, not the
+model}\label{why-the-missing-piece-is-the-instrument-interface-not-the-model}
+
+The argument of this survey has been that AI penetrated
+superconductivity exactly where a machine could grade its own work, and
+stopped where a physical experiment was required. That boundary is not a
+statement about model capability. It is a statement about what a model
+is connected to.
+
+Three developments now bear on that boundary simultaneously.
+Autonomous-laboratory software has matured from bespoke scripts toward
+operating systems with typed, stateful device abstractions
+\citep{gao2025unilabos}, and the field has begun describing its own next
+phase as integrating synthesis, characterization and theory under
+shared, community standards rather than as isolated robotic cells
+\citep{lee2026toward}. Multi-agent orchestration of laboratory resources
+is being studied as a management problem in its own right
+\citep{kusne2026managing}. And hardware-standardisation efforts aim to
+collapse instrument integration from weeks to hours
+\citep{anthropic2026mhs}.
+
+If these hold, the practical consequence for superconductivity is narrow
+and important: the cost of \emph{one experimental iteration} falls, and
+with it the cost of the validation step that Figure 5 identifies as the
+binding constraint in every synthesis cell. Nothing about that requires
+a better \(T_c\) regressor.
+
+\section{Four things that would have to be
+built}\label{four-things-that-would-have-to-be-built}
+
+\textbf{A synthesizability model trained on failures.} Section 4
+established that the negative half of the synthesis record does not
+exist: papers report the attempts that worked. The screening literature
+has already generated the demand -- candidate lists in the hundreds,
+with thermodynamic stability as the only filter, and a known caveat that
+promising compounds often sit slightly off the convex hull
+\citep{cerqueira2024searching}. A registry of attempted syntheses with
+conditions and outcomes, failures included, is a coordination problem
+rather than a research problem, and it is the single highest-leverage
+dataset this survey can identify. Autonomous platforms are attractive
+here for a reason usually left implicit: \textbf{a robot has no
+incentive to withhold a failed run.} Instrumented synthesis generates
+the negative data that human publication practice systematically
+destroys.
+
+\textbf{Instrumented characterization as a first-class output.} The same
+argument applies one step downstream. Section 6 ranked characterization
+inversion as the most under-exploited opportunity in the field, blocked
+by data format rather than by method. An instrument operating under a
+machine interface emits arrays with acquisition parameters attached by
+construction. The dataset problem and the automation problem have the
+same solution, and the automation is being built for other reasons.
+
+\textbf{Extreme-condition autonomy, which is the hard case.}
+Superconductivity's important syntheses are not pipetting. They are
+diamond anvil cells at 200 GPa, topotactic reduction with calcium
+hydride, molecular-beam epitaxy under strain, and mechanical stacking
+with angular precision. Existing autonomous platforms target bulk oxide
+powders, and even there the claims have been contested
+\citep{leeman2024challenges}. The honest statement is that no current
+self-driving laboratory addresses the syntheses this field actually
+needs, and that closing that gap is an instrumentation programme
+measured in years. The diamond-anvil-cell case is the one worth
+attacking first: the sample is tiny, the measurement is electrical, the
+parameter space is low-dimensional, and the iteration is currently gated
+almost entirely by human attention.
+
+\textbf{A benchmark with experimental resolution.} The AI-for-science
+field has begun building serious evaluations -- agent suites over
+research tasks \citep{bragg2025astabench}, physics-specific research
+benchmarks \citep{miao2026prlbench}, reproduction of Nature-family
+results \citep{wang2026naturebench}, and particle-physics analysis
+reproduction \citep{faroughy2026colliderbench}. Superconductivity has
+none. The version this field needs is specific: a time-stamped registry
+in which candidate materials are predicted before synthesis, and scored
+against what is subsequently made and measured. Only such a benchmark
+can distinguish a method that generalises from one that interpolates its
+training set, and its absence is why no cell in Figure 5 scores full
+marks on benchmark maturity.
+
+\section{What would falsify the
+optimism}\label{what-would-falsify-the-optimism}
+
+A position paper argues that agentic AI systems, whatever their
+capabilities as co-scientists, are not built for autonomous discovery --
+problem selection is distorted by what is measurable, and the loop from
+hypothesis to validated result is not closed by adding autonomy
+\citep{bisht2026agentic}. This survey's corpus is consistent with that
+argument rather than against it, and the failure mode it predicts is
+specific enough to watch for.
+
+If the optimistic route is wrong, it will look like this: instrument
+standardisation arrives, throughput rises, and the field produces more
+measurements of the compounds it was already going to measure, while the
+candidate lists generated by screening remain unsynthesised because the
+syntheses that matter stay bespoke. Cheap iteration would then have
+accelerated the cells that were never the bottleneck. The early
+indicator is measurable in this survey's own terms: if the AI-tagged
+synthesis count stays near one while AI-tagged characterization grows,
+automation has been absorbed by the mode that was already tractable.
+
+The complementary risk is that the loop closes on the wrong targets. The
+one clearly closed prediction-synthesis-measurement loop in this
+literature delivered superconductors between 2.5 and 6.5 K
+\citep{li2026agentic}. A faster loop that stays in that temperature
+range would be a genuine engineering achievement and no progress at all
+toward the grail, because the constraint at high \(T_c\) is not
+iteration speed but the absence of a theory that says where to look in
+the correlated families.
+
+\section{The honest statement of the
+route}\label{the-honest-statement-of-the-route}
+
+Putting Sections 4 through 7 together, the route this survey supports is
+not ``apply a generative model to composition space.'' It is a sequence
+in which each step unblocks the next:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Instrument the experiments}, because that produces the
+  negative data and the machine-readable characterization records that
+  nothing else will.
+\item
+  \textbf{Build the benchmark}, because without time-stamped
+  experimental resolution the screening literature cannot be compared
+  and therefore cannot improve.
+\item
+  \textbf{Model synthesizability}, because that is the tractable form of
+  the bottleneck and it converts screening output into experimental
+  input.
+\item
+  \textbf{Attack the theory bottleneck where it is well-posed}, meaning
+  neural quantum states on the correlated models
+  \citep{lange2024simulating, rende2026superconductivity}, because in
+  cuprates and nickelates the missing thing is a solved model, not a
+  larger dataset.
+\end{enumerate}
+
+Room-temperature ambient-pressure superconductivity may or may not be
+reachable; that is a question about nature. What this survey can say is
+that the field's current allocation of AI effort is not aimed at the
+steps above, that the steps are buildable with infrastructure now
+emerging, and that the first three of them are dataset and standards
+problems rather than modelling problems. That is an unglamorous
+conclusion, and it is the one the evidence supports.
 
 \section{Discussion}\label{discussion}
 
@@ -1366,6 +1543,16 @@ time-stamped benchmark so screening methods can be compared; and model
 synthesizability rather than attempting to automate synthesis. These are
 less exciting than inverse-designing a room-temperature superconductor,
 and they are what the structure of the field currently supports.
+
+Section 7 argues that the first two of these are becoming buildable for
+reasons outside this field: laboratory hardware is being standardised
+for machine operation, and an instrumented experiment emits the negative
+results and the machine-readable spectra that human publication practice
+does not. That makes the instrument interface, rather than model
+capability, the variable most likely to move this assessment. It also
+sets the test: if throughput rises while the AI-tagged synthesis count
+stays near one, automation will have accelerated the modes that were
+never the bottleneck.
 
 \section{Data availability}\label{data-availability}
 
