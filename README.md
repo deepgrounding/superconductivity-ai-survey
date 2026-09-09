@@ -97,15 +97,11 @@ See `CLAUDE.md` for pipeline ordering constraints and known gotchas.
 
 ## Before submitting
 
-Two things must be done by the author, and neither can be done from the build:
+This repository was made public on 2026-09-09, before submission, so the Data
+availability link in the manuscript resolves. One item remains for the author, and it
+cannot be done from the build:
 
-1. **Make this repository public.** The manuscript's Data availability section links
-   to it, and that link currently returns 404 for anyone not signed in:
-   ```bash
-   gh repo edit deepgrounding/superconductivity-ai-survey --visibility public
-   curl -s -o /dev/null -w '%{http_code}\n' https://github.com/deepgrounding/superconductivity-ai-survey
-   ```
-2. **Spot-check a slice of the labels.** The Method section discloses a single
+1. **Spot-check a slice of the labels.** The Method section discloses a single
    annotator and reports inter-pass agreement, not accuracy. Open
    `artifacts/label_truth.csv`, read some abstracts, and confirm you would have
    labelled them the same way. If you disagree materially, re-score with
