@@ -14,7 +14,7 @@ journal_ref/doi fields as fallback. No network access.
 
 Usage: python draft/scripts/build_bib.py [--all]
 """
-import argparse, csv, json, re, sys, time, unicodedata, urllib.parse, urllib.request
+import argparse, csv, html, json, re, sys, time, unicodedata, urllib.parse, urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -101,14 +101,39 @@ def degreek(s):
     for k, v in GREEK.items(): s = s.replace(k, v)
     return s
 
-def bib_escape(s):
-    s = (s.replace("\\", r"\\").replace("&", r"\&").replace("%", r"\%")
-          .replace("#", r"\#").replace("_", r"\_").replace("$", r"\$"))
+MATH_SPAN = re.compile(r"\$[^$]*\$")
+SUBSUP = re.compile(r"([_^])(\{[^{}]*\}|\\[A-Za-z]+|\w)")
+
+def normalise_math(s):
+    r"""arXiv titles carry LaTeX math ('AV$_3$Sb$_5$'), sometimes with broken nesting
+    ('La$_{3}$Ni$_{2}$O$_{7-$\delta$}$'). Escaping the '$' and '_' turned all of it
+    into literal '$_3$' in the reference list. Instead: drop every delimiter, then
+    re-wrap each sub/superscript group in its own math span, which repairs the
+    malformed cases as a side effect."""
+    if "$" not in s and "_" not in s and "^" not in s:
+        return s
+    return SUBSUP.sub(r"$\1\2$", s.replace("$", ""))
+
+def outside_math(s, fn):
+    out, last = [], 0
+    for m in MATH_SPAN.finditer(s):
+        out.append(fn(s[last:m.start()])); out.append(m.group(0)); last = m.end()
+    out.append(fn(s[last:]))
+    return "".join(out)
+
+def _escape_text(s):
+    s = (s.replace("\\", r"\textbackslash{}").replace("&", r"\&").replace("%", r"\%")
+          .replace("#", r"\#").replace("_", r"\_"))
     return degreek(transliterate(s))
 
+def bib_escape(s):
+    return outside_math(normalise_math(html.unescape(s)), _escape_text)
+
+_PROTECT = re.compile(r"\b([A-Za-z]*[A-Z][A-Za-z]*[A-Z][A-Za-z]*|[A-Z]{2,}|[A-Za-z]+\d+[A-Za-z\d]*)\b")
+
 def protect_title(t):
-    return re.sub(r"\b([A-Za-z]*[A-Z][A-Za-z]*[A-Z][A-Za-z]*|[A-Z]{2,}|[A-Za-z]+\d+[A-Za-z\d]*)\b",
-                  r"{\1}", bib_escape(t))
+    # Brace-protect capitalised tokens, but never reach inside a math span.
+    return outside_math(bib_escape(t), lambda x: _PROTECT.sub(r"{\1}", x))
 
 def entry(row, key, cache):
     aid = row["arxiv_id"].strip()

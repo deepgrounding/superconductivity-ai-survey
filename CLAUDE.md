@@ -82,9 +82,9 @@ Misclassified *cited* papers are fixed via the `OVERRIDES` dict in `reclassify_c
 ```bash
 cd draft
 cat references.bib anchors.bib > combined.bib
-pandoc main.md --citeproc --bibliography=combined.bib -s --embed-resources --standalone -o survey_v1.html
-pandoc main.md --citeproc --bibliography=combined.bib -o survey_v1.docx
-pandoc main.md --citeproc --bibliography=combined.bib --pdf-engine=tectonic -H pdf-header.tex -V geometry:margin=1in -V fontsize=11pt -V colorlinks=true -o survey_v1.pdf
+pandoc main.md --citeproc --bibliography=combined.bib -s --number-sections --embed-resources --standalone -o survey_v1.html
+pandoc main.md --citeproc --bibliography=combined.bib --number-sections -o survey_v1.docx
+pandoc main.md --citeproc --bibliography=combined.bib --number-sections --pdf-engine=tectonic -H pdf-header.tex -V geometry:margin=1in -V fontsize=11pt -V colorlinks=true -o survey_v1.pdf
 $PY scripts/build_latex.py && (cd latex && tectonic main.tex)
 ```
 
@@ -106,7 +106,7 @@ print('MISSING:',sorted(cited-keys) or 'none')"
 
 ## Author block
 
-Single author: **Mingguang Chen**, affiliation **DeepGrounding**, corresponding email **deepgroundingai@gmail.com** (matches arXiv:2609.00083, first page). Lives in `main.md` YAML and `build_latex.py`'s `AUTHOR_BLOCK` — keep in sync. Anonymous review copies strip YAML `author:`, the LaTeX `\author{}` block, and hyperref's `pdfauthor=`; verify with `pdfinfo`. Anonymous outputs are gitignored.
+Two authors, one shared affiliation: **Mingguang Chen** (corresponding) and **Bo Qu**, both **DeepGrounding**; corresponding email **deepgroundingai@gmail.com** (matches arXiv:2609.00083, first page). Bo Qu was added on 2026-09-09 for the internal review that produced the revision round; Mingguang Chen remains the sole corresponding author. Lives in THREE places — `main.md` YAML, `build_latex.py`'s `AUTHOR_BLOCK`, and `build_arxiv_meta.py`'s `AUTHORS_ARXIV` — keep all three in sync. Anonymous review copies strip YAML `author:`, the LaTeX `\author{}` block, and hyperref's `pdfauthor=`; verify with `pdfinfo`. Anonymous outputs are gitignored.
 
 ## Writing rules (from the skill; every one is a past incident)
 

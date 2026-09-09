@@ -32,7 +32,7 @@ FIG.mkdir(exist_ok=True)
 FAMILIES = ["conv", "cuprate", "febased", "nickelate", "unconv_other", "lowd", "topo", "device", "general"]
 FLABEL = {"conv": "Conventional / hydrides", "cuprate": "Cuprates", "febased": "Iron-based",
           "nickelate": "Nickelates", "unconv_other": "Other unconventional", "lowd": "2D / interface / moiré",
-          "topo": "Topological", "device": "Devices & applications", "general": "Cross-family"}
+          "topo": "Topological", "device": "Devices", "general": "Material-agnostic"}
 # Categorical slots 1-8 of the validated reference palette, assigned in fixed order.
 # The ninth family cannot take a generated hue, so it takes the neutral slot and every
 # cluster is DIRECT-LABELLED in Figure 2 -- identity is never carried by colour alone.
@@ -277,9 +277,11 @@ def table1(rows):
     for f in FAMILIES:
         tot = sum(ct[(f, t)] for t in TASKS)
         lines.append(f"| {FSHORT[f]} | " + " | ".join(str(ct[(f, t)]) for t in TASKS)
-                     + f" | **{tot}** | {sup_ct.get(f, 0)} |")
-    lines.append("| **Total** | " + " | ".join(f"**{sum(ct[(f, t)] for f in FAMILIES)}**" for t in TASKS)
-                 + f" | **{sum(ct.values())}** | **{len(supp)}** |")
+                     + f" | {tot} | {sup_ct.get(f, 0)} |")
+    # No boldface: arXiv moderators flag emphasis in body text and table cells, and
+    # the Seed column and Total row are already distinguished structurally.
+    lines.append("| Total | " + " | ".join(str(sum(ct[(f, t)] for f in FAMILIES)) for t in TASKS)
+                 + f" | {sum(ct.values())} | {len(supp)} |")
     txt = "\n".join(lines)
     (ROOT / "draft" / "table1.md").write_text(txt + "\n")
     print("\n" + txt)

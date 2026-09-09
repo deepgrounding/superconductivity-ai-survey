@@ -14,7 +14,7 @@ OUT = DRAFT / "arxiv_meta"
 PRIMARY = "cond-mat.supr-con"
 CROSS = ["cs.LG", "cond-mat.mtrl-sci"]
 REPO = "https://github.com/deepgrounding/superconductivity-ai-survey"
-AUTHORS_ARXIV = "Mingguang Chen (DeepGrounding)"   # arXiv field syntax, not the byline
+AUTHORS_ARXIV = "Mingguang Chen (DeepGrounding), Bo Qu (DeepGrounding)"   # arXiv field syntax, not the byline
 
 def main():
     md = (DRAFT / "main.md").read_text()

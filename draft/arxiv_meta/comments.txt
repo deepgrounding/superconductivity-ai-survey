@@ -1,1 +1,1 @@
-39 pages, 5 figures, 1 table. Corpus, labels, validation sets and build scripts: https://github.com/deepgrounding/superconductivity-ai-survey
+41 pages, 5 figures, 1 table. Corpus, labels, validation sets and build scripts: https://github.com/deepgrounding/superconductivity-ai-survey

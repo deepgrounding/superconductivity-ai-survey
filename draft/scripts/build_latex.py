@@ -18,14 +18,19 @@ DRAFT = Path(__file__).resolve().parents[1]
 LATEX = DRAFT / "latex"
 (LATEX / "figures").mkdir(parents=True, exist_ok=True)
 
-# Single author. Must stay in sync with the `author:` list in main.md.
-AUTHOR_BLOCK = r"""\author{Mingguang Chen\textsuperscript{1,$*$}\\[6pt]
+# Two authors, one shared affiliation, ONE corresponding author. Must stay in sync
+# with the `author:` list in main.md and with AUTHORS_ARXIV in build_arxiv_meta.py.
+# NB: no \and -- it lays the authors out in side-by-side columns and drags the shared
+# affiliation under the last one. One column, comma-separated, keeps the block centred.
+AUTHOR_BLOCK = r"""\author{Mingguang Chen\textsuperscript{1,$*$}, Bo Qu\textsuperscript{1}\\[6pt]
 {\small \textsuperscript{1}DeepGrounding}\\[2pt]
 {\small \textsuperscript{$*$}Corresponding author. Email: \href{mailto:deepgroundingai@gmail.com}{deepgroundingai@gmail.com}}}"""
 
 # ---------- 1. pandoc ----------
 subprocess.run([
-    "pandoc", str(DRAFT / "main.md"), "-s", "--natbib",
+    # --number-sections: the body cites "Section 2".."Section 8", so the headings
+    # have to actually show those numbers.
+    "pandoc", str(DRAFT / "main.md"), "-s", "--natbib", "--number-sections",
     "--bibliography", str(DRAFT / "combined.bib"),
     "-V", "documentclass=article", "-V", "fontsize=11pt",
     "-V", "geometry:margin=1in", "-V", "colorlinks=true",
@@ -41,7 +46,25 @@ tex = tex.replace(r"\subsection{", r"\section{")
 tex = tex.replace(r"\XSUBSECTIONX{", r"\subsection{")
 
 # ---------- 3. author / date ----------
-tex = re.sub(r"\\author\{[^{}]*\}", lambda m: AUTHOR_BLOCK, tex, count=1)
+# Brace-BALANCED replacement: pandoc's \author{...} now contains nested groups
+# (\textsuperscript{1,*}), and the old [^{}]* pattern silently matched nothing, so
+# AUTHOR_BLOCK stopped being applied without any error. Match the real span instead.
+def _replace_balanced(tex, macro, repl):
+    i = tex.find(macro)
+    if i < 0:
+        raise SystemExit(f"no {macro}{{...}} in pandoc output -- refusing to guess")
+    j = i + len(macro); depth = 0
+    while j < len(tex):
+        if tex[j] == "{": depth += 1
+        elif tex[j] == "}":
+            depth -= 1
+            if depth == 0: break
+        j += 1
+    else:
+        raise SystemExit(f"unbalanced braces after {macro}")
+    return tex[:i] + repl + tex[j + 1:]
+
+tex = _replace_balanced(tex, r"\author", AUTHOR_BLOCK)
 # Date is DERIVED from main.md's YAML, never hardcoded: a hardcoded date in this
 # template silently disagreed with the manuscript (it still said "July 2026" from the
 # project this script was copied from) while the pandoc PDF showed the right one.
@@ -105,5 +128,18 @@ for src, dst in {
 for png in (DRAFT / "figures").glob("*.png"):
     shutil.copy2(png, LATEX / "figures" / png.name)
 
+# ---------- 9. arXiv/Overleaf source bundle ----------
+# Source-only: main.tex at the archive root, figures/ relative, no PDF/aux/log --
+# arXiv compiles exactly what it receives. This used to be built by hand, which meant
+# the zip named in arxiv_meta/README.md silently went stale between revisions.
+import zipfile
+BUNDLE = DRAFT / "sc_survey_overleaf.zip"
+with zipfile.ZipFile(BUNDLE, "w", zipfile.ZIP_DEFLATED) as z:
+    z.write(LATEX / "main.tex", "main.tex")
+    z.write(LATEX / "references.bib", "references.bib")
+    for f in sorted((LATEX / "figures").glob("*.png")):
+        z.write(f, f"figures/{f.name}")
+
 print(f"wrote {LATEX}/main.tex, references.bib, figures/")
+print(f"wrote {BUNDLE.name} ({BUNDLE.stat().st_size // 1024} KB) -- the arXiv/Overleaf source bundle")
 print("compile check:  cd latex && tectonic main.tex   (or upload to Overleaf)")

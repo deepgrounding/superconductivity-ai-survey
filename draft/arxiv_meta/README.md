@@ -7,7 +7,7 @@ hand-maintain; regenerate after ANY title, author or abstract edit.
 |---|---|
 | Title | `title.txt` |
 | Authors | `authors_arxiv_field.txt` -- arXiv field syntax, NOT the manuscript byline |
-| Abstract | `abstract_plaintext.txt` (1890 of 1920 characters) |
+| Abstract | `abstract_plaintext.txt` (1831 of 1920 characters) |
 | Primary category | `cond-mat.supr-con` |
 | Cross-lists | `cs.LG`, `cond-mat.mtrl-sci` |
 | Comments | `comments.txt` |
