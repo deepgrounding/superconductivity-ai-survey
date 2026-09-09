@@ -8,9 +8,12 @@ hand-maintain; regenerate after ANY title, author or abstract edit.
 | Title | `title.txt` |
 | Authors | `authors_arxiv_field.txt` -- arXiv field syntax, NOT the manuscript byline |
 | Abstract | `abstract_plaintext.txt` (1831 of 1920 characters) |
-| Primary category | `cond-mat.supr-con` |
-| Cross-lists | `cs.LG`, `cond-mat.mtrl-sci` |
+| Primary category | `cond-mat.mtrl-sci` |
+| Cross-lists | `cond-mat.supr-con`, `cs.LG` |
 | Comments | `comments.txt` |
+
+`authors.txt` and `abstract.txt` are aliases of the two files above, written for the
+submission driver, which reads those exact filenames.
 
 Upload `draft/sc_survey_overleaf.zip` as the source: `main.tex` sits at the archive
 root, which arXiv requires. Do NOT upload the PDF -- this is a TeX-authored paper.

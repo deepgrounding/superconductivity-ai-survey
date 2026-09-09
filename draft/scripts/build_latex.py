@@ -108,9 +108,27 @@ tex = re.sub(r"\\bibliography\{[^}]*\}", r"\\bibliography{references}", tex)
 
 # ---------- 7. clean bib for plain bibtex + pdfLaTeX ----------
 bib = (DRAFT / "combined.bib").read_text()
-# strip the '% theme:' trailing comments (bibtex chokes on them) and the
-# now-empty note fields they annotated
-bib = re.sub(r"\n  note = \{\},  % theme: [^\n]*", "", bib)
+# BibTeX 0.99 (what arXiv runs) has no '%' comment syntax: a trailing provenance
+# comment makes it report "You're missing a field name" and skip the whole entry.
+# This pattern used to hardcode '% theme:', copied from a sibling project, while
+# build_bib.py here emits '% family: ... task: ... src: ...' -- so it matched
+# nothing and every annotated entry reached arXiv broken. Match the comment, not
+# one project's wording, and drop the empty note field it annotated.
+bib = re.sub(r"\n  note = \{\},[ \t]*%[^\n]*", "", bib)
+bib = re.sub(r"[ \t]*%[^\n]*(?=\n)", "", bib)
+# Duplicate keys are also fatal to BibTeX ("Repeated entry"). build_bib.py now
+# skips keys defined in anchors.bib, so this is a backstop: keep the first
+# definition, which is the order pandoc's citeproc resolves too.
+seen, kept = set(), []
+for chunk in re.split(r"(?m)^(?=@)", bib):
+    m = re.match(r"@\w+\{([^,]+),", chunk)
+    if m:
+        if m.group(1).strip() in seen:
+            print(f"[warn] dropping duplicate bib key {m.group(1).strip()}")
+            continue
+        seen.add(m.group(1).strip())
+    kept.append(chunk)
+bib = "".join(kept)
 # escape characters missing from pdfLaTeX's standard utf8 support
 for src, dst in {
     "‐": "-",            # unicode hyphen
@@ -137,6 +155,12 @@ BUNDLE = DRAFT / "sc_survey_overleaf.zip"
 with zipfile.ZipFile(BUNDLE, "w", zipfile.ZIP_DEFLATED) as z:
     z.write(LATEX / "main.tex", "main.tex")
     z.write(LATEX / "references.bib", "references.bib")
+    # arXiv recommends shipping the .bbl so its BibTeX run is not load-bearing.
+    # Build it locally first (cd latex && tectonic main.tex) so this exists.
+    if (LATEX / "main.bbl").exists():
+        z.write(LATEX / "main.bbl", "main.bbl")
+    else:
+        print("[warn] no latex/main.bbl -- run tectonic once, then rebuild the bundle")
     for f in sorted((LATEX / "figures").glob("*.png")):
         z.write(f, f"figures/{f.name}")
 

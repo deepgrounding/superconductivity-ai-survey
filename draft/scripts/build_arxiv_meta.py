@@ -11,8 +11,12 @@ from pathlib import Path
 
 DRAFT = Path(__file__).resolve().parents[1]
 OUT = DRAFT / "arxiv_meta"
-PRIMARY = "cond-mat.supr-con"
-CROSS = ["cs.LG", "cond-mat.mtrl-sci"]
+# cond-mat.supr-con is where this paper belongs, but arXiv requires a separate
+# endorsement for it (endorsement code HQH9XU, requested 2026-09-09) and the account
+# does not have one yet. Submitted under cond-mat.mtrl-sci, which the account can
+# already post to; supr-con is the cross-list to add once endorsed.
+PRIMARY = "cond-mat.mtrl-sci"
+CROSS = ["cond-mat.supr-con", "cs.LG"]
 REPO = "https://github.com/deepgrounding/superconductivity-ai-survey"
 AUTHORS_ARXIV = "Mingguang Chen (DeepGrounding), Bo Qu (DeepGrounding)"   # arXiv field syntax, not the byline
 
@@ -35,6 +39,11 @@ def main():
     (OUT / "title.txt").write_text(title + "\n")
     (OUT / "abstract_plaintext.txt").write_text(ab + "\n")
     (OUT / "authors_arxiv_field.txt").write_text(AUTHORS_ARXIV + "\n")
+    # The submission driver (~/.claude/skills/arxiv-overleaf-submit) reads exactly
+    # authors.txt / abstract.txt; keep the descriptive names above for humans and
+    # write these aliases so --stage metadata does not fail on a filename mismatch.
+    (OUT / "authors.txt").write_text(AUTHORS_ARXIV + "\n")
+    (OUT / "abstract.txt").write_text(ab + "\n")
     (OUT / "comments.txt").write_text(
         f"{pages} pages, 5 figures, 1 table. Corpus, labels, validation sets and build "
         f"scripts: {REPO}\n")
@@ -51,6 +60,9 @@ hand-maintain; regenerate after ANY title, author or abstract edit.
 | Primary category | `{PRIMARY}` |
 | Cross-lists | {", ".join(f"`{c}`" for c in CROSS)} |
 | Comments | `comments.txt` |
+
+`authors.txt` and `abstract.txt` are aliases of the two files above, written for the
+submission driver, which reads those exact filenames.
 
 Upload `draft/sc_survey_overleaf.zip` as the source: `main.tex` sits at the archive
 root, which arXiv requires. Do NOT upload the PDF -- this is a TeX-authored paper.
